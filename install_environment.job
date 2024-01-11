@@ -17,5 +17,5 @@ conda env create -f icr_environment.yml
 source activate icr_env
 
 echo "Installing jax..."
-conda install jaxlib=*=*cuda* jax cuda-nvcc -c conda-forge -c nvidia
+pip install --upgrade jax==0.1.71 jaxlib==0.1.71+cuda102 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 pip install -e .

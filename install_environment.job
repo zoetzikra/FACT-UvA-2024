@@ -16,6 +16,8 @@ module load Anaconda3/2022.05
 conda env create -f icr_environment.yml
 source activate icr_env
 
+echo "Installing pytorch..."
+conda install pytorch==1.10.0 torchvision==0.11.0 torchaudio==0.10.0 cudatoolkit=10.2 -c pytorch
 echo "Installing jax..."
 pip install --upgrade jax==0.1.71 jaxlib==0.1.71+cuda102 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 pip install -e .

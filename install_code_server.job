@@ -13,5 +13,5 @@ module purge
 module load 2022
 module load Anaconda3/2022.05
 
-source activate icr_env
+source activate icr-env
 conda install -c conda-forge code-server

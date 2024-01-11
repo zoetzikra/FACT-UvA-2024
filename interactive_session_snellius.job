@@ -18,7 +18,7 @@ module load Anaconda3/2022.05
 # SRC_DIR=/scratch-local/${USER}/DL1/assignment3
 
 # Activate your environment
-source activate icr_env
+source activate icr-env
 
 
 export CODE_SERVER_CONFIG=~/.config/code-server/config_icr.yaml

@@ -1,4 +1,4 @@
-name: derain-env
+name: icr-env
 
 channels:
   - conda-forge

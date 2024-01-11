@@ -6,4 +6,4 @@ dependencies:
   - python=3.9.7
   - pip=23.3.1
   - pip:
-    -r requirements.txt
+    - -r requirements.txt

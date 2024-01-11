@@ -9,6 +9,8 @@
 #SBATCH --output=install_icr_env_%A.out
 #SBATCH --error=install_icr_env_%A.err
 
+set -e # exit on first error
+
 module purge
 module load 2022
 module load Anaconda3/2022.05

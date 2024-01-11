@@ -1,9 +1,12 @@
-name: icr_env
+name: derain-env
+
 channels:
   - conda-forge
   - defaults
+
 dependencies:
   - python=3.9.7
-  - pip=23.3.1
+  - pip
   - pip:
     - -r requirements.txt
+    

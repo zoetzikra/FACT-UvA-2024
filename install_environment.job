@@ -17,5 +17,5 @@ conda env create -f icr_environment.yml
 source activate icr_env
 
 echo "Installing jax..."
-pip install --upgrade jax==0.4.10 jaxlib==0.4.10+cuda11 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+pip install --upgrade jax==0.4.10 jaxlib==0.4.10+cuda11.cudnn86 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 pip install -e .

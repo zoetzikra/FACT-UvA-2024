@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=experiment_fivevar_skill
-#SBATCH --nodes=1
+#SBATCH --partition=gpu
+#SBATCH --gpus=1
+#SBATCH --job-name=fivevar-skill-gpu
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBTACH --partition=rome
+#SBATCH --cpus-per-task=4
 #SBATCH --time=08:00:00
-#SBATCH --output=experiment_fivevar_skill_cpu_%A.out
-#SBATCH --error=experiment_fivevar_skill_cpu_%A.err
+#SBATCH --output=experiment_fivevar_skill_gpu_%A.out
+#SBATCH --error=experiment_fivevar_skill_gpu_%A.err
 
 module purge
 module load 2022

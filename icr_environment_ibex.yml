@@ -1,0 +1,13 @@
+name: null
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.9.7
+  - setuptools<58
+  - pip
+  - pip:
+    - -r requirements.txt
+    

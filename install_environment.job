@@ -16,5 +16,3 @@ module load 2022
 module load Anaconda3/2022.05
 
 conda env create -f icr_environment.yml
-source activate icr-env
-pip install -e .

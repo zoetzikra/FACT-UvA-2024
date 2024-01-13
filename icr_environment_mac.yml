@@ -6,7 +6,7 @@ channels:
 
 dependencies:
   - python=3.9.7
-  - code-server=4.16.1
+  - setuptools<58
   - pip
   - pip:
     - -r requirements_mac.txt

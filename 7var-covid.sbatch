@@ -7,8 +7,8 @@
 #SBATCH --constraint=rome
 #SBATCH --partition=batch
 #SBATCH --mail-type=ALL
-#SBATCH --output=./3var-nc-logs/%x-%j-slurm.out
-#SBATCH --error=./3var-nc-logs/%x-%j-slurm.err
+#SBATCH --output=./7var-covid-logs/%x-%j-slurm.out
+#SBATCH --error=./7var-covid-logs/%x-%j-slurm.err
 
 set -e
 

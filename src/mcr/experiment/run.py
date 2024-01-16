@@ -402,15 +402,21 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
             # Submit tasks to the pool
             futures=[]
             for r_type, t_type in all_combinations:
-                savepath_it_config = "C://Users//akisl//Desktop//self//FACT-UvA-2024//"+it_path + '{}-{}/'.format(t_type, r_type)
-                print(savepath_it_config)
-                os.mkdir(savepath_it_config)
-                future = executor.submit(run_recourse, r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
-                    use_scm_pred, predict_individualized, NGEN, POP_SIZE, rounding_digits, nr_refits_batch0,
-                    assess_robustness, model_type, it_path, model_score, f1, model_refits_batch0_scores,
-                    model_refits_batch0_f1s, model_refits_batch0, **kwargs_model)
-                futures.append(future)
+                pid = os.fork() 
+                if pid >0:
+                    continue
+                else:
+                    savepath_it_config = "C://Users//akisl//Desktop//self//FACT-UvA-2024//"+it_path + '{}-{}/'.format(t_type, r_type)
+                    print(savepath_it_config)
+                    os.mkdir(savepath_it_config)
+                    future = executor.submit(run_recourse, r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
+                        use_scm_pred, predict_individualized, NGEN, POP_SIZE, rounding_digits, nr_refits_batch0,
+                        assess_robustness, model_type, it_path, model_score, f1, model_refits_batch0_scores,
+                        model_refits_batch0_f1s, model_refits_batch0, **kwargs_model)
+                    sys.exit(0)
 
             # Wait for all tasks to complete
-            for future in concurrent.futures.as_completed(futures):
-                print(future.result())
+            for _ in range(len(all_combinations)):
+                # Wait for any child process to finish
+                pid, status = os.waitpid(-1, 0)
+                print(f"Child process {pid} finished with status {status}")

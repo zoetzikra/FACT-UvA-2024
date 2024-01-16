@@ -131,8 +131,8 @@ fn_appetite = lambda x, u: jnp.greater_equal(fn_appetite_raw(x), u)
 fn_appetite_transf = lambda x, x_j: unif_transform(fn_appetite_raw(x), x_j)
 fn_appetite = StructuralFunction(fn_appetite, raw=fn_appetite_raw, transform=fn_appetite_transf, binary=True)
 
-fn_fever_raw = lambda x: jax.nn.sigmoid(+ 6 - 9 * x[..., 0])
-fn_fever = lambda x, u: jnp.greater_equal(fn_fever_raw(x), u)
+fn_fever_raw = lambda x: jax.nn.sigmoid(+ 6 - 9 * x[..., 0].astype('float32'))
+fn_fever = lambda x, u: jnp.greater_equal(fn_fever_raw(x.astype('float32')), u.astype('float32'))
 fn_fever_transf = lambda x, x_j: unif_transform(fn_fever_raw(x), x_j)
 fn_fever = StructuralFunction(fn_fever, raw=fn_fever_raw, transform=fn_fever_transf, binary=True)
 

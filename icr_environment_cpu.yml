@@ -9,5 +9,5 @@ dependencies:
   - setuptools<58
   - pip
   - pip:
-    - -r requirements_mac.txt
+    - -r requirements_cpu.txt
     

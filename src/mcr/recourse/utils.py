@@ -42,4 +42,4 @@ def save_recourse_result(savepath_exp, result_tupl):
             json.dump(stats, f)
     except Exception as exc:
         logging.warning('stats.json could not be saved.')
-        logging.info('Exception: {}'.format(exc))
+        print('Exception: {}'.format(exc))

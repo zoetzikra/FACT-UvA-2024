@@ -1,0 +1,86 @@
+
+combination: individualized improvement
+ERRRRR
+results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_557/0/improvement-individualized/
+Process Process-1:
+Traceback (most recent call last):
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\process.py", line 315, in _bootstrap
+    self.run()
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\experiment\run.py", line 62, in run_recourse
+    os.mkdir(savepath_it_config)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_557/0/improvement-individualized/'
+
+combination: individualized improvement
+ERRRRR
+results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_412/0/improvement-individualized/
+  0%|                                                                                           | 0/19 [00:00<?, ?it/s]  5%|####3                                                                              | 1/19 [00:03<01:03,  3.51s/it] 11%|########7                                                                          | 2/19 [00:04<00:30,  1.78s/it] 16%|#############1                                                                     | 3/19 [00:04<00:19,  1.23s/it] 21%|#################4                                                                 | 4/19 [00:05<00:13,  1.11it/s] 26%|#####################8                                                             | 5/19 [00:05<00:11,  1.25it/s] 32%|##########################2                                                        | 6/19 [00:06<00:09,  1.36it/s] 37%|##############################5                                                    | 7/19 [00:06<00:07,  1.57it/s] 42%|##################################9                                                | 8/19 [00:07<00:06,  1.80it/s] 47%|#######################################3                                           | 9/19 [00:07<00:05,  1.83it/s] 53%|###########################################1                                      | 10/19 [00:08<00:05,  1.70it/s] 58%|###############################################4                                  | 11/19 [00:09<00:05,  1.60it/s] 63%|###################################################7                              | 12/19 [00:09<00:03,  1.75it/s] 63%|###################################################7                              | 12/19 [00:09<00:05,  1.25it/s]
+Process Process-1:
+Traceback (most recent call last):
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\process.py", line 315, in _bootstrap
+    self.run()
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\experiment\run.py", line 65, in run_recourse
+    result_tpl = recourse_population(scm, batches[1][0], batches[1][1], batches[1][2], y_name, costs,
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\recourse\population.py", line 74, in recourse_population
+    winner, goal_cost, intv_cost = recourse(scm_, intv_features, obs, costs, r_type, t_type,
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\recourse\recourse.py", line 139, in recourse
+    pop, logbook = eaMuPlusLambda(pop, toolbox, POP_SIZE, POP_SIZE * 2, CX_PROB, MX_PROB, NGEN,
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\deap\algorithms.py", line 302, in eaMuPlusLambda
+    for ind, fit in zip(invalid_ind, fitnesses):
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\recourse\evaluation.py", line 142, in evaluate_meaningful
+    perc_positive, cost = self._evaluate_meaningful(gamma, r_type, individual)
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\recourse\evaluation.py", line 90, in _evaluate_meaningful
+    scm_ = self._scm.copy()
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\causality\scms\scm.py", line 95, in copy
+    return copy.deepcopy(self)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 270, in _reconstruct
+    state = deepcopy(state, memo)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 230, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 230, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 270, in _reconstruct
+    state = deepcopy(state, memo)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 230, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\copy.py", line 153, in deepcopy
+    y = copier(memo)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\numpy\array_methods.py", line 297, in _deepcopy
+    return self.copy()
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\numpy\lax_numpy.py", line 2212, in copy
+    return array(a, copy=True, order=order)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\numpy\lax_numpy.py", line 2155, in array
+    out = _array_copy(object) if copy else object
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\lax\lax.py", line 4544, in _array_copy
+    return copy_p.bind(arr)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\core.py", line 444, in bind
+    return self.bind_with_trace(find_top_trace(args), args, params)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\core.py", line 1362, in find_top_trace
+    return top_main.with_cur_sublevel()  # type: ignore
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\core.py", line 980, in with_cur_sublevel
+    return self.trace_type(self, cur_sublevel(), **self.payload)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\core.py", line 533, in __init__
+    self.main = main
+KeyboardInterrupt
+
+combination: individualized improvement
+ERRRRR
+results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_737/0/improvement-individualized/
+  0%|                                                                                           | 0/20 [00:00<?, ?it/s]  5%|####1                                                                              | 1/20 [00:03<01:05,  3.46s/it] 10%|########3                                                                          | 2/20 [00:04<00:33,  1.85s/it] 15%|############4                                                                      | 3/20 [00:04<00:20,  1.19s/it] 20%|################6                                                                  | 4/20 [00:04<00:13,  1.15it/s] 25%|####################7                                                              | 5/20 [00:05<00:10,  1.44it/s] 30%|########################9                                                          | 6/20 [00:05<00:08,  1.68it/s] 35%|#############################                                                      | 7/20 [00:06<00:06,  1.90it/s] 40%|#################################2                                                 | 8/20 [00:06<00:05,  2.12it/s] 45%|#####################################3                                             | 9/20 [00:06<00:04,  2.28it/s] 50%|#########################################                                         | 10/20 [00:07<00:04,  2.31it/s] 55%|#############################################1                                    | 11/20 [00:07<00:03,  2.38it/s] 60%|#################################################1                                | 12/20 [00:08<00:03,  2.36it/s] 65%|#####################################################3                            | 13/20 [00:08<00:03,  1.83it/s] 70%|#########################################################4                        | 14/20 [00:09<00:03,  1.59it/s] 75%|#############################################################5                    | 15/20 [00:10<00:02,  1.77it/s] 80%|#################################################################6                | 16/20 [00:10<00:02,  1.93it/s] 85%|#####################################################################7            | 17/20 [00:11<00:01,  1.96it/s] 90%|#########################################################################8        | 18/20 [00:11<00:01,  2.00it/s] 95%|#############################################################################8    | 19/20 [00:12<00:00,  2.02it/s]100%|##################################################################################| 20/20 [00:12<00:00,  2.00it/s]100%|##################################################################################| 20/20 [00:12<00:00,  1.60it/s]
+Saving results for improvement_individualized...
+Done.
+Saving additional stats.
+-----------------------------FINISHED----------------------------------

@@ -40,7 +40,7 @@ class BinomialBinarySCM(StructuralCausalModel):
                 json.dump(scm_dict, f)
         except Exception as exc:
             logging.warning('Could not save p_dict.json')
-            logging.info('Exception: {}'.format(exc))
+            print('Exception: {}'.format(exc))
 
     @staticmethod
     def load(filepath):

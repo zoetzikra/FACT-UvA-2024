@@ -1,0 +1,138 @@
+
+combination: individualized acceptance
+ERRRRR
+results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_557/0/acceptance-individualized/
+Process Process-2:
+Traceback (most recent call last):
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\process.py", line 315, in _bootstrap
+    self.run()
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\experiment\run.py", line 62, in run_recourse
+    os.mkdir(savepath_it_config)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_557/0/acceptance-individualized/'
+
+combination: individualized acceptance
+ERRRRR
+results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_412/0/acceptance-individualized/
+  0%|                                                                                           | 0/19 [00:00<?, ?it/s]  0%|                                                                                           | 0/19 [00:02<?, ?it/s]
+Process Process-2:
+Traceback (most recent call last):
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\process.py", line 315, in _bootstrap
+    self.run()
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\experiment\run.py", line 65, in run_recourse
+    result_tpl = recourse_population(scm, batches[1][0], batches[1][1], batches[1][2], y_name, costs,
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\recourse\population.py", line 73, in recourse_population
+    cntxt = scm_.sample_context(size=nsamples)
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\causality\scms\scm.py", line 183, in sample_context
+    vals = np.array(d.sample(rng_key, (size,)))
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\numpyro\distributions\mixtures.py", line 146, in sample
+    return self.sample_with_intermediates(key=key, sample_shape=sample_shape)[0]
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\numpyro\distributions\mixtures.py", line 131, in sample_with_intermediates
+    indices = self.mixing_distribution.expand(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\numpyro\distributions\distribution.py", line 643, in sample
+    return self.sample_with_intermediates(key, sample_shape)[0]
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\numpyro\distributions\distribution.py", line 640, in sample_with_intermediates
+    return self._sample(self.base_dist.sample_with_intermediates, key, sample_shape)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\numpyro\distributions\distribution.py", line 599, in _sample
+    samples, intermediates = sample_fn(key, sample_shape=sample_shape + batch_shape)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\numpyro\distributions\distribution.py", line 320, in sample_with_intermediates
+    return self.sample(key, sample_shape=sample_shape), []
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\numpyro\distributions\discrete.py", line 309, in sample
+    return categorical(key, self.probs, shape=sample_shape + self.batch_shape)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\numpyro\distributions\util.py", line 211, in categorical
+    return _categorical(key, p, shape)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\traceback_util.py", line 179, in reraise_with_filtered_traceback
+    return fun(*args, **kwargs)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\pjit.py", line 257, in cache_miss
+    outs, out_flat, out_tree, args_flat, jaxpr = _python_pjit_helper(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\pjit.py", line 168, in _python_pjit_helper
+    out_flat = pjit_p.bind(*args_flat, **params)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\core.py", line 2740, in bind
+    return self.bind_with_trace(top_trace, args, params)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\core.py", line 447, in bind_with_trace
+    out = trace.process_primitive(self, map(trace.full_raise, args), params)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\core.py", line 935, in process_primitive
+    return primitive.impl(*tracers, **params)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\pjit.py", line 1245, in _pjit_call_impl
+    return xc._xla.pjit(name, f, call_impl_cache_miss, [], [], donated_argnums,
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\pjit.py", line 1229, in call_impl_cache_miss
+    out_flat, compiled = _pjit_call_impl_python(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\pjit.py", line 1162, in _pjit_call_impl_python
+    compiled = _pjit_lower(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\pjit.py", line 1293, in _pjit_lower
+    return _pjit_lower_cached(jaxpr, in_shardings, out_shardings, *args, **kwargs)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\pjit.py", line 1341, in _pjit_lower_cached
+    return pxla.lower_sharding_computation(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\profiler.py", line 336, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\pxla.py", line 1986, in lower_sharding_computation
+    nreps, tuple_args, shape_poly_state) = _cached_lowering_to_hlo(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\pxla.py", line 1820, in _cached_lowering_to_hlo
+    lowering_result = mlir.lower_jaxpr_to_module(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 847, in lower_jaxpr_to_module
+    lower_jaxpr_to_fun(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1301, in lower_jaxpr_to_fun
+    out_vals, tokens_out = jaxpr_subcomp(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1494, in jaxpr_subcomp
+    ans = lower_per_platform(rule_ctx, str(eqn.primitive),
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1602, in lower_per_platform
+    return kept_rules[0](ctx, *rule_args, **rule_kwargs)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\pjit.py", line 1444, in _pjit_lowering
+    func = _pjit_cached_lower_jaxpr_to_fun(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\pjit.py", line 1428, in _pjit_cached_lower_jaxpr_to_fun
+    func = mlir.lower_jaxpr_to_fun(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1301, in lower_jaxpr_to_fun
+    out_vals, tokens_out = jaxpr_subcomp(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1494, in jaxpr_subcomp
+    ans = lower_per_platform(rule_ctx, str(eqn.primitive),
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1602, in lower_per_platform
+    return kept_rules[0](ctx, *rule_args, **rule_kwargs)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\prng.py", line 883, in random_bits_lowering
+    out = bits_lowering(ctx_new, keys)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1689, in f_lowered
+    out, tokens = jaxpr_subcomp(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1494, in jaxpr_subcomp
+    ans = lower_per_platform(rule_ctx, str(eqn.primitive),
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1602, in lower_per_platform
+    return kept_rules[0](ctx, *rule_args, **rule_kwargs)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1689, in f_lowered
+    out, tokens = jaxpr_subcomp(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1494, in jaxpr_subcomp
+    ans = lower_per_platform(rule_ctx, str(eqn.primitive),
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1602, in lower_per_platform
+    return kept_rules[0](ctx, *rule_args, **rule_kwargs)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1689, in f_lowered
+    out, tokens = jaxpr_subcomp(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1494, in jaxpr_subcomp
+    ans = lower_per_platform(rule_ctx, str(eqn.primitive),
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1602, in lower_per_platform
+    return kept_rules[0](ctx, *rule_args, **rule_kwargs)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\lax\control_flow\loops.py", line 1689, in _while_lowering
+    new_z, tokens_out = mlir.jaxpr_subcomp(body_ctx, body_jaxpr.jaxpr,
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1494, in jaxpr_subcomp
+    ans = lower_per_platform(rule_ctx, str(eqn.primitive),
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1602, in lower_per_platform
+    return kept_rules[0](ctx, *rule_args, **rule_kwargs)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\lax\lax.py", line 1707, in _nary_lower_hlo
+    broadcasted_args = mlir.multi_broadcast_in_dim(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1814, in multi_broadcast_in_dim
+    out.append(broadcast_in_dim(ctx, op,
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jax\_src\interpreters\mlir.py", line 1797, in broadcast_in_dim
+    return hlo.broadcast_in_dim(
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jaxlib\mlir\dialects\_stablehlo_ops_gen.py", line 738, in broadcast_in_dim
+    return _get_op_result_or_op_results(BroadcastInDimOp(result=result, operand=operand, broadcast_dimensions=broadcast_dimensions, loc=loc, ip=ip))
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\jaxlib\mlir\dialects\_stablehlo_ops_gen.py", line 721, in __init__
+    super().__init__(self.build_generic(attributes=attributes, results=results, operands=operands, successors=_ods_successors, regions=regions, loc=loc, ip=ip))
+KeyboardInterrupt
+
+combination: individualized acceptance
+ERRRRR
+results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_737/0/acceptance-individualized/
+  0%|                                                                                           | 0/20 [00:00<?, ?it/s]  5%|####1                                                                              | 1/20 [00:03<01:13,  3.85s/it] 10%|########3                                                                          | 2/20 [00:04<00:38,  2.12s/it] 15%|############4                                                                      | 3/20 [00:05<00:24,  1.46s/it] 20%|################6                                                                  | 4/20 [00:06<00:19,  1.24s/it] 25%|####################7                                                              | 5/20 [00:07<00:17,  1.17s/it] 30%|########################9                                                          | 6/20 [00:08<00:14,  1.06s/it] 35%|#############################                                                      | 7/20 [00:09<00:13,  1.02s/it] 40%|#################################2                                                 | 8/20 [00:09<00:10,  1.19it/s] 45%|#####################################3                                             | 9/20 [00:10<00:08,  1.34it/s] 50%|#########################################                                         | 10/20 [00:11<00:07,  1.29it/s] 55%|#############################################1                                    | 11/20 [00:11<00:06,  1.31it/s] 60%|#################################################1                                | 12/20 [00:12<00:06,  1.23it/s] 65%|#####################################################3                            | 13/20 [00:13<00:05,  1.28it/s] 70%|#########################################################4                        | 14/20 [00:14<00:04,  1.25it/s] 75%|#############################################################5                    | 15/20 [00:14<00:03,  1.40it/s] 80%|#################################################################6                | 16/20 [00:15<00:02,  1.40it/s] 85%|#####################################################################7            | 17/20 [00:15<00:01,  1.51it/s] 90%|#########################################################################8        | 18/20 [00:16<00:01,  1.48it/s] 95%|#############################################################################8    | 19/20 [00:17<00:00,  1.51it/s]100%|##################################################################################| 20/20 [00:17<00:00,  1.58it/s]100%|##################################################################################| 20/20 [00:17<00:00,  1.12it/s]
+Saving results for acceptance_individualized...
+Done.
+Saving additional stats.
+-----------------------------FINISHED----------------------------------

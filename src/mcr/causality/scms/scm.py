@@ -207,7 +207,7 @@ class StructuralCausalModel:
         """
         scm_itv = self.copy()
         if verbose:
-            logging.info('Intervening on nodes: {}'.format(intervention_dict.keys()))
+            print('Intervening on nodes: {}'.format(intervention_dict.keys()))
         # update structural equations
         for node in intervention_dict.keys():
             scm_itv.remove_parents(node)

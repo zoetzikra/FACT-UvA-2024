@@ -33,7 +33,8 @@ from sklearn.metrics import f1_score
 import numpy as np
 import math
 import os
-import concurrent.futures
+# import concurrent.futures
+import multiprocess
 import mcr.causality.scms.examples as ex
 from mcr.recourse import recourse_population, save_recourse_result
 from mcr.experiment.predictors import get_tuning_rf
@@ -48,19 +49,17 @@ sys.stderr = sys.stdout
 def run_recourse(r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
                  use_scm_pred, predict_individualized, NGEN, POP_SIZE, rounding_digits, nr_refits_batch0,
                  assess_robustness, model_type, it_path, model_score, f1, model_refits_batch0_scores,
-                 model_refits_batch0_f1s, model_refits_batch0, **kwargs_model):
-    log_file_path = "C://Users//akisl//Desktop//self//FACT-UvA-2024//"+f"child_{r_type}_{t_type}_output.log"
+                 model_refits_batch0_f1s, model_refits_batch0, kwargs_model):
+    log_file_path = f"child_{r_type}_{t_type}_output.log"
     sys.stdout = open(log_file_path, "a")
     sys.stderr = sys.stdout
     print('')
     print("combination: {} {}".format(r_type, t_type))
     print("ERRRRR")
     
-    savepath_it_config = "C://Users//akisl//Desktop//self//FACT-UvA-2024//"+it_path + '{}-{}/'.format(t_type, r_type)
+    savepath_it_config = it_path + '{}-{}/'.format(t_type, r_type)
     print(savepath_it_config)
-    # os.mkdir(savepath_it_config)
-    print("DONE")
-    exit()
+    os.mkdir(savepath_it_config)
 
     # perform recourse on batch 1
     result_tpl = recourse_population(scm, batches[1][0], batches[1][1], batches[1][2], y_name, costs,
@@ -174,7 +173,7 @@ def run_recourse(r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma,
         logging.debug(exc)
 
     print("-----------------------------FINISHED----------------------------------")
-
+    return "FINISHED"
 
 def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_scm_pred=False, iterations=5,
                    t_types='all',
@@ -398,25 +397,22 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
             batches[2][1].to_csv(it_path + 'y_val.csv')
 
         # Set up the pool of processes
-        with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
-            # Submit tasks to the pool
-            futures=[]
-            for r_type, t_type in all_combinations:
-                pid = os.fork() 
-                if pid >0:
-                    continue
-                else:
-                    savepath_it_config = "C://Users//akisl//Desktop//self//FACT-UvA-2024//"+it_path + '{}-{}/'.format(t_type, r_type)
-                    print(savepath_it_config)
-                    os.mkdir(savepath_it_config)
-                    future = executor.submit(run_recourse, r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
-                        use_scm_pred, predict_individualized, NGEN, POP_SIZE, rounding_digits, nr_refits_batch0,
-                        assess_robustness, model_type, it_path, model_score, f1, model_refits_batch0_scores,
-                        model_refits_batch0_f1s, model_refits_batch0, **kwargs_model)
-                    sys.exit(0)
+        
+        # Submit tasks to the pool
+        futures=[]
+        for r_type, t_type in all_combinations:
+            future=multiprocess.Process(target=run_recourse, args=(r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
+                    use_scm_pred, predict_individualized, NGEN, POP_SIZE, rounding_digits, nr_refits_batch0,
+                    assess_robustness, model_type, it_path, model_score, f1, model_refits_batch0_scores,
+                    model_refits_batch0_f1s, model_refits_batch0,kwargs_model))
+            future.start()
+            futures.append(future)
+            # future = executor.submit(run_recourse, r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
+            #         use_scm_pred, predict_individualized, NGEN, POP_SIZE, rounding_digits, nr_refits_batch0,
+            #         assess_robustness, model_type, it_path, model_score, f1, model_refits_batch0_scores,
+            #         model_refits_batch0_f1s, model_refits_batch0, **kwargs_model)
+            # futures.append(future)
 
-            # Wait for all tasks to complete
-            for _ in range(len(all_combinations)):
-                # Wait for any child process to finish
-                pid, status = os.waitpid(-1, 0)
-                print(f"Child process {pid} finished with status {status}")
+        # Wait for all tasks to complete
+        for future in futures:
+            future.join()

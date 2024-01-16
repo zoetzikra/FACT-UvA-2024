@@ -117,8 +117,8 @@ def compile_experiments(savepath, scm_name, dirs=None, assess_robustness=False):
 
                         ixs_recourse_recommended = invs_tmp.index[(invs_tmp.abs().mean(axis=1) > 0)]
 
-                        logging.info(f'# of recourse individuals {len(ixs_recourse)}')
-                        logging.info(f'# of recommended ixs {len(ixs_recourse_recommended)}')
+                        print(f'# of recourse individuals {len(ixs_recourse)}')
+                        print(f'# of recommended ixs {len(ixs_recourse_recommended)}')
 
                         cost = cost_tmp.loc[ixs_recourse_recommended, 'intv_cost'].mean()
                         df_cost = df_cost.append(
@@ -177,14 +177,14 @@ def compile_experiments(savepath, scm_name, dirs=None, assess_robustness=False):
 
             result_table.to_csv(result_dir + 'aggregated_result.csv')
             invs_res.to_csv(result_dir + 'aggregated_invs.csv')
-            logging.info('SUCCESS in folder {}'.format(dir))
+            print('SUCCESS in folder {}'.format(dir))
 
             invs_res['gamma'] = result_table['gamma_mean'][0]
             df_resultss = pd.concat([df_resultss, result_table])
             df_invs_resultss = pd.concat([df_invs_resultss, invs_res])
         except Exception as err:
-            logging.info('Not successful in directory {}'.format(dir))
-            logging.info(err)
+            print('Not successful in directory {}'.format(dir))
+            print(err)
 
     df_resultss = df_resultss.sort_values(['t_type', 'r_type', 'gamma_mean'])
     df_resultss.to_csv(base_base_path + 'resultss.csv')

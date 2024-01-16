@@ -1,0 +1,35 @@
+results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20
+results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_737
+Creation of directory results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_737 successful/directory exists already
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Creating 2 batches of data with 50 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.7
+f1-score 0.7272727272727272
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[-0.35927844 -0.434625    0.69627574]]
+[[ 0.07261859 -0.22484171  1.06318889]]
+[[-0.29538749  1.8983614  -0.04709742]]
+[[ 0.4942751  -0.46360965  1.02853858]]
+[[0.20380425 0.1897338  0.49693225]]
+# of recourse individuals 20
+# of recommended ixs 20
+# of recourse individuals 20
+# of recommended ixs 20
+# of recourse individuals 20
+# of recommended ixs 20
+# of recourse individuals 20
+# of recommended ixs 20
+SUCCESS in folder results/N100_Nrec30_gam0.75_t0.5_lbd20.0_nit1_NGEN50_POPS20_737\

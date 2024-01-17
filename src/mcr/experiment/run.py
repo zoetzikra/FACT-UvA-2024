@@ -40,23 +40,20 @@ from mcr.recourse import recourse_population, save_recourse_result
 from mcr.experiment.predictors import get_tuning_rf
 import sys
 
-logging.basicConfig(filename='script_output.log', level=logging.NOTSET)
-# logging.getLogger().setLevel(20)
-log_file_path = f"master.log"
-sys.stdout = open(log_file_path, "a")
-sys.stderr = sys.stdout
 
 def run_recourse(r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
                  use_scm_pred, predict_individualized, NGEN, POP_SIZE, rounding_digits, nr_refits_batch0,
                  assess_robustness, model_type, it_path, model_score, f1, model_refits_batch0_scores,
-                 model_refits_batch0_f1s, model_refits_batch0, kwargs_model):
-    log_file_path = f"child_{r_type}_{t_type}_output.log"
+                 model_refits_batch0_f1s, model_refits_batch0, log_path, kwargs_model):
+
+
+
+    log_file_path = f"{log_path}/child_{r_type}_{t_type}_output.log"
     sys.stdout = open(log_file_path, "a")
     sys.stderr = sys.stdout
     print('')
     print("combination: {} {}".format(r_type, t_type))
-    print("ERRRRR")
-    
+
     savepath_it_config = it_path + '{}-{}/'.format(t_type, r_type)
     print(savepath_it_config)
     os.mkdir(savepath_it_config)
@@ -149,7 +146,7 @@ def run_recourse(r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma,
             stats['model_post_score'] = score_post
             stats['model_post_f1'] = f1_post
 
-        stats['eta_obs_refits_batch0_mean'] = float(np.mean(eta_obs_refits_batch0)) # mean eta of batch0-refits
+        stats['eta_obs_refits_batch0_mean'] = float(np.mean(eta_obs_refits_batch0))  # mean eta of batch0-refits
         stats['model_score'] = model_score
         stats['model_f1'] = f1
         stats['model_refits_batch0_scores'] = model_refits_batch0_scores
@@ -175,11 +172,12 @@ def run_recourse(r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma,
     print("-----------------------------FINISHED----------------------------------")
     return "FINISHED"
 
+
 def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_scm_pred=False, iterations=5,
                    t_types='all',
                    seed=42, predict_individualized=False,
                    model_type='logreg', nr_refits_batch0=5, assess_robustness=False,
-                   NGEN=400, POP_SIZE=1000, rounding_digits=2, tuning=False, **kwargs_model):
+                   NGEN=400, POP_SIZE=1000, rounding_digits=2, tuning=False, parallelisation=False, **kwargs_model):
     try:
         if not os.path.exists(savepath):
             os.mkdir(savepath)
@@ -188,6 +186,14 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
         logging.warning('Creating of directory %s failed' % savepath)
     else:
         print('Creation of directory %s successful/directory exists already' % savepath)
+
+    log_path = f"{savepath}/logs/"
+    if not os.path.exists(log_path):
+        os.makedirs(log_path)
+    log_file_path = f"{savepath}/logs/master.log"
+
+    sys.stdout = open(log_file_path, "a")
+    sys.stderr = sys.stdout
 
     # extract SCM
 
@@ -252,7 +258,6 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
             else:
                 all_combinations.append((r_type, t_type))
 
-
     N_BATCHES = 2
     if assess_robustness:
         N_BATCHES = 3
@@ -268,7 +273,6 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
 
     n_fails = 0
 
-
     # for ii in range(existing_runs, iterations):
     while existing_runs < iterations:
         print('')
@@ -276,7 +280,6 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
         print('-------------')
         print('ITERATION {}'.format(existing_runs))
         print('-------------')
-
 
         # sample data
         noise = scm.sample_context(N)
@@ -315,7 +318,7 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
 
                 # prepare tuning
                 scm_cp = scm.copy()
-                _ = scm_cp.sample_context(10**4)
+                _ = scm_cp.sample_context(10 ** 4)
                 data_tuning = scm_cp.compute()
                 X_tuning = data_tuning[df.columns[df.columns != y_name]]
                 y_tuning = data_tuning[y_name]
@@ -387,7 +390,7 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
                 print(model_tmp.coef_)
 
         # save data
-        
+
         batches[0][0].to_csv(it_path + 'X_train.csv')
         batches[0][1].to_csv(it_path + 'y_train.csv')
         batches[1][0].to_csv(it_path + 'X_test.csv')
@@ -396,23 +399,26 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
             batches[2][0].to_csv(it_path + 'X_val.csv')
             batches[2][1].to_csv(it_path + 'y_val.csv')
 
-        # Set up the pool of processes
-        
-        # Submit tasks to the pool
-        futures=[]
-        for r_type, t_type in all_combinations:
-            future=multiprocess.Process(target=run_recourse, args=(r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
+        if parallelisation:
+            # Set up the pool of processes
+
+            # Submit tasks to the pool
+            futures = []
+            for r_type, t_type in all_combinations:
+                future = multiprocess.Process(target=run_recourse, args=(
+                    r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
                     use_scm_pred, predict_individualized, NGEN, POP_SIZE, rounding_digits, nr_refits_batch0,
                     assess_robustness, model_type, it_path, model_score, f1, model_refits_batch0_scores,
-                    model_refits_batch0_f1s, model_refits_batch0,kwargs_model))
-            future.start()
-            futures.append(future)
-            # future = executor.submit(run_recourse, r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
-            #         use_scm_pred, predict_individualized, NGEN, POP_SIZE, rounding_digits, nr_refits_batch0,
-            #         assess_robustness, model_type, it_path, model_score, f1, model_refits_batch0_scores,
-            #         model_refits_batch0_f1s, model_refits_batch0, **kwargs_model)
-            # futures.append(future)
+                    model_refits_batch0_f1s, model_refits_batch0, log_path, kwargs_model))
+                future.start()
+                futures.append(future)
 
-        # Wait for all tasks to complete
-        for future in futures:
-            future.join()
+            # Waiting for task completion
+            for future in futures:
+                future.join()
+        else:
+            for r_type, t_type in all_combinations:
+                run_recourse(r_type, t_type, scm, batches, y_name, costs, N_recourse, gamma, thresh, lbd, model,
+                             use_scm_pred, predict_individualized, NGEN, POP_SIZE, rounding_digits, nr_refits_batch0,
+                             assess_robustness, model_type, it_path, model_score, f1, model_refits_batch0_scores,
+                             model_refits_batch0_f1s, model_refits_batch0, log_path, kwargs_model)

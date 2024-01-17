@@ -1,0 +1,8 @@
+,perc_recomm_found,gamma,eta,gamma_obs,gamma_obs_pre,eta_obs,eta_obs_individualized,costs,lbd,thresh,r_type,t_type,iteration,model_coef,eta_obs_refits_batch0_mean,intv-cost
+0,1.0,0.75,0.75,0.885,0.0,0.89,0.885,"[5.0, 5.0]",300.0,0.5,individualized,improvement,1,,0.8889999999999999,9.575
+1,1.0,0.75,0.75,0.01,0.01,1.0,,"[5.0, 5.0, 0.0001, 0.01, 0.1]",300.0,0.5,individualized,acceptance,1,,0.695,0.17839799999999997
+2,1.0,0.75,0.75,0.93,0.0,0.93,0.93,"[5.0, 5.0]",300.0,0.5,individualized,improvement,0,,0.923,9.95
+3,1.0,0.75,0.75,0.0,0.0,1.0,,"[5.0, 5.0, 0.0001, 0.01, 0.1]",300.0,0.5,individualized,acceptance,0,,0.236,0.09313699999999998
+4,1.0,0.75,0.75,0.0,0.0,1.0,,"[5.0, 5.0, 0.0001, 0.01, 0.1]",300.0,0.5,individualized,counterfactual,0,,0.24199999999999994,0.09763949999999999
+5,1.0,0.75,0.75,0.94,0.0,0.94,,"[5.0, 5.0]",300.0,0.5,subpopulation,improvement,0,,0.931,9.5
+6,1.0,0.75,0.75,0.0,0.0,1.0,,"[5.0, 5.0, 0.0001, 0.01, 0.1]",300.0,0.5,subpopulation,acceptance,0,,0.257,0.09912649999999999

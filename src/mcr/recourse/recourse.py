@@ -67,7 +67,13 @@ def mutate_mixed(individual, indpb, mu, sigma, bounds, n_digits):
 
 def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None, y_name=None, cleanup=True, gamma=None,
              eta=None, thresh=None, lbd=1.0, subpopulation_size=500, NGEN=400, CX_PROB=0.3, MX_PROB=0.05,
-             POP_SIZE=1000, rounding_digits=2, binary=False, multi_objective=False, return_stats=False, X=None):
+             POP_SIZE=1000, rounding_digits=2, binary=False, multi_objective=False, return_stats=False, X=None, genetic_alg='nsga2'):
+    print("Using genetic algorithm: ", genetic_alg)    
+    if genetic_alg=='nsga3':
+        NOBJ = 1
+        P = 12
+        K = 10
+        ref_points = tools.uniform_reference_points(NOBJ, P)
 
     evaluator = GreedyEvaluator(scm_, obs, costs, features, lbd, rounding_digits=rounding_digits,
                                 subpopulation_size=subpopulation_size, predict_log_proba=predict_log_proba,
@@ -88,7 +94,10 @@ def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None,
         raise NotImplementedError('Not implemented yet.')
         creator.create("FitnessMin", base.Fitness, weights=(lbd, -1.0))
     else:
-        creator.create("FitnessMin", base.Fitness, weights=(1.0,))
+        if genetic_alg == 'nsga2':
+            creator.create("FitnessMin", base.Fitness, weights=(1.0,))
+        elif genetic_alg == 'nsga3':
+            creator.create("FitnessMin", base.Fitness, weights=(1.0,)*NOBJ)
     creator.create("Individual", list, fitness=creator.FitnessMin)
 
     IND_SIZE = len(features)
@@ -109,7 +118,10 @@ def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None,
     # else:
     #     toolbox.register("mutate", tools.mutGaussian, mu=0, sigma=1, indpb=MX_PROB)
     toolbox.register("mutate", mutate_mixed, indpb=MX_PROB, mu=0, sigma=1, bounds=bounds, n_digits=rounding_digits)
-    toolbox.register("select", tools.selNSGA2)
+    if genetic_alg == 'nsga2':
+        toolbox.register("select", tools.selNSGA2)
+    else:
+        toolbox.register("select", tools.selNSGA3, ref_points=ref_points)
 
     if t_type == 'acceptance':
         assert not predict_log_proba is None

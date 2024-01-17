@@ -76,7 +76,7 @@ def recourse_population(scm, X, y, U, y_name, costs, proportion=1.0, N_max=None,
                                                 gamma=gamma, eta=eta, thresh=thresh, lbd=lbd,
                                                 subpopulation_size=subpopulation_size, NGEN=NGEN, POP_SIZE=POP_SIZE,
                                                 rounding_digits=rounding_digits, multi_objective=False,
-                                                return_stats=False, X=X)
+                                                return_stats=False, X=X, genetic_alg='nsga3')
 
         intervention = indvd_to_intrv(scm, intv_features, winner, obs)
 

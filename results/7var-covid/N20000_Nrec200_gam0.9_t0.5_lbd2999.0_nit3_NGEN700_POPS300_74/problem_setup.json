@@ -1,0 +1,1 @@
+{"N": 20000, "seed": 42, "scm_name": "7var-covid", "t_types": "all", "thresh": 0.5, "gamma/eta": 0.9, "lbd": 2999.0, "costs": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], "NGEN": 700, "POP_SIZE": 300, "iterations": 3, "rounding_digits": 1, "nr_refits_batch0": 5, "assess_robustness": false, "predict_individualized": true, "use_scm_pred": false, "model_type": "rf"}

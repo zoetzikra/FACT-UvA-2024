@@ -1,0 +1,1 @@
+{"N": 4000, "seed": 42, "scm_name": "5var-skill", "t_types": "all", "thresh": 0.5, "gamma/eta": 0.85, "lbd": 300.0, "costs": [5.0, 5.0, 0.0001, 0.01, 0.1], "NGEN": 1000, "POP_SIZE": 500, "iterations": 3, "rounding_digits": 0, "nr_refits_batch0": 5, "assess_robustness": false, "predict_individualized": true, "use_scm_pred": false, "model_type": "rf"}

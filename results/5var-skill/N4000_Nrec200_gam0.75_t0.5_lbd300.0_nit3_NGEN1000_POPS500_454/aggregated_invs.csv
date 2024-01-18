@@ -1,0 +1,6 @@
+r_type,t_type,years_experience_mean,degree_mean,nr_commits_mean,nr_languages_mean,nr_stars_mean,causes_mean,non-causes_mean,years_experience_std,degree_std,nr_commits_std,nr_languages_std,nr_stars_std,causes_std,non-causes_std
+individualized,acceptance,0.0,0.0,1316.9287185929647,0.0,0.04271356783919598,0.0,1316.971432160804,0.0,0.0,545.2623689253625,0.0,0.06040610693553421,0.0,545.322775032298
+individualized,counterfactual,0.0,0.0,976.395,0.0,0.0,0.0,976.395,,,,,,,
+individualized,improvement,0.5675,1.385,,,,1.9525000000000001,0.0,0.038890872965260066,0.014142135623730963,,,,0.05303300858899103,0.0
+subpopulation,acceptance,0.0,0.0,991.265,0.0,0.0,0.0,991.265,,,,,,,
+subpopulation,improvement,0.6,1.3,,,,1.9,0.0,,,,,,,

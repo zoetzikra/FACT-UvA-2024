@@ -12,8 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class BinomialBinarySCM(StructuralCausalModel):
-
-    def __init__(self, dag, p_dict={}, u_prefix='u_'):
+    def __init__(self, dag, p_dict={}, u_prefix="u_"):
         super(BinomialBinarySCM, self).__init__(dag, u_prefix=u_prefix)
 
         self.INVERTIBLE = True
@@ -23,7 +22,7 @@ class BinomialBinarySCM(StructuralCausalModel):
                 p_dict[node] = torch.tensor(np.random.uniform(0, 1))
             else:
                 p_dict[node] = torch.tensor(p_dict[node])
-            self.model[node]['noise_distribution'] = dist.Binomial(probs=p_dict[node])
+            self.model[node]["noise_distribution"] = dist.Binomial(probs=p_dict[node])
 
         self.p_dict = p_dict
 
@@ -31,25 +30,25 @@ class BinomialBinarySCM(StructuralCausalModel):
         self.dag.save(filepath)
         p_dict = {}
         for var_name in self.dag.var_names:
-            p_dict[var_name] = self.model[var_name]['noise_distribution'].probs.item()
+            p_dict[var_name] = self.model[var_name]["noise_distribution"].probs.item()
         scm_dict = {}
-        scm_dict['p_dict'] = p_dict
-        scm_dict['y_name'] = self.predict_target
+        scm_dict["p_dict"] = p_dict
+        scm_dict["y_name"] = self.predict_target
         try:
-            with open(filepath + '_p_dict.json', 'w') as f:
+            with open(filepath + "_p_dict.json", "w") as f:
                 json.dump(scm_dict, f)
         except Exception as exc:
-            logging.warning('Could not save p_dict.json')
-            print('Exception: {}'.format(exc))
+            logging.warning("Could not save p_dict.json")
+            print("Exception: {}".format(exc))
 
     @staticmethod
     def load(filepath):
         dag = DirectedAcyclicGraph.load(filepath)
-        f = open(filepath + '_p_dict.json')
+        f = open(filepath + "_p_dict.json")
         scm_dict = json.load(f)
         f.close()
-        scm = BinomialBinarySCM(dag, scm_dict['p_dict'])
-        scm.set_prediction_target(scm_dict['y_name'])
+        scm = BinomialBinarySCM(dag, scm_dict["p_dict"])
+        scm.set_prediction_target(scm_dict["y_name"])
         # noise_vals = pd.read_csv(filepath + '_noise_vals.csv')
         return scm
 
@@ -81,10 +80,10 @@ class BinomialBinarySCM(StructuralCausalModel):
 
     def _linear_comb_parents(self, node, obs=None):
         linear_comb = 0.0
-        if len(self.model[node]['parents']) > 0:
-            for par in self.model[node]['parents']:
+        if len(self.model[node]["parents"]) > 0:
+            for par in self.model[node]["parents"]:
                 if obs is None:
-                    linear_comb += self.model[par]['values']
+                    linear_comb += self.model[par]["values"]
                 else:
                     linear_comb += torch.tensor(obs[par])
         return linear_comb
@@ -104,7 +103,7 @@ class BinomialBinarySCM(StructuralCausalModel):
             p_nd = None
             if not type(value) is Tensor:
                 value = torch.tensor(value)
-            dist = scm_.model[nd]['noise_distribution']
+            dist = scm_.model[nd]["noise_distribution"]
             if isinstance(dist, Distribution):
                 p_nd = dist.log_prob(value)
             elif isinstance(dist, Tensor):
@@ -115,7 +114,9 @@ class BinomialBinarySCM(StructuralCausalModel):
                 dist_sample = dist(scm_)
                 p_nd = torch.log(value == dist_sample[0])
             else:
-                raise RuntimeError('distribution type not understood: dist is {}'.format(dist))
+                raise RuntimeError(
+                    "distribution type not understood: dist is {}".format(dist)
+                )
 
             log_p += p_nd
         return log_p
@@ -135,7 +136,9 @@ class BinomialBinarySCM(StructuralCausalModel):
         log_p = scm_.log_prob_u(u_y)
         return log_p
 
-    def predict_log_prob_individualized_obs(self, obs_pre, obs_post, intv_dict, y_name, y=1):
+    def predict_log_prob_individualized_obs(
+        self, obs_pre, obs_post, intv_dict, y_name, y=1
+    ):
         """
         Individualized post-recourse prediction
         """
@@ -165,8 +168,8 @@ class BinomialBinarySCM(StructuralCausalModel):
         sampling using structural equations
         """
         linear_comb = self._linear_comb_parents(node)
-        linear_comb += self.model[node]['noise_values']
-        self.model[node]['values'] = linear_comb
+        linear_comb += self.model[node]["noise_values"]
+        self.model[node]["values"] = linear_comb
         return torch.remainder(linear_comb, 2)
 
     def _abduct_node_par(self, node, obs, **kwargs):
@@ -187,37 +190,45 @@ class BinomialBinarySCM(StructuralCausalModel):
         -> noise flipped if (x_j - (sum parent_i + sum_parent_unobs)) is 1
         """
         assert not (scm_abd is None)
-        noisy_pars = [par for par in self.model[node]['parents'] if par not in obs.index]
+        noisy_pars = [
+            par for par in self.model[node]["parents"] if par not in obs.index
+        ]
         if len(noisy_pars) != 1:
-            raise NotImplementedError('not implemented for more or less than one parent')
+            raise NotImplementedError(
+                "not implemented for more or less than one parent"
+            )
         else:
             noisy_par = noisy_pars[0]
             # Note: we assume that for the scm the parents were already abducted from obs
             # compute whether the eps_noisy_par must be flipped or is identical to eps_node
             linear_comb = 0
-            for par in self.model[node]['parents']:
+            for par in self.model[node]["parents"]:
                 if par not in noisy_pars:
                     linear_comb += obs[par]
             linear_comb_noisy_par = self._linear_comb_parents(noisy_par, obs=obs)
             flip = torch.remainder(obs[node] - linear_comb - linear_comb_noisy_par, 2)
+
             # transform noise to the variable distribution (assuming the respective parents were observed)
             def sample(scm):
-                if scm.model[noisy_par]['noise_values'] is None:
-                    raise RuntimeError('Noise values for {} must be sampled first'.format(noisy_par))
-                noisy_par_values = scm.model[noisy_par]['noise_values']
-                values = flip * (1-noisy_par_values) + (1-flip) * noisy_par_values
+                if scm.model[noisy_par]["noise_values"] is None:
+                    raise RuntimeError(
+                        "Noise values for {} must be sampled first".format(noisy_par)
+                    )
+                noisy_par_values = scm.model[noisy_par]["noise_values"]
+                values = flip * (1 - noisy_par_values) + (1 - flip) * noisy_par_values
                 return values
+
             return sample
 
     def _cond_prob_pars(self, node, obs):
         obs_dict = obs.to_dict()
-        assert set(self.model[node]['parents']).issubset(obs_dict.keys())
+        assert set(self.model[node]["parents"]).issubset(obs_dict.keys())
         assert node in obs_dict.keys()
         input = 0
-        for par in self.model[node]['parents']:
+        for par in self.model[node]["parents"]:
             input += obs[par]
         u_node = torch.tensor((obs[node] - input) % 2, dtype=torch.float)
-        p = self.model[node]['noise_distribution'].probs
+        p = self.model[node]["noise_distribution"].probs
         p_new = u_node * p + (1 - u_node) * (1 - p)
         if type(p_new) is not torch.Tensor:
             p_new = torch.tensor(p_new)
@@ -227,11 +238,12 @@ class BinomialBinarySCM(StructuralCausalModel):
         """
         Using formula to analytically compute the distribution
         """
+
         def helper(node, obs, multiply_node=True):
             p = 1
             if multiply_node:
                 p *= self._cond_prob_pars(node, obs).probs
-            for par in self.model[node]['children']:
+            for par in self.model[node]["children"]:
                 p *= self._cond_prob_pars(par, obs).probs
             return p
 
@@ -240,15 +252,15 @@ class BinomialBinarySCM(StructuralCausalModel):
         nominator = helper(node, obs_nom)
 
         # get conditional distribution of node=1 | parents
-        #cond_dist = self._cond_prob_pars(node, obs_nom)
-        #sample = cond_dist.sample((n_samples,)).flatten()
+        # cond_dist = self._cond_prob_pars(node, obs_nom)
+        # sample = cond_dist.sample((n_samples,)).flatten()
         denominator = 0
         for ii in range(2):
             obs_ii = obs.copy()
             obs_ii[node] = ii
             denominator += helper(node, obs_ii, multiply_node=True)
 
-        p = nominator/denominator
+        p = nominator / denominator
 
         # determine whether the p needs to be flipped or not to be appropriate for eps and not just y
         linear_comb = torch.remainder(self._linear_comb_parents(node, obs), 2)
@@ -257,9 +269,17 @@ class BinomialBinarySCM(StructuralCausalModel):
         # handle cases where slightly larger or smaller than bounds
         if p < 0.0:
             p = 0.0
-            logger.debug("probability {} was abducted for node {} and obs {}".format(p, node, obs))
+            logger.debug(
+                "probability {} was abducted for node {} and obs {}".format(
+                    p, node, obs
+                )
+            )
         elif p > 1.0:
             p = 1.0
-            logger.debug("probability {} was abducted for node {} and obs {}".format(p, node, obs))
+            logger.debug(
+                "probability {} was abducted for node {} and obs {}".format(
+                    p, node, obs
+                )
+            )
 
         return dist.Binomial(probs=p)

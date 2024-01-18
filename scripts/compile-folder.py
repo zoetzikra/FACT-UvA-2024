@@ -11,9 +11,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser("Compile experiments")
 
     parser.add_argument("scm_name", help=f"one of {scm_dict.keys()}", type=str)
-    parser.add_argument("savepath",
-                        help="savepath for the experiment folder. either relative to working directory or absolute.",
-                        type=str)
+    parser.add_argument(
+        "savepath",
+        help="savepath for the experiment folder. either relative to working directory or absolute.",
+        type=str,
+    )
 
     parser.add_argument("--ignore_np_errs", type=bool, default=True)
     parser.add_argument("--logging-level", type=int, default=20)

@@ -4,7 +4,7 @@ from numpyro.distributions.util import is_prng_key
 import jax.numpy as jnp
 from functools import partial, cache
 import torch
-
+import random
 
 class MultivariateIndependent(dist.Distribution):
     def __init__(self, dss, validate_args=None):
@@ -27,7 +27,7 @@ class MultivariateIndependent(dist.Distribution):
         for ds in self.dss:
             samples = []
             for d in ds:
-                key_d = jax.random.PRNGKey(42)
+                key_d = jax.random.PRNGKey(random.randint(key, (), 0, 2**10))
                 s = d.sample(key_d, sample_shape)
                 samples.append(s)
             samples = jnp.stack(samples, axis=1)

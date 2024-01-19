@@ -91,7 +91,7 @@ class GenericSCM(StructuralCausalModel):
         num_chains,
         model,
         *args,
-        rng_key=jrandom.PRNGKey(42),
+        rng_key=jrandom.PRNGKey(0),
         progress_bar=False,
         verbose=False,
         **kwargs
@@ -116,7 +116,7 @@ class GenericSCM(StructuralCausalModel):
         num_chains,
         model,
         *args,
-        rng_key=jrandom.PRNGKey(42),
+        rng_key=jrandom.PRNGKey(0),
         progress_bar=False,
         verbose=False,
         **kwargs
@@ -188,7 +188,7 @@ class GenericSCM(StructuralCausalModel):
             model,
             x_pa,
             x_j=x_j,
-            rng_key=jrandom.PRNGKey(42),
+            rng_key=jrandom.PRNGKey(0),
         )
 
         type_dist = type(self.model[node]["noise_distribution"])

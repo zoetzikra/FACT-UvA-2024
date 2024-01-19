@@ -59,6 +59,8 @@ def set_seed(seed):
     random.seed(seed)
     torch.manual_seed(seed)
     jax.random.PRNGKey(seed)
+    from mcr.experiment.__init__ import seed_main,set_seed_main
+    set_seed_main(seed)
 
 
 def run_recourse(

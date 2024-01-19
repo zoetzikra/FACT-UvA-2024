@@ -120,7 +120,8 @@ class DirectedAcyclicGraph:
         Returns: DirectedAcyclicGraph instance
 
         """
-        seed=42
+        from mcr.experiment.__init__ import seed_main
+        seed=seed_main
         if model == "np":
             G = nx.gnp_random_graph(n, p, seed, directed=True)
         elif model == "nm":

@@ -91,4 +91,5 @@ tqdm==4.62.3
 urllib3==2.1.0
 virtualenv==20.25.0
 zipp==3.17.0
+multiprocess
 -e .

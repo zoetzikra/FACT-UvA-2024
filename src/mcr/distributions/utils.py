@@ -3,6 +3,7 @@ import torch
 import pyro
 import numpy as np
 
+
 def numpyrodist_to_pyrodist(d):
     if isinstance(d, numpyro.distributions.discrete.CategoricalProbs):
         probs = d.probs
@@ -17,7 +18,8 @@ def numpyrodist_to_pyrodist(d):
         high = torch.tensor(np.array(d.high))
         return pyro.distributions.Uniform(high=high, low=low)
     else:
-        raise NotImplementedError('Type not implemented')
+        raise NotImplementedError("Type not implemented")
+
 
 def add_uncertainty(p):
     p = p.double()

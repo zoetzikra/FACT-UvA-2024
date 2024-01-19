@@ -3,6 +3,7 @@ from argparse import Namespace
 from numpy import linalg as la
 import numpy as np
 
+
 def search_nonsorted(arr, search_list):
     if len(arr) == 0 or len(search_list) == 0:
         return np.array([])
@@ -10,7 +11,9 @@ def search_nonsorted(arr, search_list):
     return np.argwhere(arr == sl_reshape)[:, 1]
 
 
-def flatten_dict(params: Dict[str, Any], delimiter: str = '/', max_val_len=250) -> Dict[str, Any]:
+def flatten_dict(
+    params: Dict[str, Any], delimiter: str = "/", max_val_len=250
+) -> Dict[str, Any]:
     """
     Flatten hierarchical dict, e.g. ``{'a': {'b': 'c'}} -> {'a/b': 'c'}``.
 
@@ -35,7 +38,10 @@ def flatten_dict(params: Dict[str, Any], delimiter: str = '/', max_val_len=250) 
         else:
             yield prefixes + [input_dict if input_dict is None else str(input_dict)]
 
-    return {delimiter.join(keys): str(val)[:max_val_len] for *keys, val in _dict_generator(params)}
+    return {
+        delimiter.join(keys): str(val)[:max_val_len]
+        for *keys, val in _dict_generator(params)
+    }
 
 
 def nearestPD(A):

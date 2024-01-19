@@ -629,5 +629,6 @@ def run_experiment(
                     model_refits_batch0_f1s,
                     model_refits_batch0,
                     log_path,
+                    seed_iter,
                     kwargs_model,
                 )

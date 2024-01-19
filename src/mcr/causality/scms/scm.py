@@ -14,6 +14,8 @@ from mcr.causality import DirectedAcyclicGraph
 
 import logging
 
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -198,7 +200,7 @@ class StructuralCausalModel:
                 and len(d.event_shape) > 0
             ):
                 # TODO check whether right assignment
-                rng_key = jrandom.PRNGKey(random.randint(0, 2**8))
+                rng_key = jrandom.PRNGKey(42)
                 vals = np.array(d.sample(rng_key, (size,)))
                 self.model[node]["noise_values"] = torch.tensor(vals[:, 0])
                 for jj in range(len(self.model[node]["children"])):
@@ -209,7 +211,7 @@ class StructuralCausalModel:
                     self.model[node]["noise_distribution"].sample((size,)).flatten()
                 )
             elif isinstance(d, numpyro.distributions.Distribution):
-                rng_key = jrandom.PRNGKey(random.randint(0, 2**8))
+                rng_key = jrandom.PRNGKey(42)
                 vals = (
                     self.model[node]["noise_distribution"]
                     .sample(rng_key, (size,))

@@ -21,6 +21,7 @@ from mcr.causality.scms.functions import linear_additive, linear_additive_torch
 import collections
 
 
+
 class GenericSCM(StructuralCausalModel):
     SMALL_VAR = 0.0001
 
@@ -90,7 +91,7 @@ class GenericSCM(StructuralCausalModel):
         num_chains,
         model,
         *args,
-        rng_key=jrandom.PRNGKey(0),
+        rng_key=jrandom.PRNGKey(42),
         progress_bar=False,
         verbose=False,
         **kwargs
@@ -115,7 +116,7 @@ class GenericSCM(StructuralCausalModel):
         num_chains,
         model,
         *args,
-        rng_key=jrandom.PRNGKey(0),
+        rng_key=jrandom.PRNGKey(42),
         progress_bar=False,
         verbose=False,
         **kwargs
@@ -187,7 +188,7 @@ class GenericSCM(StructuralCausalModel):
             model,
             x_pa,
             x_j=x_j,
-            rng_key=jrandom.PRNGKey(0),
+            rng_key=jrandom.PRNGKey(42),
         )
 
         type_dist = type(self.model[node]["noise_distribution"])

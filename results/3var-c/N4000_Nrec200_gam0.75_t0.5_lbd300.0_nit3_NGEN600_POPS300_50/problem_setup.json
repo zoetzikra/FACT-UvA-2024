@@ -1,0 +1,1 @@
+{"N": 4000, "seed": 42, "scm_name": "3var-causal", "t_types": "all", "thresh": 0.5, "gamma/eta": 0.75, "lbd": 300.0, "costs": [1.0, 1.0, 1.0], "NGEN": 600, "POP_SIZE": 300, "iterations": 3, "rounding_digits": 1, "nr_refits_batch0": 5, "assess_robustness": false, "predict_individualized": true, "use_scm_pred": false, "model_type": "logreg"}

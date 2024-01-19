@@ -13,7 +13,6 @@ from mcr.recourse.evaluation import GreedyEvaluator, similar
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-
 def project_within_bounds(proposal, bound):
     if proposal < bound[0]:
         return bound[0]
@@ -21,7 +20,6 @@ def project_within_bounds(proposal, bound):
         return bound[0]
     else:
         return proposal
-
 
 def initrepeat_mixed(container, bounds, X_init=None, obs=None, n_digits=None):
     # tuple of the form (2, 5, inf) for binary, categorical, continuous data
@@ -44,7 +42,6 @@ def initrepeat_mixed(container, bounds, X_init=None, obs=None, n_digits=None):
 
     return container(ind)
 
-
 def mutate_mixed(individual, indpb, mu, sigma, bounds, n_digits):
     for jj in range(len(individual)):
         if random.random() < indpb:
@@ -63,7 +60,7 @@ def mutate_mixed(individual, indpb, mu, sigma, bounds, n_digits):
         for ii in range(len(individual)):
             individual[ii] = round(individual[ii], n_digits)
 
-    return (individual,)
+    return individual,
 
 
 # RECOURSE FUNCTIONS
@@ -71,12 +68,6 @@ def mutate_mixed(individual, indpb, mu, sigma, bounds, n_digits):
 def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None, y_name=None, cleanup=True, gamma=None,
              eta=None, thresh=None, lbd=1.0, subpopulation_size=500, NGEN=400, CX_PROB=0.3, MX_PROB=0.05,
              POP_SIZE=1000, rounding_digits=2, binary=False, multi_objective=False, return_stats=False, X=None, genetic_alg='nsga2'):
-    print("Using genetic algorithm: ", genetic_alg)    
-    if genetic_alg=='nsga3':
-        NOBJ = 1
-        P = 12
-        K = 10
-        ref_points = tools.uniform_reference_points(NOBJ, P)
 
     evaluator = GreedyEvaluator(scm_, obs, costs, features, lbd, rounding_digits=rounding_digits,
                                 subpopulation_size=subpopulation_size, predict_log_proba=predict_log_proba,
@@ -94,13 +85,13 @@ def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None,
         y_name = scm_.predict_target
 
     if multi_objective:
-        raise NotImplementedError("Not implemented yet.")
+        raise NotImplementedError('Not implemented yet.')
         creator.create("FitnessMin", base.Fitness, weights=(lbd, -1.0))
     else:
         if genetic_alg == 'nsga2':
             creator.create("FitnessMin", base.Fitness, weights=(1.0,))
         elif genetic_alg == 'nsga3':
-            creator.create("FitnessMin", base.Fitness, weights=(1.0,)*NOBJ)
+            creator.create("FitnessMin", base.Fitness, weights=(1.0,))
     creator.create("Individual", list, fitness=creator.FitnessMin)
 
     IND_SIZE = len(features)
@@ -111,15 +102,8 @@ def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None,
     # else:
     #     toolbox.register("intervene", random.random)
     # toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.intervene, n=IND_SIZE)
-    toolbox.register(
-        "individual",
-        initrepeat_mixed,
-        creator.Individual,
-        bounds,
-        X[features],
-        obs[features],
-        rounding_digits,
-    )
+    toolbox.register("individual", initrepeat_mixed, creator.Individual, bounds, X[features],
+                     obs[features], rounding_digits)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
     toolbox.register("mate", tools.cxUniform, indpb=CX_PROB)
@@ -131,23 +115,21 @@ def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None,
     if genetic_alg == 'nsga2':
         toolbox.register("select", tools.selNSGA2)
     else:
-        toolbox.register("select", tools.selNSGA3, ref_points=ref_points)
-
-    if t_type == "acceptance":
+        toolbox.register("select", tools.selNSGA3, ref_points=tools.uniform_reference_points(nobj=1, p=POP_SIZE), nd='standard')
+    print("Using {} genetic algorithm.".format(genetic_alg))
+    if t_type == 'acceptance':
         assert not predict_log_proba is None
         assert not thresh is None
         toolbox.register("evaluate", evaluator.evaluate, eta, thresh, r_type)
-    elif t_type == "improvement":
+    elif t_type == 'improvement':
         assert not y_name is None
         assert not gamma is None
         toolbox.register("evaluate", evaluator.evaluate_meaningful, gamma, r_type)
-    elif t_type == "counterfactual":
+    elif t_type == 'counterfactual':
         assert not predict_log_proba is None
         toolbox.register("evaluate", evaluator.evaluate_ci, thresh)
     else:
-        raise NotImplementedError(
-            "only t_types acceptance or improvement are available"
-        )
+        raise NotImplementedError('only t_types acceptance or improvement are available')
 
     stats = tools.Statistics(key=lambda ind: np.array(ind.fitness.values))
     stats.register("avg", np.mean, axis=0)
@@ -159,25 +141,15 @@ def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None,
     if multi_objective:
         hof = tools.ParetoFront(similar)
     else:
-        hof = tools.HallOfFame(max(50, round(POP_SIZE / 10)))
-    pop, logbook = eaMuPlusLambda(
-        pop,
-        toolbox,
-        POP_SIZE,
-        POP_SIZE * 2,
-        CX_PROB,
-        MX_PROB,
-        NGEN,
-        stats=stats,
-        halloffame=hof,
-        verbose=False,
-    )
+        hof = tools.HallOfFame(max(50, round(POP_SIZE/10)))
+    pop, logbook = eaMuPlusLambda(pop, toolbox, POP_SIZE, POP_SIZE * 2, CX_PROB, MX_PROB, NGEN,
+                                  stats=stats, halloffame=hof, verbose=False)
 
     invds = np.array(list(hof))
     perf = np.array([x.values for x in list(hof.keys)])
     if multi_objective:
         # TODO fix. indvs and perf do no thave the same order
-        raise RuntimeError("Your code should not end up here.")
+        raise RuntimeError('Your code should not end up here.')
         min_cost_constrained = np.min(perf[perf[:, 0] > 0.95, 1])
         best_ix = np.where(perf[:, 1] == min_cost_constrained)[0][0]
         winner = invds[best_ix, :]
@@ -193,18 +165,12 @@ def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None,
     winner = [round(x, ndigits=rounding_digits) for x in winner]
 
     def eval_cost(winner):
-        if t_type == "acceptance":
-            goal_cost, intv_cost = evaluator.evaluate(
-                eta, thresh, r_type, winner, return_split=True
-            )
-        elif t_type == "improvement":
-            goal_cost, intv_cost = evaluator.evaluate_meaningful(
-                gamma, r_type, winner, return_split=True
-            )
-        elif t_type == "counterfactual":
-            goal_cost, intv_cost = evaluator.evaluate_ci(
-                thresh, winner, return_split=True
-            )
+        if t_type == 'acceptance':
+            goal_cost, intv_cost = evaluator.evaluate(eta, thresh, r_type, winner, return_split=True)
+        elif t_type == 'improvement':
+            goal_cost, intv_cost = evaluator.evaluate_meaningful(gamma, r_type, winner, return_split=True)
+        elif t_type == 'counterfactual':
+            goal_cost, intv_cost = evaluator.evaluate_ci(thresh, winner, return_split=True)
         return goal_cost, intv_cost
 
     goal_cost, intv_cost = eval_cost(winner)
@@ -225,12 +191,12 @@ def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None,
         del creator.FitnessMin
         del creator.Individual
         evaluator.clear_cache()
-        toolbox.unregister("evaluate")
-        toolbox.unregister("mutate")
-        toolbox.unregister("select")
-        toolbox.unregister("individual")
-        toolbox.unregister("mate")
-        toolbox.unregister("population")
+        toolbox.unregister('evaluate')
+        toolbox.unregister('mutate')
+        toolbox.unregister('select')
+        toolbox.unregister('individual')
+        toolbox.unregister('mate')
+        toolbox.unregister('population')
         del evaluator
         if not return_stats:
             if not multi_objective:

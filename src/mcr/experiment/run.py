@@ -241,6 +241,15 @@ def run_recourse(
         print("Could not append eta_obs_batch2 to stats.json")
         logging.debug(exc)
 
+    # Create slightly different scm with data distributional shift
+    # loop over all features (which are not y)
+    #       make a mean shift of the scm
+    #       make a variance shift of the scm
+    #       make a mean and variance shift of the scm
+    #       for the 3 newly shifted datasets do the following
+    #               get a recourse recommendation, where does this happen?
+    #               let model predict outcome when recourse was applied and compare to model prediction without
+
     print("-----------------------------FINISHED----------------------------------")
     return "FINISHED"
 

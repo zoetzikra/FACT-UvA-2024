@@ -72,7 +72,7 @@ def run_recourse(
     model_refits_batch0_f1s,
     model_refits_batch0,
     log_path,
-    gen_alg,
+    genetic_algo,
     kwargs_model,
 ):
     log_file_path = f"{log_path}/child_{r_type}_{t_type}_output.log"
@@ -107,7 +107,7 @@ def run_recourse(
         NGEN=NGEN,
         POP_SIZE=POP_SIZE,
         rounding_digits=rounding_digits,
-        gen_alg=gen_alg
+        genetic_algo=genetic_algo,
     )
 
     # save results
@@ -173,7 +173,7 @@ def run_recourse(
             NGEN=NGEN,
             POP_SIZE=POP_SIZE,
             rounding_digits=rounding_digits,
-            gen_alg=gen_alg
+            genetic_algo=genetic_algo,
         )
         X_batch2_post_impl, y_batch2_post_impl = (
             result_tpl_batch2[5],
@@ -269,7 +269,7 @@ def run_experiment(
     rounding_digits=2,
     tuning=False,
     parallelisation=False,
-    gen_alg='nsga2',
+    genetic_algo="nsga2",
     **kwargs_model,
 ):
     try:
@@ -323,7 +323,7 @@ def run_experiment(
         "predict_individualized": predict_individualized,
         "use_scm_pred": use_scm_pred,
         "model_type": model_type,
-        "gen_alg": gen_alg,
+        "genetic_algo": genetic_algo,
     }
 
     # problem setup
@@ -577,7 +577,7 @@ def run_experiment(
                         model_refits_batch0_f1s,
                         model_refits_batch0,
                         log_path,
-                        gen_alg,
+                        genetic_algo,
                         kwargs_model,
                     ),
                 )
@@ -616,6 +616,6 @@ def run_experiment(
                     model_refits_batch0_f1s,
                     model_refits_batch0,
                     log_path,
-                    gen_alg,
+                    genetic_algo,
                     kwargs_model,
                 )

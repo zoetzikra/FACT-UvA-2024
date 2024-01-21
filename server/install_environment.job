@@ -1,18 +1,22 @@
 #!/bin/bash
 
-#SBATCH --partition=gpu
-#SBATCH --gpus=1
-#SBATCH --job-name=InstallEnvironment
+#SBATCH --partition=rome
+#SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --time=02:00:00
+#SBATCH --mem=32000M
+#SBATCH --time=04:00:00
+#SBATCH --job-name=InstallEnvironment
 #SBATCH --output=install_icr_env_%A.out
 #SBATCH --error=install_icr_env_%A.err
 
 set -e # exit on first error
 
+
+PROJECT_DIR="$PWD"
+
 module purge
 module load 2022
 module load Anaconda3/2022.05
 
-conda env create -f icr_environment.yml
+conda env create -f "$PROJECT_DIR"/icr_environment_cpu.yml

@@ -58,6 +58,7 @@ if __name__ == "__main__":
     parser.add_argument("--model_type", type=str, default='logreg')
     parser.add_argument("--t_type", type=str, default='all')
     parser.add_argument("--id", type=int, default=None)
+    parser.add_argument("--parallelise", action='store_true', default=False)
     parser.add_argument("--genetic_alg", type=str, default='nsga2')
 
     parser.add_argument("--ignore_np_errs", help="whether to ignore all numpy warnings and errors",
@@ -94,13 +95,14 @@ if __name__ == "__main__":
         savepath_config = savepath_config + f"_{config_id}"
         print('savepath_config: {}'.format(savepath_config))
         assert os.path.isdir(savepath_config)
-
+    
     run_experiment(args.scm_name, args.N, args.N_recourse, args.gamma, args.thresh, args.lbd, savepath_config,
                    NGEN=args.NGEN, iterations=args.n_iterations, POP_SIZE=args.POP_SIZE,
                    rounding_digits=args.n_digits,
                    use_scm_pred=False, predict_individualized=args.predict_individualized,
                    assess_robustness=args.assess_robustness,
                    nr_refits_batch0=args.nr_refits, model_type=args.model_type,
-                   t_types=args.t_type, gen_alg=args.genetic_alg)
+                   t_types=args.t_type, parallelisation=args.parallelise,
+                   gen_alg=args.genetic_alg)
 
     compile_experiments(args.savepath, args.scm_name)

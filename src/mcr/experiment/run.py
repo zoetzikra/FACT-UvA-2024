@@ -243,12 +243,14 @@ def run_recourse(
 
     # Create slightly different scm with data distributional shift
     # loop over all features (which are not y)
-    #       make a mean shift of the scm
-    #       make a variance shift of the scm
-    #       make a mean and variance shift of the scm
+    #       make a mean shift of the scm only for one class
+    #       make a variance shift of the scm only for one class
+    #       make a mean and variance shift of the scm only for one class
+    #           which class? 0 or 1? 0 right? or both?
     #       for the 3 newly shifted datasets do the following
-    #               get a recourse recommendation, where does this happen?
+    #               get a recourse recommendation with the model trained on unshifted data
     #               let model predict outcome when recourse was applied and compare to model prediction without
+    #               see how these results change for the refit models
 
     print("-----------------------------FINISHED----------------------------------")
     return "FINISHED"

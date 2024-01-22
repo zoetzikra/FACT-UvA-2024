@@ -7,11 +7,11 @@ set -e
 PROJECT_DIR="$PWD"
 
 # project should have a src directory
-SRC_DIR="$PROJECT_DIR"
-LOGS_RESULTS_DIR="$PROJECT_DIR"/7var-covid-logs
-RUNS_RESULTS_DIR="$PROJECT_DIR"/7var-covid-runs
+SRC_DIR="$PROJECT_DIR"/server
+SAVE_DIR="$PROJECT_DIR"/results-nsga3/7var-covid-collected/
+LOGS_RESULTS_DIR="$PROJECT_DIR"/7var-covid-logs/
 
-mkdir -p "$RUNS_RESULTS_DIR"
+mkdir -p "$SAVE_DIR"
 mkdir -p "$LOGS_RESULTS_DIR"
 
 confidence_levels=(0.75 0.85 0.90 0.95)
@@ -19,5 +19,5 @@ for confidence in "${confidence_levels[@]}"
 do  
     JOB_NAME=7var-covid-confidence-${confidence}
     CONFIDENCE=$confidence
-    sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid.sbatch 7var-covid 20000 200 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 700 --POP_SIZE 300 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf
+    sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid.job 7var-covid 20000 200 $CONFIDENCE 2999 "$SAVE_DIR" 3 --NGEN 700 --POP_SIZE 300 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --parallelise --genetic_algo nsga3
 done

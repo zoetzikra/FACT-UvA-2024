@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=32000M
-#SBATCH --time=04:00:00
+#SBATCH --time=02:00:00
 #SBATCH --job-name=InstallEnvironment
 #SBATCH --output=interactive-session-snellius-cpu-%A.out
 #SBATCH --error=interactive-session-snellius-cpu-%A.err

@@ -25,8 +25,10 @@ And for every recourse type we save:
 All data is saved within one folder, which is given a randomly assigned id
 """
 
+from mcr.causality.scms.functions import *
 import json
 import logging
+import numpyro
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
@@ -36,14 +38,63 @@ from sklearn.metrics import f1_score
 import numpy as np
 import math
 import os
-
-# import concurrent.futures
 import multiprocess
 import mcr.causality.scms.examples as ex
 from mcr.recourse import recourse_population, save_recourse_result
 from mcr.experiment.predictors import get_tuning_rf
 import sys
 
+
+def refit_models(result_tpl, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_it_config, model_score,
+                 f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model):
+    # access acceptance for batch 1 with multiplicity models (without distribution shift)
+    eta_obs_refits_batch0 = []
+    recourse_recommended_ixs_batch1 = result_tpl[9]["recourse_recommended_ixs"]
+    for ii in range(nr_refits_batch0):
+        predict_batch1 = model_refits_batch0[ii].predict(
+            X_batch1_post.loc[recourse_recommended_ixs_batch1, :]
+        )
+        eta_obs_refit_batch0 = np.mean(predict_batch1)
+        eta_obs_refits_batch0.append(eta_obs_refit_batch0)
+
+    # save additional stats in the stats.json
+    print("Saving additional stats.")
+    try:
+        with open(savepath_it_config + "stats.json") as json_file:
+            stats = json.load(json_file)
+
+        # add further information to the statistics
+        #if assess_robustness:
+        #    stats["eta_obs_refit"] = float(
+        #        eta_obs_batch2
+        #    )  # eta refit on batch0_pre and bacht1_post
+        #    stats["model_post_score"] = score_post
+        #    stats["model_post_f1"] = f1_post
+
+        stats["eta_obs_refits_batch0_mean"] = float(
+            np.mean(eta_obs_refits_batch0)
+        )  # mean eta of batch0-refits
+        stats["model_score"] = model_score
+        stats["model_f1"] = f1
+        stats["model_refits_batch0_scores"] = model_refits_batch0_scores
+        stats["model_refits_batch0_f1s"] = model_refits_batch0_f1s
+
+        if model_type == "logreg":
+            stats["model_coef"] = model.coef_.tolist()
+            stats["model_coef"].append(model.intercept_.tolist())
+            #if assess_robustness:
+            #    stats["model_coef_refit"] = model_post.coef_.tolist()
+            #    stats["model_coef_refit"].append(model_post.intercept_.tolist())
+        else:
+            stats["model_coef"] = float("nan")
+            #if assess_robustness:
+            #    stats["model_coef_refit"] = float("nan")
+
+        with open(savepath_it_config + "stats.json", "w") as json_file:
+            json.dump(stats, json_file)
+    except Exception as exc:
+        print("Could not append eta_obs_batch2 to stats.json")
+        logging.debug(exc)
 
 def run_recourse(
     r_type,
@@ -72,6 +123,8 @@ def run_recourse(
     model_refits_batch0_f1s,
     model_refits_batch0,
     log_path,
+    N,
+    robustness,
     kwargs_model,
 ):
     log_file_path = f"{log_path}/child_{r_type}_{t_type}_output.log"
@@ -192,65 +245,58 @@ def run_recourse(
         )
         eta_obs_batch2 = np.mean(predict_batch2)
 
-    # access acceptance for batch 1 with multiplicity models (without distribution shift)
-    eta_obs_refits_batch0 = []
-    recourse_recommended_ixs_batch1 = result_tpl[9]["recourse_recommended_ixs"]
-    for ii in range(nr_refits_batch0):
-        predict_batch1 = model_refits_batch0[ii].predict(
-            X_batch1_post.loc[recourse_recommended_ixs_batch1, :]
-        )
-        eta_obs_refit_batch0 = np.mean(predict_batch1)
-        eta_obs_refits_batch0.append(eta_obs_refit_batch0)
+    refit_models(result_tpl, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_it_config, model_score,
+                 f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model)
 
-    # save additional stats in the stats.json
-    print("Saving additional stats.")
-    try:
-        with open(savepath_it_config + "stats.json") as json_file:
-            stats = json.load(json_file)
+    if robustness:
+        # Create slightly different scm with data distributional shift
+        shift_scm = scm.copy()
+        shifts = [(0.5, 1.0), (0.0, 0.5), (0.5, 0.5)]
+        for node in scm.dag.var_names:
+            if node != scm.predict_target:
+                for shift in shifts:
+                    mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(shift[0]), scale=jnp.array(shift[1]))
+                    shift_scm.update_noise({node: mean_shift_dist})
+                    noise_shift = shift_scm.sample_context(N)
+                    df_shift = shift_scm.compute()
+                    X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
+                    y_shift = df_shift[y_name]
 
-        # add further information to the statistics
-        if assess_robustness:
-            stats["eta_obs_refit"] = float(
-                eta_obs_batch2
-            )  # eta refit on batch0_pre and bacht1_post
-            stats["model_post_score"] = score_post
-            stats["model_post_f1"] = f1_post
+                    result_tpl_shift = recourse_population(
+                        shift_scm,
+                        X_shift,
+                        y_shift,
+                        noise_shift,
+                        y_name,
+                        costs,
+                        N_max=N_recourse,
+                        proportion=1.0,
+                        r_type=r_type,
+                        t_type=t_type,
+                        gamma=gamma,
+                        eta=gamma,
+                        thresh=thresh,
+                        lbd=lbd,
+                        model=model,
+                        use_scm_pred=use_scm_pred,
+                        predict_individualized=predict_individualized,
+                        NGEN=NGEN,
+                        POP_SIZE=POP_SIZE,
+                        rounding_digits=rounding_digits,
+                    )
 
-        stats["eta_obs_refits_batch0_mean"] = float(
-            np.mean(eta_obs_refits_batch0)
-        )  # mean eta of batch0-refits
-        stats["model_score"] = model_score
-        stats["model_f1"] = f1
-        stats["model_refits_batch0_scores"] = model_refits_batch0_scores
-        stats["model_refits_batch0_f1s"] = model_refits_batch0_f1s
+                    savepath_shift = it_path + "{}-{}-mean{}-var{}/".format(t_type, r_type, shift[0], shift[1])
+                    os.mkdir(savepath_shift)
+                    save_recourse_result(savepath_shift, result_tpl_shift)
 
-        if model_type == "logreg":
-            stats["model_coef"] = model.coef_.tolist()
-            stats["model_coef"].append(model.intercept_.tolist())
-            if assess_robustness:
-                stats["model_coef_refit"] = model_post.coef_.tolist()
-                stats["model_coef_refit"].append(model_post.intercept_.tolist())
-        else:
-            stats["model_coef"] = float("nan")
-            if assess_robustness:
-                stats["model_coef_refit"] = float("nan")
+                    X_batch1_post_impl = result_tpl_shift[5]
+                    X_batch1_post = X_shift.copy()
+                    X_batch1_post.loc[X_batch1_post_impl.index, :] = X_batch1_post_impl
 
-        with open(savepath_it_config + "stats.json", "w") as json_file:
-            json.dump(stats, json_file)
-    except Exception as exc:
-        print("Could not append eta_obs_batch2 to stats.json")
-        logging.debug(exc)
+                    refit_models(result_tpl_shift, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_shift,
+                                 model_score,
+                                 f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model)
 
-    # Create slightly different scm with data distributional shift
-    # loop over all features (which are not y)
-    #       make a mean shift of the scm only for one class
-    #       make a variance shift of the scm only for one class
-    #       make a mean and variance shift of the scm only for one class
-    #           which class? 0 or 1? 0 right? or both?
-    #       for the 3 newly shifted datasets do the following
-    #               get a recourse recommendation with the model trained on unshifted data
-    #               let model predict outcome when recourse was applied and compare to model prediction without
-    #               see how these results change for the refit models
 
     print("-----------------------------FINISHED----------------------------------")
     return "FINISHED"
@@ -277,6 +323,7 @@ def run_experiment(
     rounding_digits=2,
     tuning=False,
     parallelisation=False,
+    robustness=False,
     **kwargs_model,
 ):
     try:
@@ -583,6 +630,8 @@ def run_experiment(
                         model_refits_batch0_f1s,
                         model_refits_batch0,
                         log_path,
+                        N,
+                        robustness,
                         kwargs_model,
                     ),
                 )
@@ -621,5 +670,7 @@ def run_experiment(
                     model_refits_batch0_f1s,
                     model_refits_batch0,
                     log_path,
+                    N,
+                    robustness,
                     kwargs_model,
                 )

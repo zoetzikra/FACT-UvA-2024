@@ -52,6 +52,7 @@ if __name__ == "__main__":
     parser.add_argument("--t_type", type=str, default="all")
     parser.add_argument("--id", type=int, default=None)
     parser.add_argument("--parallelise", type=bool, default=False)
+    parser.add_argument("--robustness", action='store_true', default=False)
     parser.add_argument(
         "--ignore_np_errs",
         help="whether to ignore all numpy warnings and errors",
@@ -112,6 +113,7 @@ if __name__ == "__main__":
         model_type=args.model_type,
         t_types=args.t_type,
         parallelisation=args.parallelise,
+        robustness=args.robustness
     )
 
     compile_experiments(args.savepath, args.scm_name)

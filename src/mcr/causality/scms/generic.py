@@ -80,8 +80,8 @@ class GenericSCM(StructuralCausalModel):
         raise NotImplementedError("Not implemented yet.")
 
     def update_noise(self, new_noise):
-        self.noise_dict = new_noise
         for node in new_noise:
+            self.noise_dict[node] = new_noise[node]
             self.model[node]["noise_distribution"] = new_noise[node]
 
 

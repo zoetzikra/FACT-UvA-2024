@@ -1,12 +1,13 @@
 #!/bin/bash
 
-#SBATCH --partition=rome
+#SBATCH --partition=genoa
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem=32000M
-#SBATCH --time=02:00:00
-#SBATCH --job-name=InstallEnvironment
+#SBATCH --time=00:55:00
+#SBATCH --job-name=Inter-Ses-Cpu
+#SBATCH --mail-type=ALL  # Receive notifications for all events (started, completed, failed, etc.)
+#SBATCH --mail-user=antonios.tragoudaras@student.uva.nl
 #SBATCH --output=interactive-session-snellius-cpu-%A.out
 #SBATCH --error=interactive-session-snellius-cpu-%A.err
 

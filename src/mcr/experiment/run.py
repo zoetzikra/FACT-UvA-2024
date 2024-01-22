@@ -137,116 +137,116 @@ def run_recourse(
     print(savepath_it_config)
     os.mkdir(savepath_it_config)
 
-    # perform recourse on batch 1
-    result_tpl = recourse_population(
-        scm,
-        batches[1][0],
-        batches[1][1],
-        batches[1][2],
-        y_name,
-        costs,
-        N_max=N_recourse,
-        proportion=1.0,
-        r_type=r_type,
-        t_type=t_type,
-        gamma=gamma,
-        eta=gamma,
-        thresh=thresh,
-        lbd=lbd,
-        model=model,
-        use_scm_pred=use_scm_pred,
-        predict_individualized=predict_individualized,
-        NGEN=NGEN,
-        POP_SIZE=POP_SIZE,
-        rounding_digits=rounding_digits,
-    )
+    # # perform recourse on batch 1
+    # result_tpl = recourse_population(
+    #     scm,
+    #     batches[1][0],
+    #     batches[1][1],
+    #     batches[1][2],
+    #     y_name,
+    #     costs,
+    #     N_max=N_recourse,
+    #     proportion=1.0,
+    #     r_type=r_type,
+    #     t_type=t_type,
+    #     gamma=gamma,
+    #     eta=gamma,
+    #     thresh=thresh,
+    #     lbd=lbd,
+    #     model=model,
+    #     use_scm_pred=use_scm_pred,
+    #     predict_individualized=predict_individualized,
+    #     NGEN=NGEN,
+    #     POP_SIZE=POP_SIZE,
+    #     rounding_digits=rounding_digits,
+    # )
+    #
+    # # save results
+    # print("Saving results for {}_{}...".format(t_type, r_type))
+    # save_recourse_result(savepath_it_config, result_tpl)
+    # print("Done.")
 
-    # save results
-    print("Saving results for {}_{}...".format(t_type, r_type))
-    save_recourse_result(savepath_it_config, result_tpl)
-    print("Done.")
+    #X_batch1_post_impl = result_tpl[5]
+    #X_batch1_post = batches[1][0].copy()
+    #X_batch1_post.loc[X_batch1_post_impl.index, :] = X_batch1_post_impl
 
-    X_batch1_post_impl = result_tpl[5]
-    X_batch1_post = batches[1][0].copy()
-    X_batch1_post.loc[X_batch1_post_impl.index, :] = X_batch1_post_impl
+    # if assess_robustness:
+    #     # create a large dataset with mixed pre- and post-recourse data
+    #     print("Create dataset mixed batch 0 pre and batch 1 post recourse")
+    #     X_train_large = batches[0][0].copy()
+    #     y_train_large = batches[0][1].copy()
+    #
+    #     y_batch1_post = batches[1][1].copy()
+    #     y_batch1_post_impl = result_tpl[6]
+    #     y_batch1_post.loc[y_batch1_post_impl.index] = y_batch1_post_impl
+    #
+    #     X_train_large = X_train_large.append(X_batch1_post, ignore_index=True)
+    #     y_train_large = y_train_large.append(y_batch1_post, ignore_index=True)
+    #
+    #     # fit a separate model on batch0_pre and batch1_post
+    #
+    #     print("Fit model on mixed dataset")
+    #     model_post = None
+    #     if model_type == "logreg":
+    #         model_post = LogisticRegression()
+    #     elif model_type == "rf":
+    #         model_post = RandomForestClassifier(**kwargs_model)
+    #     else:
+    #         raise NotImplementedError(
+    #             "model type {} not implemented".format(model_type)
+    #         )
+    #
+    #     model_post.fit(X_train_large, y_train_large)
+    #     score_post = model_post.score(batches[2][0], batches[2][1])
+    #     f1_post = f1_score(batches[2][1], model_post.predict(batches[2][0]))
+    #
+    #     # perform recourse on batch 1
+    #     print("Perform recourse on batch 2")
+    #
+    #     result_tpl_batch2 = recourse_population(
+    #         scm,
+    #         batches[2][0],
+    #         batches[2][1],
+    #         batches[2][2],
+    #         y_name,
+    #         costs,
+    #         N_max=N_recourse,
+    #         proportion=1.0,
+    #         r_type=r_type,
+    #         t_type=t_type,
+    #         gamma=gamma,
+    #         eta=gamma,
+    #         thresh=thresh,
+    #         lbd=lbd,
+    #         model=model,
+    #         use_scm_pred=use_scm_pred,
+    #         predict_individualized=predict_individualized,
+    #         NGEN=NGEN,
+    #         POP_SIZE=POP_SIZE,
+    #         rounding_digits=rounding_digits,
+    #     )
+    #     X_batch2_post_impl, y_batch2_post_impl = (
+    #         result_tpl_batch2[5],
+    #         result_tpl_batch2[6],
+    #     )
+    #     recourse_recommended_ixs_batch2 = result_tpl_batch2[9][
+    #         "recourse_recommended_ixs"
+    #     ]
+    #
+    #     # save results
+    #     print("Saving results for {}_{} batch2 ...".format(t_type, r_type))
+    #     savepath_batch2 = savepath_it_config + "batch2_"
+    #     save_recourse_result(savepath_batch2, result_tpl_batch2)
+    #     print("Done.")
+    #
+    #     # assess acceptance for batch 2 with model_mixed
+    #     predict_batch2 = model_post.predict(
+    #         X_batch2_post_impl.loc[recourse_recommended_ixs_batch2, :]
+    #     )
+    #     eta_obs_batch2 = np.mean(predict_batch2)
 
-    if assess_robustness:
-        # create a large dataset with mixed pre- and post-recourse data
-        print("Create dataset mixed batch 0 pre and batch 1 post recourse")
-        X_train_large = batches[0][0].copy()
-        y_train_large = batches[0][1].copy()
-
-        y_batch1_post = batches[1][1].copy()
-        y_batch1_post_impl = result_tpl[6]
-        y_batch1_post.loc[y_batch1_post_impl.index] = y_batch1_post_impl
-
-        X_train_large = X_train_large.append(X_batch1_post, ignore_index=True)
-        y_train_large = y_train_large.append(y_batch1_post, ignore_index=True)
-
-        # fit a separate model on batch0_pre and batch1_post
-
-        print("Fit model on mixed dataset")
-        model_post = None
-        if model_type == "logreg":
-            model_post = LogisticRegression()
-        elif model_type == "rf":
-            model_post = RandomForestClassifier(**kwargs_model)
-        else:
-            raise NotImplementedError(
-                "model type {} not implemented".format(model_type)
-            )
-
-        model_post.fit(X_train_large, y_train_large)
-        score_post = model_post.score(batches[2][0], batches[2][1])
-        f1_post = f1_score(batches[2][1], model_post.predict(batches[2][0]))
-
-        # perform recourse on batch 1
-        print("Perform recourse on batch 2")
-
-        result_tpl_batch2 = recourse_population(
-            scm,
-            batches[2][0],
-            batches[2][1],
-            batches[2][2],
-            y_name,
-            costs,
-            N_max=N_recourse,
-            proportion=1.0,
-            r_type=r_type,
-            t_type=t_type,
-            gamma=gamma,
-            eta=gamma,
-            thresh=thresh,
-            lbd=lbd,
-            model=model,
-            use_scm_pred=use_scm_pred,
-            predict_individualized=predict_individualized,
-            NGEN=NGEN,
-            POP_SIZE=POP_SIZE,
-            rounding_digits=rounding_digits,
-        )
-        X_batch2_post_impl, y_batch2_post_impl = (
-            result_tpl_batch2[5],
-            result_tpl_batch2[6],
-        )
-        recourse_recommended_ixs_batch2 = result_tpl_batch2[9][
-            "recourse_recommended_ixs"
-        ]
-
-        # save results
-        print("Saving results for {}_{} batch2 ...".format(t_type, r_type))
-        savepath_batch2 = savepath_it_config + "batch2_"
-        save_recourse_result(savepath_batch2, result_tpl_batch2)
-        print("Done.")
-
-        # assess acceptance for batch 2 with model_mixed
-        predict_batch2 = model_post.predict(
-            X_batch2_post_impl.loc[recourse_recommended_ixs_batch2, :]
-        )
-        eta_obs_batch2 = np.mean(predict_batch2)
-
-    refit_models(result_tpl, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_it_config, model_score,
-                 f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model)
+    #refit_models(result_tpl, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_it_config, model_score,
+    #             f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model)
 
     if robustness:
         # Create slightly different scm with data distributional shift

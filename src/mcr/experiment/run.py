@@ -125,11 +125,13 @@ def run_recourse(
     log_path,
     N,
     robustness,
+    parallelisation,
     kwargs_model,
 ):
-    log_file_path = f"{log_path}/child_{r_type}_{t_type}_output.log"
-    sys.stdout = open(log_file_path, "a")
-    sys.stderr = sys.stdout
+    if parallelisation:
+        log_file_path = f"{log_path}/child_{r_type}_{t_type}_output.log"
+        sys.stdout = open(log_file_path, "a")
+        sys.stderr = sys.stdout
     print("")
     print("combination: {} {}".format(r_type, t_type))
 
@@ -255,6 +257,7 @@ def run_recourse(
         for node in scm.dag.var_names:
             if node != scm.predict_target:
                 for shift in shifts:
+                    print(f"Node: {node}, shift (mean, var): {shift}")
                     mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(shift[0]), scale=jnp.array(shift[1]))
                     shift_scm.update_noise({node: mean_shift_dist})
                     noise_shift = shift_scm.sample_context(N)
@@ -262,11 +265,21 @@ def run_recourse(
                     X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
                     y_shift = df_shift[y_name]
 
+                    shifted_model = get_model(model_type, kwargs_model, scm)
+                    batches = create_batches(X_shift, y_shift, N, round(N/2), noise_shift)
+
+                    print("fitting model with the specified parameters")
+                    shifted_model.fit(batches[0][0], batches[0][1])
+                    model_score = model.score(batches[1][0], batches[1][1])
+                    f1 = f1_score(batches[1][1], shifted_model.predict(batches[1][0]))
+                    print(f"model fit with accuracy {model_score}")
+                    print(f"f1-score {f1}")
+
                     result_tpl_shift = recourse_population(
                         shift_scm,
-                        X_shift,
-                        y_shift,
-                        noise_shift,
+                        batches[1][0],
+                        batches[1][1],
+                        batches[1][2],
                         y_name,
                         costs,
                         N_max=N_recourse,
@@ -284,22 +297,97 @@ def run_recourse(
                         POP_SIZE=POP_SIZE,
                         rounding_digits=rounding_digits,
                     )
-
-                    savepath_shift = it_path + "{}-{}-mean{}-var{}/".format(t_type, r_type, shift[0], shift[1])
+                    robustness_path = it_path + "robustness/"
+                    if not os.path.exists(robustness_path):
+                        os.mkdir(robustness_path)
+                    savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node, shift[0], shift[1])
                     os.mkdir(savepath_shift)
                     save_recourse_result(savepath_shift, result_tpl_shift)
 
                     X_batch1_post_impl = result_tpl_shift[5]
-                    X_batch1_post = X_shift.copy()
+                    X_batch1_post = batches[1][0].copy()
                     X_batch1_post.loc[X_batch1_post_impl.index, :] = X_batch1_post_impl
 
                     refit_models(result_tpl_shift, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_shift,
                                  model_score,
                                  f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model)
 
+                    shifted_post = result_tpl_shift[5]
+                    post_shifted_pred = shifted_model.predict(shifted_post)
+                    invalidated = np.sum(post_shifted_pred == 0)/len(post_shifted_pred)
+                    print(f"Invalidated perf of M2: {invalidated}")
+                    validated_m2 = np.sum(post_shifted_pred)/len(post_shifted_pred)
+                    print(f"Validated perf of M2: {validated_m2}")
+                    pre_shift_pred = model.predict(shifted_post)
+                    validated_m1 = np.sum(pre_shift_pred)/len(pre_shift_pred)
+                    print(f"Validated perf of M1: {validated_m1}")
+
+                    with open(savepath_shift + "stats_shift.json", "w") as f:
+                        json.dump({'inv':invalidated, 'val_m2': validated_m2, 'val_m1': validated_m1}, f)
+
 
     print("-----------------------------FINISHED----------------------------------")
     return "FINISHED"
+
+
+def create_batches(X, y, N, batch_size, noise):
+    batches = []
+    i = 0
+    while i < N:
+        X_i, y_i = X.iloc[i: i + batch_size, :], y.iloc[i: i + batch_size]
+        U_i = noise.iloc[i: i + batch_size, :]
+        batches.append((X_i, y_i, U_i))
+        i += batch_size
+    return batches
+
+def get_model(model_type, kwargs_model, tuning=False, df=None, y_name=None, scm=None):
+    if model_type == "logreg":
+        model = LogisticRegression(**kwargs_model)
+    elif model_type == "rf":
+        # parallelize random forest
+        kwargs_model["n_jobs"] = -1
+        if tuning:
+            rf_random = get_tuning_rf(50, 3)
+
+            # prepare tuning
+            scm_cp = scm.copy()
+            _ = scm_cp.sample_context(10 ** 4)
+            data_tuning = scm_cp.compute()
+            X_tuning = data_tuning[df.columns[df.columns != y_name]]
+            y_tuning = data_tuning[y_name]
+
+            # perform tuning
+            print("tuning random forest parameters")
+            rf_random.fit(X_tuning, y_tuning)
+            rf_best_pars = rf_random.best_params_
+            for par in rf_best_pars.keys():
+                if par not in kwargs_model:
+                    kwargs_model[par] = rf_best_pars[par]
+        if "max_depth" not in kwargs_model:
+            kwargs_model["max_depth"] = 30
+        if "n_estimators" not in kwargs_model:
+            kwargs_model["n_estimators"] = 50
+        if "class_weight" not in kwargs_model:
+            kwargs_model["class_weight"] = "balanced_subsample"
+
+        model = RandomForestClassifier(**kwargs_model)
+    elif model_type == "adaboost":
+        model = AdaBoostClassifier(**kwargs_model)
+    elif model_type == "SVC":
+        model = SVC(probability=True, **kwargs_model)
+    elif model_type == "MLP":
+        model = MLPClassifier(
+            solver="adam",
+            alpha=1e-5,
+            hidden_layer_sizes=(10, 10, 5),
+            random_state=1,
+            **kwargs_model,
+        )
+    else:
+        raise NotImplementedError(
+            "model type {} not implemented".format(model_type)
+        )
+    return model
 
 
 def run_experiment(
@@ -340,8 +428,9 @@ def run_experiment(
         os.makedirs(log_path)
     log_file_path = f"{savepath}/logs/master.log"
 
-    sys.stdout = open(log_file_path, "a")
-    sys.stderr = sys.stdout
+    if parallelisation:
+        sys.stdout = open(log_file_path, "a")
+        sys.stderr = sys.stdout
 
     # extract SCM
 
@@ -463,53 +552,7 @@ def run_experiment(
 
         print("Fitting model (type {})...".format(model_type))
 
-        model = None
-        if model_type == "logreg":
-            model = LogisticRegression(**kwargs_model)
-        elif model_type == "rf":
-            # parallelize random forest
-            kwargs_model["n_jobs"] = -1
-            if tuning:
-                rf_random = get_tuning_rf(50, 3)
-
-                # prepare tuning
-                scm_cp = scm.copy()
-                _ = scm_cp.sample_context(10**4)
-                data_tuning = scm_cp.compute()
-                X_tuning = data_tuning[df.columns[df.columns != y_name]]
-                y_tuning = data_tuning[y_name]
-
-                # perform tuning
-                print("tuning random forest parameters")
-                rf_random.fit(X_tuning, y_tuning)
-                rf_best_pars = rf_random.best_params_
-                for par in rf_best_pars.keys():
-                    if par not in kwargs_model:
-                        kwargs_model[par] = rf_best_pars[par]
-            if "max_depth" not in kwargs_model:
-                kwargs_model["max_depth"] = 30
-            if "n_estimators" not in kwargs_model:
-                kwargs_model["n_estimators"] = 50
-            if "class_weight" not in kwargs_model:
-                kwargs_model["class_weight"] = "balanced_subsample"
-
-            model = RandomForestClassifier(**kwargs_model)
-        elif model_type == "adaboost":
-            model = AdaBoostClassifier(**kwargs_model)
-        elif model_type == "SVC":
-            model = SVC(probability=True, **kwargs_model)
-        elif model_type == "MLP":
-            model = MLPClassifier(
-                solver="adam",
-                alpha=1e-5,
-                hidden_layer_sizes=(10, 10, 5),
-                random_state=1,
-                **kwargs_model,
-            )
-        else:
-            raise NotImplementedError(
-                "model type {} not implemented".format(model_type)
-            )
+        model = get_model(model_type, kwargs_model)
 
         print("fitting model with the specified parameters")
         model.fit(batches[0][0], batches[0][1])
@@ -550,27 +593,7 @@ def run_experiment(
         model_refits_batch0_scores = []
         model_refits_batch0_f1s = []
         for ii in range(nr_refits_batch0):
-            model_tmp = None
-            if model_type == "logreg":
-                model_tmp = LogisticRegression(penalty="none", **kwargs_model)
-            elif model_type == "rf":
-                model_tmp = RandomForestClassifier(n_jobs=-1)
-            elif model_type == "adaboost":
-                model_tmp = AdaBoostClassifier(**kwargs_model)
-            elif model_type == "SVC":
-                model_tmp = SVC(probability=True, **kwargs_model)
-            elif model_type == "MLP":
-                model_tmp = MLPClassifier(
-                    solver="adam",
-                    alpha=1e-5,
-                    hidden_layer_sizes=(10, 10, 5),
-                    random_state=1,
-                    **kwargs_model,
-                )
-            else:
-                raise NotImplementedError(
-                    "model type {} not implemented".format(model_type)
-                )
+            model_tmp = get_model(model_type, kwargs_model)
             sample_locs = (
                 batches[0][0].sample(batches[0][0].shape[0], replace=True).index
             )
@@ -632,6 +655,7 @@ def run_experiment(
                         log_path,
                         N,
                         robustness,
+                        parallelisation,
                         kwargs_model,
                     ),
                 )
@@ -672,5 +696,6 @@ def run_experiment(
                     log_path,
                     N,
                     robustness,
+                    parallelisation,
                     kwargs_model,
                 )

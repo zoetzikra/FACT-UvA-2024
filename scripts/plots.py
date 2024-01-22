@@ -34,6 +34,7 @@ def has_levels(string):
 dfss = []
 
 if __name__ == "__main__":
+    # TODO create script that creates table for the shifted dataset in case of robustness
     parser = argparse.ArgumentParser("")
 
     parser.add_argument(

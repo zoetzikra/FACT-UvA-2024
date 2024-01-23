@@ -1,0 +1,186 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Creating 2 batches of data with 2000 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.8775
+f1-score 0.876074860900354
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[1.57900451 1.64687339 0.67893182]]
+[[1.48724214 1.58348161 0.72248225]]
+[[1.82911183 1.35886616 0.68821277]]
+[[0.94645141 0.63628312 1.22181442]]
+[[0.77622392 0.29514788 1.54109921]]
+
+
+-------------
+ITERATION 1
+-------------
+Creating 2 batches of data with 2000 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.8865
+f1-score 0.8854114083796063
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[ 2.64462373  2.18060343 -0.36827544]]
+[[ 2.36831716  2.24085065 -0.16452653]]
+[[2.08867874 1.7930746  0.2614268 ]]
+[[ 2.65749835  2.30636485 -0.44779976]]
+[[ 2.74894893  2.36048118 -0.58236049]]
+
+
+-------------
+ITERATION 2
+-------------
+Creating 2 batches of data with 2000 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.8815
+f1-score 0.8802425467407782
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[1.24110789 0.88385639 1.21965097]]
+[[ 3.8048419   3.4320748  -1.19752876]]
+[[ 2.87031738  2.66932025 -0.63581294]]
+[[2.16002384 1.82801025 0.31938794]]
+[[1.12442147 1.1636498  1.03053286]]
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 199
+# of recommended ixs 200
+SUCCESS in folder /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/
+# of recourse individuals 197
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 198
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 198
+# of recommended ixs 200
+# of recourse individuals 197
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 198
+# of recommended ixs 200
+SUCCESS in folder /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/
+# of recourse individuals 199
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 199
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+SUCCESS in folder /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/
+# of recourse individuals 199
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+# of recourse individuals 200
+# of recommended ixs 200
+SUCCESS in folder /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/
+FINISHED TIME: 18433.965941667557

@@ -1,0 +1,18 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 2 runs found
+
+
+-------------
+ITERATION 2
+-------------
+Creating 2 batches of data with 10000 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+model fit with accuracy 0.9996
+f1-score 0.9997763113745666
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.

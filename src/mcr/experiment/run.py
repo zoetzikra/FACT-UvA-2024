@@ -126,6 +126,7 @@ def run_recourse(
     N,
     robustness,
     parallelisation,
+    shifts,
     kwargs_model,
 ):
     if parallelisation:
@@ -253,7 +254,6 @@ def run_recourse(
     if robustness:
         # Create slightly different scm with data distributional shift
         shift_scm = scm.copy()
-        shifts = [(0.5, 1.0), (0.0, 0.5), (0.5, 0.5)]
         for node in scm.dag.var_names:
             if node != scm.predict_target:
                 for shift in shifts:
@@ -298,8 +298,9 @@ def run_recourse(
                         rounding_digits=rounding_digits,
                     )
                     robustness_path = it_path + "robustness/"
-                    savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node, shift[0], shift[1])
-                    os.mkdir(savepath_shift)
+                    savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node,
+                                                                                  shift[0], shift[1])
+
                     save_recourse_result(savepath_shift, result_tpl_shift)
 
                     X_batch1_post_impl = result_tpl_shift[5]
@@ -615,11 +616,19 @@ def run_experiment(
         if assess_robustness:
             batches[2][0].to_csv(it_path + "X_val.csv")
             batches[2][1].to_csv(it_path + "y_val.csv")
+        shifts = None
         if robustness:
+            shifts = [(0.5, 1.0), (0.0, 0.5), (0.5, 0.5)]
             robustness_path = it_path + "robustness/"
             if not os.path.exists(robustness_path):
                 os.mkdir(robustness_path)
-
+            for r_type, t_type in all_combinations:
+                for node in scm.dag.var_names:
+                    if node != scm.predict_target:
+                        for shift in shifts:
+                            savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node,
+                                                                                  shift[0], shift[1])
+                            os.mkdir(savepath_shift)
         if parallelisation:
             # Set up the pool of processes
 
@@ -658,6 +667,7 @@ def run_experiment(
                         N,
                         robustness,
                         parallelisation,
+                        shifts,
                         kwargs_model,
                     ),
                 )
@@ -699,5 +709,6 @@ def run_experiment(
                     N,
                     robustness,
                     parallelisation,
+                    shifts,
                     kwargs_model,
                 )

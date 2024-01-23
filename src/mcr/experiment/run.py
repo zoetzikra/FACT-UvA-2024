@@ -137,8 +137,6 @@ def run_recourse(
     print("combination: {} {}".format(r_type, t_type))
 
     savepath_it_config = it_path + "{}-{}/".format(t_type, r_type)
-    print(savepath_it_config)
-    os.mkdir(savepath_it_config)
 
     # # perform recourse on batch 1
     # result_tpl = recourse_population(
@@ -629,12 +627,17 @@ def run_experiment(
                             savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node,
                                                                                   shift[0], shift[1])
                             os.mkdir(savepath_shift)
+
         if parallelisation:
             # Set up the pool of processes
 
             # Submit tasks to the pool
             futures = []
             for r_type, t_type in all_combinations:
+                savepath_it_config = it_path + "{}-{}/".format(t_type, r_type)
+                print(savepath_it_config)
+                os.mkdir(savepath_it_config)
+
                 future = multiprocess.Process(
                     target=run_recourse,
                     args=(
@@ -679,6 +682,10 @@ def run_experiment(
                 future.join()
         else:
             for r_type, t_type in all_combinations:
+                savepath_it_config = it_path + "{}-{}/".format(t_type, r_type)
+                print(savepath_it_config)
+                os.mkdir(savepath_it_config)
+
                 run_recourse(
                     r_type,
                     t_type,

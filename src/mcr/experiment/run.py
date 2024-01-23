@@ -275,33 +275,33 @@ def run_recourse(
                     print(f"model fit with accuracy {model_score}")
                     print(f"f1-score {f1}")
 
-                    # result_tpl_shift = recourse_population(
-                    #     shift_scm,
-                    #     batches[1][0],
-                    #     batches[1][1],
-                    #     batches[1][2],
-                    #     y_name,
-                    #     costs,
-                    #     N_max=N_recourse,
-                    #     proportion=1.0,
-                    #     r_type=r_type,
-                    #     t_type=t_type,
-                    #     gamma=gamma,
-                    #     eta=gamma,
-                    #     thresh=thresh,
-                    #     lbd=lbd,
-                    #     model=model,
-                    #     use_scm_pred=use_scm_pred,
-                    #     predict_individualized=predict_individualized,
-                    #     NGEN=NGEN,
-                    #     POP_SIZE=POP_SIZE,
-                    #     rounding_digits=rounding_digits,
-                    # )
-                    # robustness_path = it_path + "robustness/"
-                    # savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node,
-                    #                                                               shift[0], shift[1])
-                    #
-                    # save_recourse_result(savepath_shift, result_tpl_shift)
+                    result_tpl_shift = recourse_population(
+                        shift_scm,
+                        batches[1][0],
+                        batches[1][1],
+                        batches[1][2],
+                        y_name,
+                        costs,
+                        N_max=N_recourse,
+                        proportion=1.0,
+                        r_type=r_type,
+                        t_type=t_type,
+                        gamma=gamma,
+                        eta=gamma,
+                        thresh=thresh,
+                        lbd=lbd,
+                        model=model,
+                        use_scm_pred=use_scm_pred,
+                        predict_individualized=predict_individualized,
+                        NGEN=NGEN,
+                        POP_SIZE=POP_SIZE,
+                        rounding_digits=rounding_digits,
+                    )
+                    robustness_path = it_path + "robustness/"
+                    savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node,
+                                                                                  shift[0], shift[1])
+
+                    save_recourse_result(savepath_shift, result_tpl_shift)
 
                     X_batch1_post_impl = result_tpl_shift[5]
                     X_batch1_post = batches[1][0].copy()

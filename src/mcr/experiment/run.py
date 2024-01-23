@@ -298,8 +298,6 @@ def run_recourse(
                         rounding_digits=rounding_digits,
                     )
                     robustness_path = it_path + "robustness/"
-                    if not os.path.exists(robustness_path):
-                        os.mkdir(robustness_path)
                     savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node, shift[0], shift[1])
                     os.mkdir(savepath_shift)
                     save_recourse_result(savepath_shift, result_tpl_shift)
@@ -617,6 +615,10 @@ def run_experiment(
         if assess_robustness:
             batches[2][0].to_csv(it_path + "X_val.csv")
             batches[2][1].to_csv(it_path + "y_val.csv")
+        if robustness:
+            robustness_path = it_path + "robustness/"
+            if not os.path.exists(robustness_path):
+                os.mkdir(robustness_path)
 
         if parallelisation:
             # Set up the pool of processes

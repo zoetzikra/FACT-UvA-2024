@@ -13,7 +13,7 @@ RUNS_RESULTS_DIR="$PROJECT_DIR"/results/7var-covid/
 
 mkdir -p "$LOGS_RESULTS_DIR"
 
-rm -rf "$RUNS_RESULTS_DIR"/N20000_Nrec200_gam0.9_t0.5_lbd2999.0_nit3_NGEN700_POPS300_74/2/
+# rm -rf "$RUNS_RESULTS_DIR"/N20000_Nrec200_gam0.9_t0.5_lbd2999.0_nit3_NGEN700_POPS300_74/2/
 
 rm -rf "$RUNS_RESULTS_DIR"/N20000_Nrec200_gam0.75_t0.5_lbd2999.0_nit3_NGEN700_POPS300_943/2/
 
@@ -32,18 +32,18 @@ rm -rf "$RUNS_RESULTS_DIR"/N20000_Nrec200_gam0.95_t0.5_lbd2999.0_nit3_NGEN700_PO
 
 CONFIDENCE=0.75
 JOB_NAME=7var-resume-covid-confidence-${CONFIDENCE}
-sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid-resume.job 7var-covid 20000 200 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 700 --POP_SIZE 300 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --id 943 --parallelise 
+sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid-resume.job 7var-covid 20000 200 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 700 --POP_SIZE 300 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --id 943 
 
 
 CONFIDENCE=0.85
 JOB_NAME=7var-resume-covid-confidence-${CONFIDENCE}
-sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid-resume.job 7var-covid 20000 200 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 700 --POP_SIZE 300 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --id 36 --parallelise
+sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid-resume.job 7var-covid 20000 200 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 700 --POP_SIZE 300 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --id 36
 
 
-CONFIDENCE=0.90
-JOB_NAME=7var-resume-covid-confidence-${CONFIDENCE}
-sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid-resume.job 7var-covid 20000 200 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 700 --POP_SIZE 300 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --id 74 --parallelise
+# CONFIDENCE=0.90
+# JOB_NAME=7var-resume-covid-confidence-${CONFIDENCE}
+# sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid-resume.job 7var-covid 20000 200 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 700 --POP_SIZE 300 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --id 74
 
 CONFIDENCE=0.95
 JOB_NAME=7var-resume-covid-confidence-${CONFIDENCE}
-sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid-resume.job 7var-covid 20000 200 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 700 --POP_SIZE 300 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --id 400 --parallelise 
+sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid-resume.job 7var-covid 20000 200 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 700 --POP_SIZE 300 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --id 400

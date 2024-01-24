@@ -256,8 +256,8 @@ def run_recourse(
             if node != scm.predict_target:
                 for shift in shifts:
                     print(f"Node: {node}, shift (mean, var): {shift}")
-                    # mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(shift[0]), scale=jnp.array(shift[1]))
-                    # shift_scm.update_noise({node: mean_shift_dist})
+                    mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(shift[0]), scale=jnp.array(shift[1]))
+                    shift_scm.update_noise({node: mean_shift_dist})
                     # noise_shift = shift_scm.sample_context(N)
                     # df_shift = shift_scm.compute()
                     # X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]

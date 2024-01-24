@@ -127,6 +127,7 @@ def run_recourse(
     robustness,
     parallelisation,
     shifts,
+    shifted_batches,
     kwargs_model,
 ):
     if parallelisation:
@@ -256,71 +257,64 @@ def run_recourse(
             if node != scm.predict_target:
                 for shift in shifts:
                     print(f"Node: {node}, shift (mean, var): {shift}")
-                    mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(shift[0]), scale=jnp.array(shift[1]))
-                    shift_scm.update_noise({node: mean_shift_dist})
-                    #noise_shift = shift_scm.sample_context(N)
-                    #df_shift = shift_scm.compute()
-                    # X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
-                    # y_shift = df_shift[y_name]
-    #
-    #                 shifted_model = get_model(model_type, kwargs_model, scm)
-    #                 batches = create_batches(X_shift, y_shift, N, round(N/2), noise_shift)
-    #
-    #                 print("fitting model with the specified parameters")
-    #                 shifted_model.fit(batches[0][0], batches[0][1])
-    #                 model_score = model.score(batches[1][0], batches[1][1])
-    #                 f1 = f1_score(batches[1][1], shifted_model.predict(batches[1][0]))
-    #                 print(f"model fit with accuracy {model_score}")
-    #                 print(f"f1-score {f1}")
-    #
-    #                 result_tpl_shift = recourse_population(
-    #                     shift_scm,
-    #                     batches[1][0],
-    #                     batches[1][1],
-    #                     batches[1][2],
-    #                     y_name,
-    #                     costs,
-    #                     N_max=N_recourse,
-    #                     proportion=1.0,
-    #                     r_type=r_type,
-    #                     t_type=t_type,
-    #                     gamma=gamma,
-    #                     eta=gamma,
-    #                     thresh=thresh,
-    #                     lbd=lbd,
-    #                     model=model,
-    #                     use_scm_pred=use_scm_pred,
-    #                     predict_individualized=predict_individualized,
-    #                     NGEN=NGEN,
-    #                     POP_SIZE=POP_SIZE,
-    #                     rounding_digits=rounding_digits,
-    #                 )
-    #                 robustness_path = it_path + "robustness/"
-    #                 savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node,
-    #                                                                               shift[0], shift[1])
-    #
-    #                 save_recourse_result(savepath_shift, result_tpl_shift)
-    #
-    #                 X_batch1_post_impl = result_tpl_shift[5]
-    #                 X_batch1_post = batches[1][0].copy()
-    #                 X_batch1_post.loc[X_batch1_post_impl.index, :] = X_batch1_post_impl
-    #
-    #                 refit_models(result_tpl_shift, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_shift,
-    #                              model_score,
-    #                              f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model)
-    #
-    #                 shifted_post = result_tpl_shift[5]
-    #                 post_shifted_pred = shifted_model.predict(shifted_post)
-    #                 invalidated = np.sum(post_shifted_pred == 0)/len(post_shifted_pred)
-    #                 print(f"Invalidated perf of M2: {invalidated}")
-    #                 validated_m2 = np.sum(post_shifted_pred)/len(post_shifted_pred)
-    #                 print(f"Validated perf of M2: {validated_m2}")
-    #                 pre_shift_pred = model.predict(shifted_post)
-    #                 validated_m1 = np.sum(pre_shift_pred)/len(pre_shift_pred)
-    #                 print(f"Validated perf of M1: {validated_m1}")
-    #
-    #                 with open(savepath_shift + "stats_shift.json", "w") as f:
-    #                     json.dump({'inv':invalidated, 'val_m2': validated_m2, 'val_m1': validated_m1}, f)
+                    shifted_model = get_model(model_type, kwargs_model, scm)
+                    batches = shifted_batches[f"{node}_{shift[0]}_{shift[1]}"].copy()
+
+                    print("fitting model with the specified parameters")
+                    shifted_model.fit(batches[0][0], batches[0][1])
+                    model_score = model.score(batches[1][0], batches[1][1])
+                    f1 = f1_score(batches[1][1], shifted_model.predict(batches[1][0]))
+                    print(f"model fit with accuracy {model_score}")
+                    print(f"f1-score {f1}")
+
+                    result_tpl_shift = recourse_population(
+                        shift_scm,
+                        batches[1][0],
+                        batches[1][1],
+                        batches[1][2],
+                        y_name,
+                        costs,
+                        N_max=N_recourse,
+                        proportion=1.0,
+                        r_type=r_type,
+                        t_type=t_type,
+                        gamma=gamma,
+                        eta=gamma,
+                        thresh=thresh,
+                        lbd=lbd,
+                        model=model,
+                        use_scm_pred=use_scm_pred,
+                        predict_individualized=predict_individualized,
+                        NGEN=NGEN,
+                        POP_SIZE=POP_SIZE,
+                        rounding_digits=rounding_digits,
+                    )
+                    robustness_path = it_path + "robustness/"
+                    savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node,
+                                                                                  shift[0], shift[1])
+
+                    save_recourse_result(savepath_shift, result_tpl_shift)
+
+                    X_batch1_post_impl = result_tpl_shift[5]
+                    X_batch1_post = batches[1][0].copy()
+                    X_batch1_post.loc[X_batch1_post_impl.index, :] = X_batch1_post_impl
+
+                    refit_models(result_tpl_shift, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_shift,
+                                 model_score,
+                                 f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model)
+
+                    shifted_post = result_tpl_shift[5]
+                    post_shifted_pred = shifted_model.predict(shifted_post)
+                    invalidated = np.sum(post_shifted_pred == 0)/len(post_shifted_pred)
+                    print(f"Invalidated perf of M2: {invalidated}")
+                    validated_m2 = np.sum(post_shifted_pred)/len(post_shifted_pred)
+                    print(f"Validated perf of M2: {validated_m2}")
+                    pre_shift_pred = model.predict(shifted_post)
+                    validated_m1 = np.sum(pre_shift_pred)/len(pre_shift_pred)
+                    print(f"Validated perf of M1: {validated_m1}")
+
+                    with open(savepath_shift + "stats_shift.json", "w") as f:
+                        json.dump({'inv':invalidated, 'val_m2': validated_m2, 'val_m1': validated_m1}, f)
 
 
     print("-----------------------------FINISHED----------------------------------")
@@ -615,6 +609,7 @@ def run_experiment(
             batches[2][0].to_csv(it_path + "X_val.csv")
             batches[2][1].to_csv(it_path + "y_val.csv")
         shifts = None
+        shifted_batches = None
         if robustness:
             shifts = [(0.5, 1.0), (0.0, 0.5), (0.5, 0.5)]
             robustness_path = it_path + "robustness/"
@@ -627,6 +622,25 @@ def run_experiment(
                             savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type, node,
                                                                                   shift[0], shift[1])
                             os.mkdir(savepath_shift)
+
+            shifted_batches = {}
+            shift_scm = scm.copy()
+            for node in scm.dag.var_names:
+                if node != scm.predict_target:
+                    for shift in shifts:
+                        print(f"Node: {node}, shift (mean, var): {shift}")
+                        mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(shift[0]),
+                                                                       scale=jnp.array(shift[1]))
+                        shift_scm.update_noise({node: mean_shift_dist})
+                        noise_shift = shift_scm.sample_context(N)
+                        df_shift = shift_scm.compute()
+                        X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
+                        y_shift = df_shift[y_name]
+
+                        batches = create_batches(X_shift, y_shift, N, round(N / 2), noise_shift)
+
+                        comb_key = f"{node}_{shift[0]}_{shift[1]}"
+                        shifted_batches[comb_key] = batches
 
         if parallelisation:
             # Set up the pool of processes
@@ -671,6 +685,7 @@ def run_experiment(
                         robustness,
                         parallelisation,
                         shifts,
+                        shifted_batches,
                         kwargs_model,
                     ),
                 )
@@ -717,5 +732,6 @@ def run_experiment(
                     robustness,
                     parallelisation,
                     shifts,
+                    shifted_batches,
                     kwargs_model,
                 )

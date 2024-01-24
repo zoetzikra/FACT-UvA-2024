@@ -13,7 +13,7 @@ LOGS_RESULTS_DIR="$PROJECT_DIR"/7var-covid-logs/
 
 mkdir -p "$LOGS_RESULTS_DIR"
 
-rm -rf "$RUNS_RESULTS_DIR"/N20000_Nrec200_gam0.95_t0.5_lbd2999.0_nit3_NGEN700_POPS300_809/
+rm -rf "$SAVE_DIR"/N20000_Nrec200_gam0.95_t0.5_lbd2999.0_nit3_NGEN700_POPS300_809/
 
 
 # confidence_levels=(0.75 0.85 0.90 0.95)

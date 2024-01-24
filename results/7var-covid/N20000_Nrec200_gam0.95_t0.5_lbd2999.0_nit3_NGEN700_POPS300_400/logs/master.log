@@ -121,3 +121,21 @@ SUCCESS in folder /home/scur1398/icr/results/7var-covid/N20000_Nrec200_gam0.9_t0
 # of recommended ixs 200
 SUCCESS in folder /home/scur1398/icr/results/7var-covid/N20000_Nrec200_gam0.75_t0.5_lbd2999.0_nit3_NGEN700_POPS300_943/
 FINISHED TIME: 8776.28287100792
+Storing all relevant data...
+Run all types of recourse...
+results for up to 2 runs found
+
+
+-------------
+ITERATION 2
+-------------
+Creating 2 batches of data with 10000 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+model fit with accuracy 1.0
+f1-score 1.0
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.

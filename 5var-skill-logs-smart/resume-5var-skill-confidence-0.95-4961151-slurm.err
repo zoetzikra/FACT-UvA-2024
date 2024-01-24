@@ -1,0 +1,24 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius+and+Lisa#SoftwarepolicySnelliusandLisa-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+usage: Create recourse experiments. For every configuration a separate folder is created. Within every folder a folder for every interation is created.The savepath specifies the folder in which these folders shall be placed.
+       [-h] [--POP_SIZE POP_SIZE] [--NGEN NGEN] [--thresh THRESH]
+       [--n_digits N_DIGITS] [--logging_level LOGGING_LEVEL]
+       [--predict_individualized PREDICT_INDIVIDUALIZED]
+       [--assess_robustness ASSESS_ROBUSTNESS] [--nr_refits NR_REFITS]
+       [--model_type MODEL_TYPE] [--t_type T_TYPE] [--id ID] [--parallelise]
+       [--genetic_algo GENETIC_ALGO] [--ignore_np_errs IGNORE_NP_ERRS]
+       scm_name N N_recourse gamma lbd savepath n_iterations
+Create recourse experiments. For every configuration a separate folder is created. Within every folder a folder for every interation is created.The savepath specifies the folder in which these folders shall be placed.: error: argument N_recourse: invalid int value: '0.95'

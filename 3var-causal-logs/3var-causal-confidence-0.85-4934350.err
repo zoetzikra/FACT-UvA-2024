@@ -1,0 +1,76 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius+and+Lisa#SoftwarepolicySnelliusandLisa-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/2/improvement-individualized/costss.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/2/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/2/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/2/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/1/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/1/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/1/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/0/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/0/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.85_t0.5_lbd300.0_nit3_NGEN600_POPS300_699/0/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/2/improvement-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/2/improvement-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/2/improvement-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/2/acceptance-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/2/acceptance-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/2/acceptance-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/2/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/2/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/2/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/1/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/1/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/1/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/0/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/0/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.75_t0.5_lbd300.0_nit3_NGEN600_POPS300_834/0/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/2/improvement-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/2/improvement-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/2/improvement-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/2/acceptance-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/2/acceptance-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/2/acceptance-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/2/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/2/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/2/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/1/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/1/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/1/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/0/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/0/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.9_t0.5_lbd300.0_nit3_NGEN600_POPS300_687/0/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/improvement-individualized/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/improvement-individualized/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/improvement-individualized/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/acceptance-individualized/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/acceptance-individualized/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/acceptance-individualized/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/improvement-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/improvement-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/improvement-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/acceptance-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/acceptance-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/acceptance-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/2/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/1/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/1/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/1/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/0/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/0/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1398/icr/results-nsga3/3var-c-collected/N4000_Nrec200_gam0.95_t0.5_lbd300.0_nit3_NGEN600_POPS300_26/0/counterfactual-subpopulation/invs.csv

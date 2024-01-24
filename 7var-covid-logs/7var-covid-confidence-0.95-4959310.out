@@ -1,0 +1,14 @@
+
+JOB STATISTICS
+==============
+Job ID: 4959310
+Cluster: snellius
+User/Group: scur1398/scur1398
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 32
+CPU Utilized: 1-01:24:03
+CPU Efficiency: 7.44% of 14-05:13:04 core-walltime
+Job Wall-clock time: 10:39:47
+Memory Utilized: 1.40 GB
+Memory Efficiency: 8.97% of 15.62 GB

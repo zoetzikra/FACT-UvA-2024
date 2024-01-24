@@ -1,0 +1,16 @@
+/home/scur1398/icr/results-nsga3/7var-covid-collected/N20000_Nrec200_gam0.95_t0.5_lbd2999.0_nit3_NGEN700_POPS300
+savepath_config: /home/scur1398/icr/results-nsga3/7var-covid-collected/N20000_Nrec200_gam0.95_t0.5_lbd2999.0_nit3_NGEN700_POPS300_61
+
+JOB STATISTICS
+==============
+Job ID: 4958822
+Cluster: snellius
+User/Group: scur1398/scur1398
+State: FAILED (exit code 1)
+Nodes: 1
+Cores per node: 16
+CPU Utilized: 00:00:09
+CPU Efficiency: 2.68% of 00:05:36 core-walltime
+Job Wall-clock time: 00:00:21
+Memory Utilized: 1.32 MB
+Memory Efficiency: 0.00% of 62.50 GB

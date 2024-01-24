@@ -1,0 +1,18 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius+and+Lisa#SoftwarepolicySnelliusandLisa-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+slurmstepd: error: *** JOB 4934360 ON tcn45 CANCELLED AT 2024-01-23T02:09:37 DUE TO TIME LIMIT ***
+slurmstepd: error: container_p_join: open failed for /slurm/4934360/.ns: No such file or directory
+slurmstepd: error: container_g_join(4934360): No such file or directory

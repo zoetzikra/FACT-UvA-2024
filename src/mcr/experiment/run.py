@@ -249,19 +249,19 @@ def run_recourse(
     #refit_models(result_tpl, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_it_config, model_score,
     #             f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model)
 
-    # if robustness:
-    #     # Create slightly different scm with data distributional shift
-    #     shift_scm = scm.copy()
-    #     for node in scm.dag.var_names:
-    #         if node != scm.predict_target:
-    #             for shift in shifts:
-    #                 print(f"Node: {node}, shift (mean, var): {shift}")
-    #                 mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(shift[0]), scale=jnp.array(shift[1]))
-    #                 shift_scm.update_noise({node: mean_shift_dist})
-    #                 noise_shift = shift_scm.sample_context(N)
-    #                 df_shift = shift_scm.compute()
-    #                 X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
-    #                 y_shift = df_shift[y_name]
+    if robustness:
+        # Create slightly different scm with data distributional shift
+        shift_scm = scm.copy()
+        for node in scm.dag.var_names:
+            if node != scm.predict_target:
+                for shift in shifts:
+                    print(f"Node: {node}, shift (mean, var): {shift}")
+                    mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(shift[0]), scale=jnp.array(shift[1]))
+                    shift_scm.update_noise({node: mean_shift_dist})
+                    noise_shift = shift_scm.sample_context(N)
+                    df_shift = shift_scm.compute()
+                    X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
+                    y_shift = df_shift[y_name]
     #
     #                 shifted_model = get_model(model_type, kwargs_model, scm)
     #                 batches = create_batches(X_shift, y_shift, N, round(N/2), noise_shift)

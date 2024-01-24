@@ -1,11 +1,10 @@
 #!/bin/bash
 
-#SBATCH --partition=rome
+#SBATCH --partition=genoa
 #SBATCH --nodes=1
-#SBATCH --ntasks=5
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=2
 #SBATCH --mem=16000M
-#SBATCH --time=36:00:00
+#SBATCH --time=15:00:00
 #SBATCH --output=./7var-covid-logs/%x-%j.out
 #SBATCH --error=./7var-covid-logs/%x-%j.err
 

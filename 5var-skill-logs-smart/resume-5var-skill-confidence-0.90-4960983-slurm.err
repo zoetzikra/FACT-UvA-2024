@@ -13,3 +13,4 @@ the 'module load <package__name>' command. If you are uncertain if a package is
 already available 
 on the system, please use 'module avail' or 'module spider' to search for it.
 ============================================================================================== 
+slurmstepd: error: *** JOB 4960983 ON tcn1175 CANCELLED AT 2024-01-25T05:13:02 DUE TO TIME LIMIT ***

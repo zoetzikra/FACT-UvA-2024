@@ -13,3 +13,6 @@ the 'module load <package__name>' command. If you are uncertain if a package is
 already available 
 on the system, please use 'module avail' or 'module spider' to search for it.
 ============================================================================================== 
+slurmstepd: error: *** JOB 4961781 ON tcn739 CANCELLED AT 2024-01-25T05:42:02 DUE TO TIME LIMIT ***
+slurmstepd: error: container_p_join: setns failed for /slurm/4961781/.ns: Invalid argument
+slurmstepd: error: container_g_join(4961781): Invalid argument

@@ -228,9 +228,85 @@ SCM_PROGRAMMING = GenericSCM(
 )
 
 
+fn_age_raw = lambda x: -35 
+fn_age = lambda x, u: fn_age_raw(x) + u
+fn_age = StructuralFunction(fn_age, raw=fn_age_raw,
+                                   additive=True)
+
+fn_gender_raw = lambda x: 0
+fn_gender = lambda x, u: jnp.greater_equal(fn_gender_raw(x), u)
+fn_gender_transf = lambda x, x_j: unif_transform(fn_gender_raw(x), x_j)
+fn_gender = StructuralFunction(fn_gender, raw=fn_gender_raw,
+                                transform=fn_gender_transf, binary=True)
+
+fn_experience_raw = lambda x: -jax.numpy.invert(-1+0.5*x[..., 1]+jax.numpy.invert(1+jax.numpy.exp(-0.1*x[..., 0])))
+fn_experience = lambda x, u: -0.5+jax.numpy.invert(1 + jax.numpy.exp(fn_age_raw(x) + u))
+fn_experience = StructuralFunction(fn_experience, raw=fn_experience_raw,
+                                   additive=True)
+
+fn_loan_raw = lambda x: 1+0.001*(x[...,0]-5)*(5-x[...,0])+x[...,1]
+fn_loan = lambda x, u: fn_age_raw(x) + u
+fn_loan = StructuralFunction(fn_loan, raw=fn_loan_raw,
+                                   additive=True)
+
+fn_duration_raw = lambda x: -1+0.1*x[...,0]+2*x[...,1]+x[...,3]
+fn_duration = lambda x, u: fn_age_raw(x) + u
+fn_duration = StructuralFunction(fn_duration, raw=fn_duration_raw,
+                                   additive=True)
+
+fn_income_raw = lambda x: -4+0.1*(x[...,0]+35)+2*x[...,1]+x[...,1]*x[...,2]
+fn_income = lambda x, u: fn_age_raw(x) + u
+fn_income = StructuralFunction(fn_income, raw=fn_income_raw,
+                                   additive=True)
+
+fn_saving_raw = lambda x: -4+1.5*jnp.where(jnp.greater_equal(x[...,5], 0), 1, 0)
+fn_saving = lambda x, u: fn_age_raw(x) + u
+fn_saving = StructuralFunction(fn_saving, raw=fn_saving_raw,
+                                   additive=True)
+
+key=jax.random.PRNGKey(42)
+fn_credit_raw = lambda x: jax.random.bernoulli(key,jax.numpy.invert(1+jax.numpy.exp(-0.3*(-x[...,3]-x[...,4]+x[...,5]+x[...,6]+x[...,5]*x[...,6]))),1) 
+fn_credit = lambda x, u: jnp.greater_equal(fn_credit_raw(x), u)
+fn_credit_transf = lambda x, x_j: unif_transform(fn_credit_raw(x), x_j)
+fn_credit = StructuralFunction(fn_credit, raw=fn_credit,
+                                transform=fn_credit_transf, binary=True)
+
+SCM_CREDIT=GenericSCM(
+    dag=DirectedAcyclicGraph(
+        adjacency_matrix=np.array([[0, 0, 1, 1, 1, 1, 0, 0],
+                                   [0, 0, 1, 1, 1, 1, 0, 0],
+                                   [0, 0, 0, 0, 0, 1, 0, 0],
+                                   [0, 0, 0, 0, 1, 0, 0, 1],
+                                   [0, 0, 0, 0, 0, 0, 0, 1],
+                                   [0, 0, 0, 0, 0, 0, 1, 1],
+                                   [0, 0, 0, 0, 0, 0, 0, 1],
+                                   [0, 0, 0, 0, 0, 0, 0, 0]]),
+        var_names=['age', 'gender', 'experience', 'loan_amount', 'loan_duration', 'income','saving','credit']
+    ),
+    noise_dict={'age': dist.Bernoulli(probs=0.5),
+                'gender': dist.Gamma(10, rate=3.5),
+                'experience': dist.Normal(0,0.25),
+                'loan_amount': dist.Normal(0,4),
+                'loan_duration': dist.Normal(0,9),
+                'income': dist.Normal(0,4),
+                'saving': dist.Normal(0,25),
+                'credit': unif_dist
+                },
+    fnc_dict={'age': fn_age, 'gender': fn_gender, 'experience': fn_experience, 'loan_amount': fn_loan,
+              'loan_duration': fn_duration,'income': fn_income,"saving": fn_saving},
+    y_name='credit',
+    sigmoidal=['credit'],
+    costs=[1,1,1,1,1,1,1],
+    bound_dict={'age': (0, 100), 'gender': (0, 1),
+                'experience': (0, sys.maxsize),
+                'loan_amount': (0, sys.maxsize),
+                'loan_duration': (0, sys.maxsize),
+                'income': (0, sys.maxsize),
+                'saving': (0, sys.maxsize)}
+)
 #  OVERVIEW
 
 scm_dict = {'3var-noncausal': SCM_3_VAR_NONCAUSAL, '3var-causal': SCM_3_VAR_CAUSAL,
             '5var-nonlinear': SCM_5_VAR_NONLINEAR, '7var-covid': SCM_COVID,
-            '5var-skill': SCM_PROGRAMMING
+            '5var-skill': SCM_PROGRAMMING, '7var-credit': SCM_CREDIT
             }

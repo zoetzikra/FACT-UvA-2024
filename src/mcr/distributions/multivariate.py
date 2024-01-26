@@ -5,7 +5,6 @@ import jax.numpy as jnp
 from functools import partial, cache
 import torch
 
-
 class MultivariateIndependent(dist.Distribution):
     def __init__(self, dss, validate_args=None):
         self.dss = dss
@@ -24,10 +23,11 @@ class MultivariateIndependent(dist.Distribution):
     def sample(self, key, sample_shape=()):
         assert is_prng_key(key)
         sampless = []
+        from mcr.experiment.__init__ import seed_main
         for ds in self.dss:
             samples = []
             for d in ds:
-                key_d = jax.random.PRNGKey(jax.random.randint(key, (), 0, 2**10))
+                key_d = jax.random.PRNGKey(seed_main)
                 s = d.sample(key_d, sample_shape)
                 samples.append(s)
             samples = jnp.stack(samples, axis=1)

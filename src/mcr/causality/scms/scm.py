@@ -187,6 +187,7 @@ class StructuralCausalModel:
         Use the noise in self.model to generate noise.values in the model.
         Either a torch.Distribution object, a torch.tensor for point-mass distributions or a callable function.
         """
+        from mcr.experiment.__init__ import seed_main
         for node in self.topological_order:
             d = self.model[node]["noise_distribution"]
             # if isinstance(d, numpyro.distributions.Delta):
@@ -198,7 +199,7 @@ class StructuralCausalModel:
                 and len(d.event_shape) > 0
             ):
                 # TODO check whether right assignment
-                rng_key = jrandom.PRNGKey(random.randint(0, 2**8))
+                rng_key = jrandom.PRNGKey(seed_main)
                 vals = np.array(d.sample(rng_key, (size,)))
                 self.model[node]["noise_values"] = torch.tensor(vals[:, 0])
                 for jj in range(len(self.model[node]["children"])):
@@ -209,7 +210,7 @@ class StructuralCausalModel:
                     self.model[node]["noise_distribution"].sample((size,)).flatten()
                 )
             elif isinstance(d, numpyro.distributions.Distribution):
-                rng_key = jrandom.PRNGKey(random.randint(0, 2**8))
+                rng_key = jrandom.PRNGKey(seed_main)
                 vals = (
                     self.model[node]["noise_distribution"]
                     .sample(rng_key, (size,))

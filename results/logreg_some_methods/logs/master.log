@@ -1,0 +1,23 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Creating 2 batches of data with 250 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.848
+f1-score 0.8347826086956522
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[ 0.04382213 -0.97539283  1.56964709]]
+[[ 0.16677526 -0.55622381  1.2813079 ]]
+[[-0.36643514 -0.43552474  1.41829237]]
+[[0.12664284 0.29603905 0.74798568]]
+[[0.27388647 0.01376255 1.05966061]]

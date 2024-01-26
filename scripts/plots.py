@@ -47,14 +47,14 @@ if __name__ == "__main__":
     basepath = args.savepath
 
     for scm_name in scm_names.keys():
-        loadpath = basepath + scm_names[scm_name] + "/"
+        loadpath = basepath + scm_names[scm_name] + "\\"
         compile_experiments(loadpath, scm_name)
         dirs = os.listdir(loadpath)
         dirs = [d for d in dirs if d[0] == "N"]
         dirs = [d for d in dirs if has_levels(d)]
         dfs = []
         for dir in dirs:
-            df = pd.read_csv(loadpath + dir + "/result_raw.csv")
+            df = pd.read_csv(loadpath + dir + "\\result_raw.csv")
             dfs.append(df)
 
         dfs = pd.concat(dfs, ignore_index=True)
@@ -148,7 +148,9 @@ if __name__ == "__main__":
             if name == "improvement":
                 legend = False
                 # legend = True
-
+            print("THE DFS:")
+            print(df_plt)
+            print("-------------------")
             g2 = sns.relplot(
                 data=df_plt,
                 x="confidence",
@@ -158,7 +160,7 @@ if __name__ == "__main__":
                 hue="scm",
                 kind="line",
                 markers=True,
-                dashes=False,
+                dashes=True,
                 err_kws={"alpha": 0.1},
                 col_wrap=min(len(df_plt["metric"].unique()), ncol),
                 palette=sns.color_palette("tab10", len(df_plt["scm"].unique())),
@@ -235,7 +237,7 @@ if __name__ == "__main__":
             sns.despine(left=True)
             # sns.move_legend(ax, "center right")
             plt.subplots_adjust(wspace=0.2, hspace=0.4)
-            plt.savefig(basepath + "summary_" + name + ".pdf", bbox_inches="tight")
+            plt.savefig(basepath + "summary_" + name + ".png", bbox_inches="tight")
             plt.show()
 
     metrics = [

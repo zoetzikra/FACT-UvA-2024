@@ -1,0 +1,1 @@
+{"N": 500, "seed": 42, "scm_name": "3var-noncausal", "t_types": "all", "thresh": 0.5, "gamma/eta": 0.75, "lbd": 100.0, "costs": [1.0, 1.0, 1.0], "NGEN": 100, "POP_SIZE": 50, "iterations": 3, "rounding_digits": 2, "nr_refits_batch0": 5, "assess_robustness": false, "predict_individualized": true, "use_scm_pred": false, "model_type": "logreg"}

@@ -1,0 +1,93 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Creating 2 batches of data with 250 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.844
+f1-score 0.8602150537634409
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[ 1.24502477 -0.23169069  1.01943792]]
+[[0.29738113 0.08980442 1.11627485]]
+[[ 0.01758785 -0.73277744  1.66309615]]
+[[ 0.12313798 -0.64920697  1.56108395]]
+[[ 0.48256512 -0.74906415  1.39269178]]
+
+
+-------------
+ITERATION 1
+-------------
+Creating 2 batches of data with 250 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.816
+f1-score 0.8174603174603174
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[0.72758701 1.09595752 0.93890966]]
+[[0.54811483 0.69883746 1.01577534]]
+[[0.12446377 0.90768751 0.78656712]]
+[[0.21867932 0.67458775 1.03361209]]
+[[0.4328561  1.13877397 0.83894152]]
+
+
+-------------
+ITERATION 2
+-------------
+Creating 2 batches of data with 250 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.824
+f1-score 0.8370370370370371
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[0.62860702 0.43277428 0.82787367]]
+[[0.69696243 0.09649033 0.79434274]]
+[[ 0.29859348 -0.10846399  0.87780841]]
+[[0.63785495 0.39333011 0.71205738]]
+[[ 0.27708197 -0.02632161  1.12275494]]
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+SUCCESS in folder results\N500_Nrec100_gam0.75_t0.5_lbd100.0_nit3_NGEN100_POPS50_594\
+FINISHED TIME: 766.2502195835114

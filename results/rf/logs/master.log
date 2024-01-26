@@ -1,0 +1,78 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Creating 2 batches of data with 250 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+model fit with accuracy 0.76
+f1-score 0.7540983606557378
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+
+
+-------------
+ITERATION 1
+-------------
+Creating 2 batches of data with 250 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+model fit with accuracy 0.836
+f1-score 0.8312757201646092
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+
+
+-------------
+ITERATION 2
+-------------
+Creating 2 batches of data with 250 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+model fit with accuracy 0.756
+f1-score 0.7336244541484717
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 86
+# of recommended ixs 100
+# of recourse individuals 83
+# of recommended ixs 100
+# of recourse individuals 96
+# of recommended ixs 100
+# of recourse individuals 85
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 92
+# of recommended ixs 100
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 96
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 90
+# of recommended ixs 100
+# of recourse individuals 84
+# of recommended ixs 99
+# of recourse individuals 97
+# of recommended ixs 100
+SUCCESS in folder results\N500_Nrec100_gam0.75_t0.5_lbd100.0_nit3_NGEN100_POPS50_300\
+FINISHED TIME: 3131.988212823868

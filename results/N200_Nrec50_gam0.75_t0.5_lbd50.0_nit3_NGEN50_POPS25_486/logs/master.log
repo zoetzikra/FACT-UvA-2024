@@ -1,0 +1,42 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Creating 2 batches of data with 100 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.75
+f1-score 0.7572815533980582
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[ 0.54762927 -0.26293663  1.78336436]]
+[[-0.27161387  0.64317696  1.76956416]]
+[[0.80957723 1.13286811 0.75108462]]
+[[0.6088079  0.26859022 1.3334063 ]]
+[[ 0.27447716 -0.11406061  1.32506574]]
+Traceback (most recent call last):
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\scripts\run_experiments.py", line 97, in <module>
+    run_experiment(
+  File "C:\Users\akisl\Desktop\self\FACT-UvA-2024\src\mcr\experiment\run.py", line 679, in run_experiment
+    future.join()
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\process.py", line 149, in join
+    res = self._popen.wait(timeout)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\popen_spawn_win32.py", line 108, in wait
+    res = _winapi.WaitForSingleObject(int(self._handle), msecs)
+KeyboardInterrupt
+Error in atexit._run_exitfuncs:
+Traceback (most recent call last):
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\util.py", line 357, in _exit_function
+    p.join()
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\process.py", line 149, in join
+    res = self._popen.wait(timeout)
+  File "C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\multiprocess\popen_spawn_win32.py", line 108, in wait
+    res = _winapi.WaitForSingleObject(int(self._handle), msecs)
+KeyboardInterrupt

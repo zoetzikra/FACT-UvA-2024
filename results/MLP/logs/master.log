@@ -1,0 +1,113 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Creating 2 batches of data with 250 observations
+Split the data into 2 batches
+Fitting model (type MLP)...
+fitting model with the specified parameters
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+model fit with accuracy 0.82
+f1-score 0.8051948051948051
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+
+
+-------------
+ITERATION 1
+-------------
+Creating 2 batches of data with 250 observations
+Split the data into 2 batches
+Fitting model (type MLP)...
+fitting model with the specified parameters
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+model fit with accuracy 0.816
+f1-score 0.7909090909090909
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+
+
+-------------
+ITERATION 2
+-------------
+Creating 2 batches of data with 250 observations
+Split the data into 2 batches
+Fitting model (type MLP)...
+fitting model with the specified parameters
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+model fit with accuracy 0.78
+f1-score 0.751131221719457
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+C:\Users\akisl\new_anaconda3\envs\icr-env\lib\site-packages\sklearn\neural_network\_multilayer_perceptron.py:691: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 98
+# of recommended ixs 100
+SUCCESS in folder results\N500_Nrec100_gam0.75_t0.5_lbd100.0_nit3_NGEN100_POPS50_359\

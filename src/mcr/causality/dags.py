@@ -21,7 +21,9 @@ class DirectedAcyclicGraph:
         assert adjacency_matrix.shape[0] == len(var_names)
 
         adjacency_matrix = adjacency_matrix.astype(int)
-        self.DAG = nx.convert_matrix.from_numpy_matrix(adjacency_matrix, create_using=nx.DiGraph)
+        self.DAG = nx.convert_matrix.from_numpy_matrix(
+            adjacency_matrix, create_using=nx.DiGraph
+        )
         assert nx.algorithms.dag.is_directed_acyclic_graph(self.DAG)
 
         self.var_names = np.array(var_names, dtype=str)
@@ -53,7 +55,14 @@ class DirectedAcyclicGraph:
     def get_spouses(self, node: str) -> set:
         node_ind = search_nonsorted(self.var_names, [node])[0]
         children = tuple(self.DAG.successors(node_ind))
-        spouses = tuple([par for child in children for par in tuple(self.DAG.predecessors(child)) if par != node_ind])
+        spouses = tuple(
+            [
+                par
+                for child in children
+                for par in tuple(self.DAG.predecessors(child))
+                if par != node_ind
+            ]
+        )
         return set([self.var_names[node] for node in spouses])
 
     def get_ancestors_node(self, node: str) -> set:
@@ -84,11 +93,19 @@ class DirectedAcyclicGraph:
         if ax is None:
             fig, ax = plt.subplots()
         labels_dict = {i: self.var_names[i] for i in range(len(self.DAG))}
-        nx.draw_networkx(self.DAG, pos=nx.kamada_kawai_layout(self.DAG), ax=ax, labels=labels_dict, node_color='white',
-                         arrowsize=15, edgecolors='b', node_size=800)
+        nx.draw_networkx(
+            self.DAG,
+            pos=nx.kamada_kawai_layout(self.DAG),
+            ax=ax,
+            labels=labels_dict,
+            node_color="white",
+            arrowsize=15,
+            edgecolors="b",
+            node_size=800,
+        )
 
     @staticmethod
-    def random_dag(n, p=None, m_n_ratio=None, seed=None, model='np'):
+    def random_dag(n, p=None, m_n_ratio=None, seed=None, model="np"):
         """
         Creates random Erdős-Rényi graph from G(size, p) sem
         (see https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model)
@@ -103,25 +120,29 @@ class DirectedAcyclicGraph:
         Returns: DirectedAcyclicGraph instance
 
         """
-        if model == 'np':
+        from mcr.experiment.__init__ import seed_main
+        seed=seed_main
+        if model == "np":
             G = nx.gnp_random_graph(n, p, seed, directed=True)
-        elif model == 'nm':
+        elif model == "nm":
             G = nx.gnm_random_graph(n, int(m_n_ratio * n), seed, directed=True)
         else:
-            raise NotImplementedError('Unknown model type')
+            raise NotImplementedError("Unknown model type")
         G.remove_edges_from([(u, v) for (u, v) in G.edges() if u > v])
-        adjacency_matrix = nx.linalg.graphmatrix.adjacency_matrix(G).todense().astype(int)
-        var_names = [f'x{i}' for i in range(n)]
+        adjacency_matrix = (
+            nx.linalg.graphmatrix.adjacency_matrix(G).todense().astype(int)
+        )
+        var_names = [f"x{i}" for i in range(n)]
         return DirectedAcyclicGraph(adjacency_matrix, var_names)
 
     def save(self, filepath):
         arr = nx.convert_matrix.to_numpy_array(self.DAG)
-        np.save(filepath + '_dag.npy', arr)
-        np.save(filepath + '_var_names.npy', self.var_names)
+        np.save(filepath + "_dag.npy", arr)
+        np.save(filepath + "_var_names.npy", self.var_names)
 
     @staticmethod
     def load(filepath):
-        arr = np.load(filepath + '_dag.npy')
-        var_names = np.load(filepath + '_var_names.npy')
+        arr = np.load(filepath + "_dag.npy")
+        var_names = np.load(filepath + "_var_names.npy")
         dag = DirectedAcyclicGraph(arr, var_names)
         return dag

@@ -9,11 +9,14 @@ import pandas as pd
 import argparse
 from tqdm import tqdm
 
-scms = ['3var-causal', '3var-noncausal', '5var-skill', '7var-covid']
-model_dict = {'3var-causal': 'logreg', '3var-noncausal': 'logreg',
-              '5var-skill': 'rf',
-              '7var-covid': 'rf'}
-scms = ['7var-covid']
+scms = ["3var-causal", "3var-noncausal", "5var-skill", "7var-covid"]
+model_dict = {
+    "3var-causal": "logreg",
+    "3var-noncausal": "logreg",
+    "5var-skill": "rf",
+    "7var-covid": "rf",
+}
+scms = ["7var-covid"]
 
 use_scm_pred = False
 lbd = 5000
@@ -62,12 +65,12 @@ if __name__ == "__main__":
 
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
 
-        if model_dict[scm_name] == 'rf':
+        if model_dict[scm_name] == "rf":
             model = RandomForestClassifier()
-        elif model_dict[scm_name] == 'logreg':
+        elif model_dict[scm_name] == "logreg":
             model = LogisticRegression()
         else:
-            raise RuntimeError('model class not available')
+            raise RuntimeError("model class not available")
 
         model.fit(X_train, y_train)
 
@@ -76,7 +79,7 @@ if __name__ == "__main__":
 
         # for each scm compute recourse recommendation(s) for N_INDIV individuals
         for gamma in gammas:
-            print(f'\t{scm_name}, gamma: {gamma}')
+            print(f"\t{scm_name}, gamma: {gamma}")
             for ii in tqdm(range(N_INDIVID)):
                 # print(f'individual: {ii}')
 
@@ -84,11 +87,23 @@ if __name__ == "__main__":
 
                 obs = X_test.iloc[ix, :]
 
-                result_tupl = recourse(scm, cols, obs, scm.costs, 'subpopulation', 'improvement',
-                                       predict_log_proba=model.predict_log_proba, gamma=gamma,
-                                       multi_objective=False, y_name=scm.predict_target,
-                                       thresh=thresh, X=X_test,
-                                       POP_SIZE=400, NGEN=800, lbd=lbd)
+                result_tupl = recourse(
+                    scm,
+                    cols,
+                    obs,
+                    scm.costs,
+                    "subpopulation",
+                    "improvement",
+                    predict_log_proba=model.predict_log_proba,
+                    gamma=gamma,
+                    multi_objective=False,
+                    y_name=scm.predict_target,
+                    thresh=thresh,
+                    X=X_test,
+                    POP_SIZE=400,
+                    NGEN=800,
+                    lbd=lbd,
+                )
 
                 winner, goal_cost, intv_cost = result_tupl
                 # print(winner)
@@ -104,7 +119,6 @@ if __name__ == "__main__":
 
                 # iterate over individuals to get the quantities
                 for jj in range(min(MAX_EVAL, len(indivduals))):
-
                     ind = indivduals[jj, :]
                     meaningfulness = values[jj, 0]
 
@@ -118,7 +132,9 @@ if __name__ == "__main__":
                     data = scm_cp.compute(do=intv_dict)
 
                     # compute acceptance rate
-                    pred_proba = np.exp(model.predict_log_proba(data.loc[:, cols]))[:, 1]
+                    pred_proba = np.exp(model.predict_log_proba(data.loc[:, cols]))[
+                        :, 1
+                    ]
                     mean_proba = np.mean(pred_proba)
                     acceptance_rate = np.mean(pred_proba >= thresh)
 
@@ -126,7 +142,9 @@ if __name__ == "__main__":
                         # use scm_prediction
                         preds_scm = []
                         for kk in range(len(data)):
-                            pred_proba_scm = scm.predict_log_prob_obs(data.iloc[kk, :], scm.predict_target)
+                            pred_proba_scm = scm.predict_log_prob_obs(
+                                data.iloc[kk, :], scm.predict_target
+                            )
                             preds_scm.append(np.exp(pred_proba_scm))
                         preds_scm = np.array(preds_scm)
 
@@ -134,25 +152,33 @@ if __name__ == "__main__":
                         mean_proba_scm = np.mean(preds_scm)
                         acceptance_rate_acm = np.mean(preds_scm > thresh)
 
-
                     # compile to observation
-                    res_model = {'gamma': meaningfulness, 'eta_emp': acceptance_rate,
-                                 'mean_proba': mean_proba, 'type': 'model', 'gamma_spec': gamma}
+                    res_model = {
+                        "gamma": meaningfulness,
+                        "eta_emp": acceptance_rate,
+                        "mean_proba": mean_proba,
+                        "type": "model",
+                        "gamma_spec": gamma,
+                    }
                     res_model = dict(res_model, **intv_dict_causes)
 
                     res = pd.Series(res_model)
                     df_res_ind.append(res)
 
-
                     if use_scm_pred:
-                        res_scm = {'gamma': meaningfulness, 'eta_emp': acceptance_rate_acm,
-                                   'mean_proba': mean_proba_scm, 'type': scm_name, 'gamma_spec': gamma}
+                        res_scm = {
+                            "gamma": meaningfulness,
+                            "eta_emp": acceptance_rate_acm,
+                            "mean_proba": mean_proba_scm,
+                            "type": scm_name,
+                            "gamma_spec": gamma,
+                        }
                         res_scm = dict(res_scm, **intv_dict_causes)
                         res_scm = pd.Series(res_scm)
                         df_res_ind.append(res_scm)
 
                 df_res_ind = pd.concat(df_res_ind, axis=1, ignore_index=True).T
-                df_res_ind['id'] = jj
+                df_res_ind["id"] = jj
                 df_res.append(df_res_ind)
 
         df_res = pd.concat(df_res, ignore_index=True)
@@ -182,22 +208,26 @@ if __name__ == "__main__":
 
     df_all = []
     for scm in scms:
-        df = convert_data(results[scm], except_cols=['type', 'eta_emp_type', 'scm'])
+        df = convert_data(results[scm], except_cols=["type", "eta_emp_type", "scm"])
         df_2 = df.copy()
-        df_2['eta_emp'] = get_bound(df['gamma_spec'], thresh)
-        df['eta_emp_type'] = 'emp'
-        df_2['eta_emp_type'] = 'bound'
+        df_2["eta_emp"] = get_bound(df["gamma_spec"], thresh)
+        df["eta_emp_type"] = "emp"
+        df_2["eta_emp_type"] = "bound"
         df = pd.concat([df, df_2])
-        df['scm'] = scm
+        df["scm"] = scm
         df_all.append(df)
     df_all = pd.concat(df_all, ignore_index=True)
 
-    results[scm_name].to_csv(savepath + 'results.csv')
+    results[scm_name].to_csv(savepath + "results.csv")
 
-    sns.lineplot(data=df_all.reset_index(), x='gamma_spec', y='eta_emp',
-                 hue='eta_emp_type', style='scm')
-    plt.savefig(savepath + 'lineplot.pdf')
+    sns.lineplot(
+        data=df_all.reset_index(),
+        x="gamma_spec",
+        y="eta_emp",
+        hue="eta_emp_type",
+        style="scm",
+    )
+    plt.savefig(savepath + "lineplot.pdf")
     plt.show()
 
-    df_all.to_csv(savepath + 'df_all.csv')
-
+    df_all.to_csv(savepath + "df_all.csv")

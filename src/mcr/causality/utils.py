@@ -1,5 +1,6 @@
 from mcr.causality.scms import BinomialBinarySCM, GenericSCM
 
+
 def indvd_to_intrv(scm, features, individual, obs, causes_of=None):
     """
     If causes_of is None, then all interventions are added to the dictionary.
@@ -24,5 +25,7 @@ def indvd_to_intrv(scm, features, individual, obs, causes_of=None):
             elif isinstance(scm, GenericSCM):
                 dict[var_name] = obs[var_name] + individual[ii]
             else:
-                raise NotImplementedError('only BinomialBinary or GenericSCM supported.')
+                raise NotImplementedError(
+                    "only BinomialBinary or GenericSCM supported."
+                )
     return dict

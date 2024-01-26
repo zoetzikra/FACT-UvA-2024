@@ -93,6 +93,7 @@ def recourse(
     multi_objective=False,
     return_stats=False,
     X=None,
+    genetic_algo="nsga2",
 ):
     evaluator = GreedyEvaluator(
         scm_,
@@ -158,7 +159,12 @@ def recourse(
         bounds=bounds,
         n_digits=rounding_digits,
     )
-    toolbox.register("select", tools.selNSGA2)
+    if genetic_algo == "nsga2":
+        toolbox.register("select", tools.selNSGA2)
+    elif genetic_algo == "nsga3":
+        toolbox.register("select", tools.selNSGA3, ref_points=tools.uniform_reference_points(nobj=1, p=12), nd='standard')
+    else:
+        raise NotImplementedError("Only nsga2 and nsga3 are available!")
 
     if t_type == "acceptance":
         assert not predict_log_proba is None

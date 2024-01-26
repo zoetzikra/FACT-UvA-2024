@@ -21,6 +21,7 @@ from mcr.causality.scms.functions import linear_additive, linear_additive_torch
 import collections
 
 
+
 class GenericSCM(StructuralCausalModel):
     SMALL_VAR = 0.0001
 

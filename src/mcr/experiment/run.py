@@ -44,6 +44,24 @@ from mcr.recourse import recourse_population, save_recourse_result
 from mcr.experiment.predictors import get_tuning_rf
 import sys
 
+import numpy as np
+import jax
+import random
+import torch
+import sklearn
+import scipy
+import sklearn
+import scipy
+
+
+def set_seed(seed):
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.manual_seed(seed)
+    jax.random.PRNGKey(seed)
+    from mcr.experiment.__init__ import seed_main,set_seed_main
+    set_seed_main(seed)
+
 
 def run_recourse(
     r_type,
@@ -72,11 +90,13 @@ def run_recourse(
     model_refits_batch0_f1s,
     model_refits_batch0,
     log_path,
+    seed_iter,
     kwargs_model,
 ):
     log_file_path = f"{log_path}/child_{r_type}_{t_type}_output.log"
     sys.stdout = open(log_file_path, "a")
     sys.stderr = sys.stdout
+    set_seed(seed_iter)
     print("")
     print("combination: {} {}".format(r_type, t_type))
 
@@ -374,7 +394,7 @@ def run_experiment(
         print("-------------")
         print("ITERATION {}".format(existing_runs))
         print("-------------")
-
+        seed_iter = seed + existing_runs
         # sample data
         noise = scm.sample_context(N)
         df = scm.compute()
@@ -572,6 +592,7 @@ def run_experiment(
                         model_refits_batch0_f1s,
                         model_refits_batch0,
                         log_path,
+                        seed_iter,
                         kwargs_model,
                     ),
                 )
@@ -610,5 +631,6 @@ def run_experiment(
                     model_refits_batch0_f1s,
                     model_refits_batch0,
                     log_path,
+                    seed_iter,
                     kwargs_model,
                 )

@@ -120,7 +120,7 @@ def create_batches(X, y, N, batch_size, noise):
     return batches
 
 
-def get_model(model_type, kwargs_model, seed=42, tuning=False, df=None, y_name=None, scm=None):
+def get_model(model_type, kwargs_model={}, seed=42, tuning=False, df=None, y_name=None, scm=None):
     if model_type == "logreg":
         model = LogisticRegression(random_state=seed, **kwargs_model)
     elif model_type == "rf":
@@ -689,6 +689,11 @@ def run_experiment(
                         log_path,
                         genetic_algo,
                         seed_iter,
+                        N,
+                        robustness,
+                        parallelisation,
+                        shifts,
+                        shifted_batches,
                         kwargs_model,
                     ),
                 )
@@ -729,5 +734,10 @@ def run_experiment(
                     log_path,
                     genetic_algo,
                     seed_iter,
+                    N,
+                    robustness,
+                    parallelisation,
+                    shifts,
+                    shifted_batches,
                     kwargs_model,
                 )

@@ -479,6 +479,7 @@ def run_experiment(
             )
 
         print("fitting model with the specified parameters")
+        print(batches[0][0], batches[0][1])
         model.fit(batches[0][0], batches[0][1])
         model_score = model.score(batches[1][0], batches[1][1])
         f1 = f1_score(batches[1][1], model.predict(batches[1][0]))

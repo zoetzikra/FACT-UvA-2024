@@ -234,7 +234,7 @@ SCM_COVID = GenericSCM(
 
 #
 
-# COVID EXAMPLE
+# PROGRAMMING EXAMPLE
 
 fn_skilled_raw = lambda x: jax.nn.sigmoid((-10 + 3 * x[..., 0] + 4 * x[..., 1]))
 fn_skilled = lambda x, u: jnp.greater_equal(fn_skilled_raw(x), u)
@@ -307,7 +307,7 @@ SCM_PROGRAMMING = GenericSCM(
 )
 
 
-fn_age_raw = lambda x: -35 
+fn_age_raw = lambda x: -35
 fn_age = lambda x, u: fn_age_raw(x) + u
 fn_age = StructuralFunction(fn_age, raw=fn_age_raw,
                                    additive=True)
@@ -318,10 +318,13 @@ fn_gender_transf = lambda x, x_j: unif_transform(fn_gender_raw(x), x_j)
 fn_gender = StructuralFunction(fn_gender, raw=fn_gender_raw,
                                 transform=fn_gender_transf, binary=True)
 
-fn_experience_raw = lambda x: -jax.numpy.invert(-1+0.5*x[..., 1]+jax.numpy.invert(1+jax.numpy.exp(-0.1*x[..., 0])))
-fn_experience = lambda x, u: -0.5+jax.numpy.invert(1 + jax.numpy.exp(fn_age_raw(x) + u))
-fn_experience = StructuralFunction(fn_experience, raw=fn_experience_raw,
-                                   additive=True)
+# fn_experience_raw = lambda x: -jax.numpy.invert(-1+0.5*x[..., 1]+jax.numpy.invert(1+jax.numpy.exp(-0.1*x[..., 0].astype(int))))
+# fn_experience = lambda x, u: -0.5+jax.numpy.invert(1 + jax.numpy.exp(fn_age_raw(x) + u))
+# fn_experience = StructuralFunction(fn_experience, raw=fn_experience_raw, additive=True)
+
+fn_experience_raw = lambda x: -jax.numpy.invert((-1+0.5*x[..., 1]+jax.numpy.invert(1+jax.numpy.exp(-0.1*x[..., 0]))).astype(int))
+fn_experience = lambda x, u: -0.5+jax.numpy.invert((1 + jax.numpy.exp(fn_age_raw(x) + u)).astype(int))
+fn_experience = StructuralFunction(fn_experience, raw=fn_experience_raw, additive=True)
 
 fn_loan_raw = lambda x: 1+0.001*(x[...,0]-5)*(5-x[...,0])+x[...,1]
 fn_loan = lambda x, u: fn_age_raw(x) + u
@@ -345,10 +348,11 @@ fn_saving = StructuralFunction(fn_saving, raw=fn_saving_raw,
 
 key=jax.random.PRNGKey(42)
 fn_credit_raw = lambda x: jax.random.bernoulli(key,jax.numpy.invert(1+jax.numpy.exp(-0.3*(-x[...,3]-x[...,4]+x[...,5]+x[...,6]+x[...,5]*x[...,6]))),1) 
+# fn_credit_raw = lambda x: jax.random.bernoulli(key, (1+jax.numpy.exp(-0.3*(-x[...,3]-x[...,4]+x[...,5]+x[...,6]+x[...,5]*x[...,6])) < 1, 1))
 fn_credit = lambda x, u: jnp.greater_equal(fn_credit_raw(x), u)
 fn_credit_transf = lambda x, x_j: unif_transform(fn_credit_raw(x), x_j)
-fn_credit = StructuralFunction(fn_credit, raw=fn_credit,
-                                transform=fn_credit_transf, binary=True)
+fn_credit = StructuralFunction(fn_credit, raw=fn_credit, transform=fn_credit_transf, binary=True)
+
 
 SCM_CREDIT=GenericSCM(
     dag=DirectedAcyclicGraph(
@@ -375,7 +379,8 @@ SCM_CREDIT=GenericSCM(
               'loan_duration': fn_duration,'income': fn_income,"saving": fn_saving},
     y_name='credit',
     sigmoidal=['credit'],
-    costs=[1,1,1,1,1,1,1],
+    # costs=[1.0,1.0,1.0,1.0,1.0,1.0,1.0],
+    costs=np.ones(7),
     bound_dict={'age': (0, 100), 'gender': (0, 1),
                 'experience': (0, sys.maxsize),
                 'loan_amount': (0, sys.maxsize),

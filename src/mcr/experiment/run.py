@@ -407,7 +407,7 @@ def run_experiment(
 
         model = None
         if model_type == "logreg":
-            model = LogisticRegression(**kwargs_model)
+            model = LogisticRegression(random_state=seed, **kwargs_model)
         elif model_type == "rf":
             # parallelize random forest
             kwargs_model["n_jobs"] = -1
@@ -435,17 +435,17 @@ def run_experiment(
             if "class_weight" not in kwargs_model:
                 kwargs_model["class_weight"] = "balanced_subsample"
 
-            model = RandomForestClassifier(**kwargs_model)
+            model = RandomForestClassifier(random_state=seed, **kwargs_model)
         elif model_type == "adaboost":
-            model = AdaBoostClassifier(**kwargs_model)
+            model = AdaBoostClassifier(random_state=seed, **kwargs_model)
         elif model_type == "SVC":
-            model = SVC(probability=True, **kwargs_model)
+            model = SVC(random_state=seed, probability=True, **kwargs_model)
         elif model_type == "MLP":
             model = MLPClassifier(
                 solver="adam",
                 alpha=1e-5,
                 hidden_layer_sizes=(10, 10, 5),
-                random_state=1,
+                random_state=seed,
                 **kwargs_model,
             )
         else:
@@ -494,19 +494,19 @@ def run_experiment(
         for ii in range(nr_refits_batch0):
             model_tmp = None
             if model_type == "logreg":
-                model_tmp = LogisticRegression(penalty="none", **kwargs_model)
+                model_tmp = LogisticRegression(random_state=seed, penalty="none", **kwargs_model)
             elif model_type == "rf":
-                model_tmp = RandomForestClassifier(n_jobs=-1)
+                model_tmp = RandomForestClassifier(random_state=seed, n_jobs=-1)
             elif model_type == "adaboost":
-                model_tmp = AdaBoostClassifier(**kwargs_model)
+                model_tmp = AdaBoostClassifier(random_state=seed, **kwargs_model)
             elif model_type == "SVC":
-                model_tmp = SVC(probability=True, **kwargs_model)
+                model_tmp = SVC(probability=True, random_state=seed, **kwargs_model)
             elif model_type == "MLP":
                 model_tmp = MLPClassifier(
                     solver="adam",
                     alpha=1e-5,
                     hidden_layer_sizes=(10, 10, 5),
-                    random_state=1,
+                    random_state=seed,
                     **kwargs_model,
                 )
             else:

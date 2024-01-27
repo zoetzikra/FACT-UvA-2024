@@ -34,6 +34,7 @@ def recourse_population(
     NGEN=400,
     POP_SIZE=1000,
     rounding_digits=2,
+    genetic_algo="nsga2",
 ):
     assert not (model is None and not use_scm_pred)
 
@@ -131,6 +132,7 @@ def recourse_population(
             multi_objective=False,
             return_stats=False,
             X=X,
+            genetic_algo=genetic_algo,
         )
 
         intervention = indvd_to_intrv(scm, intv_features, winner, obs)

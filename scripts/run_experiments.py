@@ -51,7 +51,7 @@ if __name__ == "__main__":
     parser.add_argument("--model_type", type=str, default="logreg")
     parser.add_argument("--t_type", type=str, default="all")
     parser.add_argument("--id", type=int, default=None)
-    parser.add_argument("--parallelise", type=bool, default=False)
+    parser.add_argument("--parallelise", action='store_true', default=False)
     parser.add_argument(
         "--ignore_np_errs",
         help="whether to ignore all numpy warnings and errors",

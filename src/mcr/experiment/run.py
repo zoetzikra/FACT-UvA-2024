@@ -91,6 +91,7 @@ def run_recourse(
     model_refits_batch0,
     log_path,
     genetic_algo,
+    seed_iter,
     kwargs_model,
 ):
     log_file_path = f"{log_path}/child_{r_type}_{t_type}_output.log"
@@ -102,6 +103,8 @@ def run_recourse(
     savepath_it_config = it_path + "{}-{}/".format(t_type, r_type)
     print(savepath_it_config)
     os.mkdir(savepath_it_config)
+
+    set_seed(seed_iter)
 
     # perform recourse on batch 1
     result_tpl = recourse_population(
@@ -597,6 +600,7 @@ def run_experiment(
                         model_refits_batch0,
                         log_path,
                         genetic_algo,
+                        seed_iter,
                         kwargs_model,
                     ),
                 )
@@ -636,5 +640,6 @@ def run_experiment(
                     model_refits_batch0,
                     log_path,
                     genetic_algo,
+                    seed_iter,
                     kwargs_model,
                 )

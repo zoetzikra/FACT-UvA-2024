@@ -95,6 +95,7 @@ def recourse_population(
             len(ixs_recourse)
         )
     )
+    flag=False
     for ix in tqdm(ixs_recourse):
         obs = X.iloc[ix, :]
 
@@ -136,7 +137,9 @@ def recourse_population(
         )
 
         intervention = indvd_to_intrv(scm, intv_features, winner, obs)
-
+        for i in winner:
+            if i!=0:
+                flag=True
         interventions.append(winner)
         goal_costs.append(goal_cost)
         intv_costs.append(intv_cost)
@@ -150,6 +153,7 @@ def recourse_population(
         y_new.iloc[ix] = sample[y_name]
 
     logging.debug("Collecting results...")
+    print(flag)
     interventions = np.array(interventions)
     interventions = pd.DataFrame(interventions, columns=intv_features)
     interventions["ix"] = X.index[ixs_recourse]

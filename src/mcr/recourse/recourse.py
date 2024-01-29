@@ -68,7 +68,7 @@ def mutate_mixed(individual, indpb, mu, sigma, bounds, n_digits):
 
 # RECOURSE FUNCTIONS
 
-
+num=0 
 def recourse(
     scm_,
     features,
@@ -251,8 +251,12 @@ def recourse(
 
     if not goal_met:
         winner = [0 for _ in winner]
+        global num
+        print(num)
+        num+=1
         goal_cost, intv_cost = eval_cost(winner)
-
+    else:
+        print("NOT SEEN")
     # cleanup
     if cleanup:
         del creator.FitnessMin

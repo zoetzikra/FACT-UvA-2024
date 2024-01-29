@@ -95,8 +95,8 @@ def run_recourse(
     kwargs_model,
 ):
     log_file_path = f"{log_path}/child_{r_type}_{t_type}_output.log"
-    sys.stdout = open(log_file_path, "a")
-    sys.stderr = sys.stdout
+    # sys.stdout = open(log_file_path, "a")
+    # sys.stderr = sys.stdout
     set_seed(seed_iter)
     print("")
     print("combination: {} {}".format(r_type, t_type))
@@ -306,8 +306,8 @@ def run_experiment(
         os.makedirs(log_path)
     log_file_path = f"{savepath}/logs/master.log"
 
-    sys.stdout = open(log_file_path, "a")
-    sys.stderr = sys.stdout
+    # sys.stdout = open(log_file_path, "a")
+    # sys.stderr = sys.stdout
 
     # extract SCM
 

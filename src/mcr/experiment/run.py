@@ -27,6 +27,7 @@ All data is saved within one folder, which is given a randomly assigned id
 
 import json
 import logging
+import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
@@ -75,8 +76,9 @@ def refit_models(result_tpl, nr_refits_batch0, model_refits_batch0, X_batch1_pos
         with open(savepath_it_config + "stats.json") as json_file:
             stats = json.load(json_file)
 
+        # Code never used by the authors
         #add further information to the statistics
-        #if assess_robustness:
+        # if assess_robustness:
         #   stats["eta_obs_refit"] = float(
         #       eta_obs_batch2
         #   )  # eta refit on batch0_pre and bacht1_post
@@ -519,6 +521,15 @@ def run_experiment(
 
     n_fails = 0
 
+    mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(0.0),
+                                                   scale=jnp.array(0.25))
+    scm.update_noise({'x2': mean_shift_dist})
+
+    noise_shift = scm.sample_context(N)
+    df_shift = scm.compute()
+    X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
+    y_shift = df_shift[y_name]
+
     # for ii in range(existing_runs, iterations):
     while existing_runs < iterations:
         print("")
@@ -620,7 +631,7 @@ def run_experiment(
         shifts = None
         shifted_batches = None
         if robustness:
-            shifts = [(0.5, 1.0), (0.0, 0.5), (0.5, 0.5)]
+            shifts = [(0.0, 1.0), (0.5, 1.0), (0.0, 0.5), (0.5, 0.5)]
             robustness_path = it_path + "robustness/"
             if not os.path.exists(robustness_path):
                 os.mkdir(robustness_path)
@@ -634,10 +645,10 @@ def run_experiment(
                             os.mkdir(savepath_shift)
 
             shifted_batches = {}
-            shift_scm = scm.copy()
             for node in scm.dag.var_names:
                 if node != scm.predict_target:
                     for shift in shifts:
+                        shift_scm = scm.copy()
                         print(f"Node: {node}, shift (mean, var): {shift}")
                         mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(shift[0]),
                                                                        scale=jnp.array(shift[1]))
@@ -645,7 +656,13 @@ def run_experiment(
                         noise_shift = shift_scm.sample_context(N)
                         df_shift = shift_scm.compute()
                         X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
-                        y_shift = df_shift[y_name]
+                        x_pa = shift_scm._get_parent_values(y_name).to_numpy()
+                        u_j = shift_scm._get_noise_values(y_name)
+                        print(f"Mean value of parents: {np.mean(x_pa)}")
+                        y_shift = sigmoidal_binomial_(x_pa - np.mean(x_pa), u_j)
+                        y_shift = pd.Series(y_shift)
+
+                        print(np.unique(y_shift, return_counts=True))
 
                         batches = create_batches(X_shift, y_shift, N, round(N / 2), noise_shift)
 

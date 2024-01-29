@@ -85,6 +85,7 @@ class GenericSCM(StructuralCausalModel):
             self.noise_dict[node] = new_noise[node]
             self.model[node]["noise_distribution"] = new_noise[node]
 
+
     @staticmethod
     def load(filepath):
         raise NotImplementedError("Not implemented yet.")
@@ -144,6 +145,12 @@ class GenericSCM(StructuralCausalModel):
     def _get_parent_values(self, node):
         vals = self.get_values(var_names=self.model[node]["parents"])
         return vals
+
+    def _get_noise_values(self, node):
+        return (
+            self.get_noise_values()[[self.u_prefix + node]].to_numpy().flatten()
+        )
+
 
     def compute_node(self, node):
         if not self.model[node]["intervened"]:

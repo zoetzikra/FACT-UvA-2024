@@ -27,31 +27,26 @@ All data is saved within one folder, which is given a randomly assigned id
 
 import json
 import logging
+import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import f1_score
-import numpy as np
+import numpyro
 import math
 import os
-
-# import concurrent.futures
+from mcr.causality.scms.functions import *
 import multiprocess
 import mcr.causality.scms.examples as ex
 from mcr.recourse import recourse_population, save_recourse_result
 from mcr.experiment.predictors import get_tuning_rf
 import sys
-
 import numpy as np
 import jax
 import random
 import torch
-import sklearn
-import scipy
-import sklearn
-import scipy
 
 
 def set_seed(seed):
@@ -59,8 +54,122 @@ def set_seed(seed):
     random.seed(seed)
     torch.manual_seed(seed)
     jax.random.PRNGKey(seed)
-    from mcr.experiment.__init__ import seed_main,set_seed_main
+    from mcr.experiment.__init__ import seed_main, set_seed_main
     set_seed_main(seed)
+
+
+def refit_models(result_tpl, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_it_config, model_score,
+                 f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model):
+    # access acceptance for batch 1 with multiplicity models (without distribution shift)
+    eta_obs_refits_batch0 = []
+    recourse_recommended_ixs_batch1 = result_tpl[9]["recourse_recommended_ixs"]
+    for ii in range(nr_refits_batch0):
+        predict_batch1 = model_refits_batch0[ii].predict(
+            X_batch1_post.loc[recourse_recommended_ixs_batch1, :]
+        )
+        eta_obs_refit_batch0 = np.mean(predict_batch1)
+        eta_obs_refits_batch0.append(eta_obs_refit_batch0)
+
+    # save additional stats in the stats.json
+    print("Saving additional stats.")
+    try:
+        with open(savepath_it_config + "stats.json") as json_file:
+            stats = json.load(json_file)
+
+        # Code never used by the authors
+        #add further information to the statistics
+        # if assess_robustness:
+        #   stats["eta_obs_refit"] = float(
+        #       eta_obs_batch2
+        #   )  # eta refit on batch0_pre and bacht1_post
+        #   stats["model_post_score"] = score_post
+        #   stats["model_post_f1"] = f1_post
+
+        stats["eta_obs_refits_batch0_mean"] = float(
+            np.mean(eta_obs_refits_batch0)
+        )  # mean eta of batch0-refits
+        stats["model_score"] = model_score
+        stats["model_f1"] = f1
+        stats["model_refits_batch0_scores"] = model_refits_batch0_scores
+        stats["model_refits_batch0_f1s"] = model_refits_batch0_f1s
+
+        if model_type == "logreg":
+            stats["model_coef"] = model.coef_.tolist()
+            stats["model_coef"].append(model.intercept_.tolist())
+            # if assess_robustness:
+            #    stats["model_coef_refit"] = model_post.coef_.tolist()
+            #    stats["model_coef_refit"].append(model_post.intercept_.tolist())
+        else:
+            stats["model_coef"] = float("nan")
+            # if assess_robustness:
+            #    stats["model_coef_refit"] = float("nan")
+
+        with open(savepath_it_config + "stats.json", "w") as json_file:
+            json.dump(stats, json_file)
+    except Exception as exc:
+        print("Could not append eta_obs_batch2 to stats.json")
+        logging.debug(exc)
+
+
+def create_batches(X, y, N, batch_size, noise):
+    batches = []
+    i = 0
+    while i < N:
+        X_i, y_i = X.iloc[i: i + batch_size, :], y.iloc[i: i + batch_size]
+        U_i = noise.iloc[i: i + batch_size, :]
+        batches.append((X_i, y_i, U_i))
+        i += batch_size
+    return batches
+
+
+def get_model(model_type, kwargs_model={}, seed=42, tuning=False, df=None, y_name=None, scm=None):
+    if model_type == "logreg":
+        model = LogisticRegression(random_state=seed, **kwargs_model)
+    elif model_type == "rf":
+        # parallelize random forest
+        kwargs_model["n_jobs"] = -1
+        if tuning:
+            rf_random = get_tuning_rf(50, 3)
+
+            # prepare tuning
+            scm_cp = scm.copy()
+            _ = scm_cp.sample_context(10 ** 4)
+            data_tuning = scm_cp.compute()
+            X_tuning = data_tuning[df.columns[df.columns != y_name]]
+            y_tuning = data_tuning[y_name]
+
+            # perform tuning
+            print("tuning random forest parameters")
+            rf_random.fit(X_tuning, y_tuning)
+            rf_best_pars = rf_random.best_params_
+            for par in rf_best_pars.keys():
+                if par not in kwargs_model:
+                    kwargs_model[par] = rf_best_pars[par]
+        if "max_depth" not in kwargs_model:
+            kwargs_model["max_depth"] = 30
+        if "n_estimators" not in kwargs_model:
+            kwargs_model["n_estimators"] = 50
+        if "class_weight" not in kwargs_model:
+            kwargs_model["class_weight"] = "balanced_subsample"
+
+        model = RandomForestClassifier(random_state=seed, **kwargs_model)
+    elif model_type == "adaboost":
+        model = AdaBoostClassifier(random_state=seed, **kwargs_model)
+    elif model_type == "SVC":
+        model = SVC(random_state=seed, probability=True, **kwargs_model)
+    elif model_type == "MLP":
+        model = MLPClassifier(
+            solver="adam",
+            alpha=1e-5,
+            hidden_layer_sizes=(10, 10, 5),
+            random_state=seed,
+            **kwargs_model,
+        )
+    else:
+        raise NotImplementedError(
+            "model type {} not implemented".format(model_type)
+        )
+    return model
 
 
 def run_recourse(
@@ -92,6 +201,11 @@ def run_recourse(
     log_path,
     genetic_algo,
     seed_iter,
+    N,
+    robustness,
+    parallelisation,
+    shifts,
+    shifted_batches,
     kwargs_model,
 ):
     log_file_path = f"{log_path}/child_{r_type}_{t_type}_output.log"
@@ -156,15 +270,7 @@ def run_recourse(
         # fit a separate model on batch0_pre and batch1_post
 
         print("Fit model on mixed dataset")
-        model_post = None
-        if model_type == "logreg":
-            model_post = LogisticRegression()
-        elif model_type == "rf":
-            model_post = RandomForestClassifier(**kwargs_model)
-        else:
-            raise NotImplementedError(
-                "model type {} not implemented".format(model_type)
-            )
+        model_post = get_model(model_type, seed=seed_iter)
 
         model_post.fit(X_train_large, y_train_large)
         score_post = model_post.score(batches[2][0], batches[2][1])
@@ -217,54 +323,75 @@ def run_recourse(
         eta_obs_batch2 = np.mean(predict_batch2)
 
     # access acceptance for batch 1 with multiplicity models (without distribution shift)
-    eta_obs_refits_batch0 = []
-    recourse_recommended_ixs_batch1 = result_tpl[9]["recourse_recommended_ixs"]
-    for ii in range(nr_refits_batch0):
-        predict_batch1 = model_refits_batch0[ii].predict(
-            X_batch1_post.loc[recourse_recommended_ixs_batch1, :]
-        )
-        eta_obs_refit_batch0 = np.mean(predict_batch1)
-        eta_obs_refits_batch0.append(eta_obs_refit_batch0)
+    refit_models(result_tpl, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_it_config, model_score,
+                 f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model)
 
-    # save additional stats in the stats.json
-    print("Saving additional stats.")
-    try:
-        with open(savepath_it_config + "stats.json") as json_file:
-            stats = json.load(json_file)
+    if robustness:
+        # Create slightly different scm with data distributional shift
+        shift_scm = scm.copy()
+        for node in scm.dag.var_names:
+            if node != scm.predict_target:
+                for shift in shifts:
+                    print(f"Node: {node}, shift (mean, var): {shift}")
+                    shifted_model = get_model(model_type, kwargs_model, scm=scm, seed=seed_iter)
+                    batches = shifted_batches[f"{node}_{shift[0]}_{shift[1]}"].copy()
 
-        # add further information to the statistics
-        if assess_robustness:
-            stats["eta_obs_refit"] = float(
-                eta_obs_batch2
-            )  # eta refit on batch0_pre and bacht1_post
-            stats["model_post_score"] = score_post
-            stats["model_post_f1"] = f1_post
+                    print("fitting model with the specified parameters")
+                    shifted_model.fit(batches[0][0], batches[0][1])
+                    model_score = model.score(batches[1][0], batches[1][1])
+                    f1 = f1_score(batches[1][1], shifted_model.predict(batches[1][0]))
+                    print(f"model fit with accuracy {model_score}")
+                    print(f"f1-score {f1}")
 
-        stats["eta_obs_refits_batch0_mean"] = float(
-            np.mean(eta_obs_refits_batch0)
-        )  # mean eta of batch0-refits
-        stats["model_score"] = model_score
-        stats["model_f1"] = f1
-        stats["model_refits_batch0_scores"] = model_refits_batch0_scores
-        stats["model_refits_batch0_f1s"] = model_refits_batch0_f1s
+                    result_tpl_shift = recourse_population(
+                        shift_scm,
+                        batches[1][0],
+                        batches[1][1],
+                        batches[1][2],
+                        y_name,
+                        costs,
+                        N_max=N_recourse,
+                        proportion=1.0,
+                        r_type=r_type,
+                        t_type=t_type,
+                        gamma=gamma,
+                        eta=gamma,
+                        thresh=thresh,
+                        lbd=lbd,
+                        model=model,
+                        use_scm_pred=use_scm_pred,
+                        predict_individualized=predict_individualized,
+                        NGEN=NGEN,
+                        POP_SIZE=POP_SIZE,
+                        rounding_digits=rounding_digits,
+                    )
+                    robustness_path = it_path + "robustness/"
+                    savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type, r_type,
+                                                                          node,
+                                                                          shift[0], shift[1])
 
-        if model_type == "logreg":
-            stats["model_coef"] = model.coef_.tolist()
-            stats["model_coef"].append(model.intercept_.tolist())
-            if assess_robustness:
-                stats["model_coef_refit"] = model_post.coef_.tolist()
-                stats["model_coef_refit"].append(model_post.intercept_.tolist())
-        else:
-            stats["model_coef"] = float("nan")
-            if assess_robustness:
-                stats["model_coef_refit"] = float("nan")
+                    save_recourse_result(savepath_shift, result_tpl_shift)
 
-        with open(savepath_it_config + "stats.json", "w") as json_file:
-            json.dump(stats, json_file)
-    except Exception as exc:
-        print("Could not append eta_obs_batch2 to stats.json")
-        logging.debug(exc)
+                    X_batch1_post_impl = result_tpl_shift[5]
+                    X_batch1_post = batches[1][0].copy()
+                    X_batch1_post.loc[X_batch1_post_impl.index, :] = X_batch1_post_impl
 
+                    refit_models(result_tpl_shift, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_shift,
+                                 model_score,
+                                 f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model)
+
+                    shifted_post = result_tpl_shift[5]
+                    post_shifted_pred = shifted_model.predict(shifted_post)
+                    invalidated = np.sum(post_shifted_pred == 0) / len(post_shifted_pred)
+                    print(f"Invalidated perf of M2: {invalidated}")
+                    validated_m2 = np.sum(post_shifted_pred) / len(post_shifted_pred)
+                    print(f"Validated perf of M2: {validated_m2}")
+                    pre_shift_pred = model.predict(shifted_post)
+                    validated_m1 = np.sum(pre_shift_pred) / len(pre_shift_pred)
+                    print(f"Validated perf of M1: {validated_m1}")
+
+                    with open(savepath_shift + "stats_shift.json", "w") as f:
+                        json.dump({'inv': invalidated, 'val_m2': validated_m2, 'val_m1': validated_m1}, f)
     print("-----------------------------FINISHED----------------------------------")
     return "FINISHED"
 
@@ -291,6 +418,8 @@ def run_experiment(
     tuning=False,
     parallelisation=False,
     genetic_algo="nsga2",
+    robustness=False,
+    shifts=None,
     **kwargs_model,
 ):
     try:
@@ -393,6 +522,15 @@ def run_experiment(
 
     n_fails = 0
 
+    mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(0.0),
+                                                   scale=jnp.array(0.25))
+    scm.update_noise({'x2': mean_shift_dist})
+
+    noise_shift = scm.sample_context(N)
+    df_shift = scm.compute()
+    X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
+    y_shift = df_shift[y_name]
+
     # for ii in range(existing_runs, iterations):
     while existing_runs < iterations:
         print("")
@@ -417,14 +555,7 @@ def run_experiment(
             )
         )
 
-        batches = []
-        i = 0
-
-        while i < N:
-            X_i, y_i = X.iloc[i : i + batch_size, :], y.iloc[i : i + batch_size]
-            U_i = noise.iloc[i : i + batch_size, :]
-            batches.append((X_i, y_i, U_i))
-            i += batch_size
+        batches = create_batches(X, y, N, batch_size, noise)
 
         print("Split the data into {} batches".format(N_BATCHES))
 
@@ -432,53 +563,7 @@ def run_experiment(
 
         print("Fitting model (type {})...".format(model_type))
 
-        model = None
-        if model_type == "logreg":
-            model = LogisticRegression(random_state=seed, **kwargs_model)
-        elif model_type == "rf":
-            # parallelize random forest
-            kwargs_model["n_jobs"] = -1
-            if tuning:
-                rf_random = get_tuning_rf(50, 3)
-
-                # prepare tuning
-                scm_cp = scm.copy()
-                _ = scm_cp.sample_context(10**4)
-                data_tuning = scm_cp.compute()
-                X_tuning = data_tuning[df.columns[df.columns != y_name]]
-                y_tuning = data_tuning[y_name]
-
-                # perform tuning
-                print("tuning random forest parameters")
-                rf_random.fit(X_tuning, y_tuning)
-                rf_best_pars = rf_random.best_params_
-                for par in rf_best_pars.keys():
-                    if par not in kwargs_model:
-                        kwargs_model[par] = rf_best_pars[par]
-            if "max_depth" not in kwargs_model:
-                kwargs_model["max_depth"] = 30
-            if "n_estimators" not in kwargs_model:
-                kwargs_model["n_estimators"] = 50
-            if "class_weight" not in kwargs_model:
-                kwargs_model["class_weight"] = "balanced_subsample"
-
-            model = RandomForestClassifier(random_state=seed, **kwargs_model)
-        elif model_type == "adaboost":
-            model = AdaBoostClassifier(random_state=seed, **kwargs_model)
-        elif model_type == "SVC":
-            model = SVC(random_state=seed, probability=True, **kwargs_model)
-        elif model_type == "MLP":
-            model = MLPClassifier(
-                solver="adam",
-                alpha=1e-5,
-                hidden_layer_sizes=(10, 10, 5),
-                random_state=seed,
-                **kwargs_model,
-            )
-        else:
-            raise NotImplementedError(
-                "model type {} not implemented".format(model_type)
-            )
+        model = get_model(model_type, seed=seed)
 
         print("fitting model with the specified parameters")
         model.fit(batches[0][0], batches[0][1])
@@ -519,27 +604,7 @@ def run_experiment(
         model_refits_batch0_scores = []
         model_refits_batch0_f1s = []
         for ii in range(nr_refits_batch0):
-            model_tmp = None
-            if model_type == "logreg":
-                model_tmp = LogisticRegression(random_state=seed, penalty="none", **kwargs_model)
-            elif model_type == "rf":
-                model_tmp = RandomForestClassifier(random_state=seed, n_jobs=-1)
-            elif model_type == "adaboost":
-                model_tmp = AdaBoostClassifier(random_state=seed, **kwargs_model)
-            elif model_type == "SVC":
-                model_tmp = SVC(probability=True, random_state=seed, **kwargs_model)
-            elif model_type == "MLP":
-                model_tmp = MLPClassifier(
-                    solver="adam",
-                    alpha=1e-5,
-                    hidden_layer_sizes=(10, 10, 5),
-                    random_state=seed,
-                    **kwargs_model,
-                )
-            else:
-                raise NotImplementedError(
-                    "model type {} not implemented".format(model_type)
-                )
+            model_tmp = get_model(model_type, seed=seed)
             sample_locs = (
                 batches[0][0].sample(batches[0][0].shape[0], replace=True).index
             )
@@ -563,6 +628,42 @@ def run_experiment(
         if assess_robustness:
             batches[2][0].to_csv(it_path + "X_val.csv")
             batches[2][1].to_csv(it_path + "y_val.csv")
+
+        shifted_batches = None
+        if robustness:
+            robustness_path = it_path + "robustness/"
+            if not os.path.exists(robustness_path):
+                os.mkdir(robustness_path)
+            for r_type, t_type in all_combinations:
+                for node in scm.dag.var_names:
+                    if node != scm.predict_target:
+                        for shift in shifts:
+                            savepath_shift = "{}{}-{}-{}-{}-mean{}-var{}/".format(robustness_path, model_type, t_type,
+                                                                                  r_type, node,
+                                                                                  shift[0], shift[1])
+                            os.mkdir(savepath_shift)
+
+            shifted_batches = {}
+            for node in scm.dag.var_names:
+                if node != scm.predict_target:
+                    for shift in shifts:
+                        shift_scm = scm.copy()
+                        print(f"Node: {node}, shift (mean, var): {shift}")
+                        mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(shift[0]),
+                                                                       scale=jnp.array(shift[1]))
+                        shift_scm.update_noise({node: mean_shift_dist})
+                        noise_shift = shift_scm.sample_context(N)
+                        df_shift = shift_scm.compute()
+                        X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
+                        x_pa = shift_scm._get_parent_values(y_name).to_numpy()
+                        u_j = shift_scm._get_noise_values(y_name)
+                        y_shift = sigmoidal_binomial_(x_pa - np.mean(x_pa), u_j)
+                        y_shift = pd.Series(y_shift)
+
+                        batches = create_batches(X_shift, y_shift, N, round(N / 2), noise_shift)
+
+                        comb_key = f"{node}_{shift[0]}_{shift[1]}"
+                        shifted_batches[comb_key] = batches
 
         if parallelisation:
             # Set up the pool of processes
@@ -601,6 +702,11 @@ def run_experiment(
                         log_path,
                         genetic_algo,
                         seed_iter,
+                        N,
+                        robustness,
+                        parallelisation,
+                        shifts,
+                        shifted_batches,
                         kwargs_model,
                     ),
                 )
@@ -641,5 +747,10 @@ def run_experiment(
                     log_path,
                     genetic_algo,
                     seed_iter,
+                    N,
+                    robustness,
+                    parallelisation,
+                    shifts,
+                    shifted_batches,
                     kwargs_model,
                 )

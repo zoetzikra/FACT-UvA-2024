@@ -22,7 +22,7 @@ def get_dirs(savepath):
     return dirs
 
 
-def compile_experiments(savepath, scm_name, dirs=None, assess_robustness=False):
+def compile_experiments(savepath, scm_name, dirs=None, assess_robustness=False, robustness=False):
     base_base_path = savepath
 
     def check_deprecated(dirname):
@@ -68,184 +68,185 @@ def compile_experiments(savepath, scm_name, dirs=None, assess_robustness=False):
     df_invs_resultss = pd.DataFrame([])
 
     for dir in dirs:
-        base_path = dir
-        path = base_path
+        if 'robustness' not in dir:
+            base_path = dir
+            path = base_path
 
-        # load scm
-        try:
-            scm = ex.scm_dict[scm_name]
-            causes = scm.dag.get_ancestors_node(scm.predict_target)
-            non_causes = set(scm.dag.var_names) - causes - {scm.predict_target}
-        except FileNotFoundError as err:
-            logging.warning(err)
-            break
+            # load scm
+            try:
+                scm = ex.scm_dict[scm_name]
+                causes = scm.dag.get_ancestors_node(scm.predict_target)
+                non_causes = set(scm.dag.var_names) - causes - {scm.predict_target}
+            except FileNotFoundError as err:
+                logging.warning(err)
+                break
 
-        r_types = ["individualized", "subpopulation"]
-        t_types = ["improvement", "acceptance", "counterfactual"]
+            r_types = ["individualized", "subpopulation"]
+            t_types = ["improvement", "acceptance", "counterfactual"]
 
-        # RESULT DATAFRAMES
-        df = pd.DataFrame([], columns=cols)
-        df_cost = pd.DataFrame([], columns=cols_cost)
-        df_invs = pd.DataFrame([])
-        df_coefs = pd.DataFrame([])
-        df_coefs_refits = pd.DataFrame([])
+            # RESULT DATAFRAMES
+            df = pd.DataFrame([], columns=cols)
+            df_cost = pd.DataFrame([], columns=cols_cost)
+            df_invs = pd.DataFrame([])
+            df_coefs = pd.DataFrame([])
+            df_coefs_refits = pd.DataFrame([])
 
-        # loop over iterations/experiments to fill the result dataframes
-        it_dirs = [
-            int(name)
-            for name in os.listdir(path)
-            if os.path.isdir(os.path.join(path, name)) and name[0].isdigit()
-        ]
-        for it in it_dirs:
-            path_it = path + "{}/".format(it)
-            for r_type in r_types:
-                for t_type in t_types:
-                    path_it_config = path_it + "{}-{}/".format(t_type, r_type)
+            # loop over iterations/experiments to fill the result dataframes
+            it_dirs = [
+                int(name)
+                for name in os.listdir(path)
+                if os.path.isdir(os.path.join(path, name)) and name[0].isdigit()
+            ]
+            for it in it_dirs:
+                path_it = path + "{}/".format(it)
+                for r_type in r_types:
+                    for t_type in t_types:
+                        path_it_config = path_it + "{}-{}/".format(t_type, r_type)
 
-                    # try to read the stats.json
-                    try:
-                        f = None
-                        if "stats.json" in os.listdir(path_it_config):
-                            f = open(path_it_config + "stats.json")
-                        elif "batch2_stats.json" in os.listdir(path_it_config):
-                            f = open(path_it_config + "batch2_stats.json")
-                        else:
-                            raise FileNotFoundError(
-                                "Neither stats.json nor batch2_stats.json found."
-                            )
-                        stats = json.load(f)
-                        f.close()
+                        # try to read the stats.json
+                        try:
+                            f = None
+                            if "stats.json" in os.listdir(path_it_config):
+                                f = open(path_it_config + "stats.json")
+                            elif "batch2_stats.json" in os.listdir(path_it_config):
+                                f = open(path_it_config + "batch2_stats.json")
+                            else:
+                                raise FileNotFoundError(
+                                    "Neither stats.json nor batch2_stats.json found."
+                                )
+                            stats = json.load(f)
+                            f.close()
 
-                        stats["iteration"] = it
-                        stats_series = pd.Series(stats)
-                        df = df.append(stats_series[cols], ignore_index=True)
+                            stats["iteration"] = it
+                            stats_series = pd.Series(stats)
+                            df = df.append(stats_series[cols], ignore_index=True)
 
-                        if not type(stats_series["model_coef"]) is list:
-                            coefs = pd.Series(
-                                stats_series["model_coef"][0]
-                                + stats_series["model_coef"][1]
-                            )
-
-                            coefs["t_type"] = t_type
-                            coefs["r_type"] = r_type
-                            coefs["it"] = int(it)
-
-                            df_coefs = df_coefs.append(coefs, ignore_index=True)
-
-                            if assess_robustness:
-                                coefs_refit = pd.Series(
-                                    stats_series["model_coef_refit"][0]
-                                    + stats_series["model_coef_refit"][1]
+                            if not type(stats_series["model_coef"]) is list:
+                                coefs = pd.Series(
+                                    stats_series["model_coef"][0]
+                                    + stats_series["model_coef"][1]
                                 )
 
-                                coefs_refit["t_type"] = t_type
-                                coefs_refit["r_type"] = r_type
-                                coefs_refit["it"] = int(it)
+                                coefs["t_type"] = t_type
+                                coefs["r_type"] = r_type
+                                coefs["it"] = int(it)
 
-                                df_coefs_refits = df_coefs_refits.append(
-                                    coefs_refit, ignore_index=True
+                                df_coefs = df_coefs.append(coefs, ignore_index=True)
+
+                                if assess_robustness:
+                                    coefs_refit = pd.Series(
+                                        stats_series["model_coef_refit"][0]
+                                        + stats_series["model_coef_refit"][1]
+                                    )
+
+                                    coefs_refit["t_type"] = t_type
+                                    coefs_refit["r_type"] = r_type
+                                    coefs_refit["it"] = int(it)
+
+                                    df_coefs_refits = df_coefs_refits.append(
+                                        coefs_refit, ignore_index=True
+                                    )
+
+                        except Exception as err:
+                            logging.warning(
+                                "Could not load file[s] {}".format(
+                                    path_it_config + "[batch2_]stats.json"
                                 )
-
-                    except Exception as err:
-                        logging.warning(
-                            "Could not load file[s] {}".format(
-                                path_it_config + "[batch2_]stats.json"
                             )
-                        )
 
-                    # try to read and extract information from costss.csv and invs.csv
-                    # to build cost overview
-                    try:
-                        cost_tmp = pd.read_csv(
-                            path_it_config + "costss.csv", index_col=0
-                        )
-                        invs_tmp = pd.read_csv(path_it_config + "invs.csv", index_col=0)
-
-                        ixs_recourse_recommended = invs_tmp.index[
-                            (invs_tmp.abs().mean(axis=1) > 0)
-                        ]
-
-                        print(f"# of recourse individuals {len(ixs_recourse)}")
-                        print(f"# of recommended ixs {len(ixs_recourse_recommended)}")
-
-                        cost = cost_tmp.loc[
-                            ixs_recourse_recommended, "intv_cost"
-                        ].mean()
-                        df_cost = df_cost.append(
-                            {
-                                "r_type": r_type,
-                                "t_type": t_type,
-                                "iteration": it,
-                                "intv-cost": cost,
-                            },
-                            ignore_index=True,
-                        )
-                    except Exception as err:
-                        logging.warning(
-                            "Could not load file {}".format(
-                                path_it_config + "costss.csv"
+                        # try to read and extract information from costss.csv and invs.csv
+                        # to build cost overview
+                        try:
+                            cost_tmp = pd.read_csv(
+                                path_it_config + "costss.csv", index_col=0
                             )
-                        )
+                            invs_tmp = pd.read_csv(path_it_config + "invs.csv", index_col=0)
 
-                    # try to read invs.csv to get itnervention type overview
-                    try:
-                        invs = pd.read_csv(path_it_config + "invs.csv", index_col=0)
-                        ixs_recourse = invs.index[invs.sum(axis=1) > 0]
-                        invs = invs.loc[ixs_recourse, :]
-                        invs = invs.mean(axis=0).to_dict()
-                        invs["t_type"] = t_type
-                        invs["r_type"] = r_type
-                        invs["iteration"] = it
-                        df_invs = df_invs.append(invs, ignore_index=True)
-                    except Exception as err:
-                        logging.warning(
-                            "Could not load file {}".format(path_it_config + "invs.csv")
-                        )
+                            ixs_recourse_recommended = invs_tmp.index[
+                                (invs_tmp.abs().mean(axis=1) > 0)
+                            ]
 
-        try:
-            # join the dataframes
-            df = df.join(df_cost, lsuffix="", rsuffix="_cost")
-            df.drop(list(df.filter(regex="_cost$")), axis=1, inplace=True)
+                            print(f"# of recourse individuals {len(ixs_recourse)}")
+                            print(f"# of recommended ixs {len(ixs_recourse_recommended)}")
 
-            result_dir = base_path
-            df.to_csv(result_dir + "result_raw.csv")
+                            cost = cost_tmp.loc[
+                                ixs_recourse_recommended, "intv_cost"
+                            ].mean()
+                            df_cost = df_cost.append(
+                                {
+                                    "r_type": r_type,
+                                    "t_type": t_type,
+                                    "iteration": it,
+                                    "intv-cost": cost,
+                                },
+                                ignore_index=True,
+                            )
+                        except Exception as err:
+                            logging.warning(
+                                "Could not load file {}".format(
+                                    path_it_config + "costss.csv"
+                                )
+                            )
 
-            # get mean and standard deviation
-            groupby_cols = ["r_type", "t_type"]
+                        # try to read invs.csv to get itnervention type overview
+                        try:
+                            invs = pd.read_csv(path_it_config + "invs.csv", index_col=0)
+                            ixs_recourse = invs.index[invs.sum(axis=1) > 0]
+                            invs = invs.loc[ixs_recourse, :]
+                            invs = invs.mean(axis=0).to_dict()
+                            invs["t_type"] = t_type
+                            invs["r_type"] = r_type
+                            invs["iteration"] = it
+                            df_invs = df_invs.append(invs, ignore_index=True)
+                        except Exception as err:
+                            logging.warning(
+                                "Could not load file {}".format(path_it_config + "invs.csv")
+                            )
 
-            # main table
-            gb_obj = df.groupby(groupby_cols)
-            mean_table = gb_obj.mean()[output_cols]
-            # if n_iterations > 1:
-            std_table = gb_obj.agg(lambda x: x.std())[output_cols]
-            result_table = mean_table.join(std_table, lsuffix="_mean", rsuffix="_std")
-            # else:
-            #     result_table = mean_table
-            #     result_table.columns = result_table.columns + '_mean'
+            try:
+                # join the dataframes
+                df = df.join(df_cost, lsuffix="", rsuffix="_cost")
+                df.drop(list(df.filter(regex="_cost$")), axis=1, inplace=True)
 
-            # invs table
-            df_invs = df_invs.loc[:, df_invs.columns != "iteration"]
-            df_invs.loc[:, "causes"] = df_invs.loc[:, causes].sum(axis=1)
-            df_invs.loc[:, "non-causes"] = df_invs.loc[:, non_causes].sum(axis=1)
-            gb_obj = df_invs.groupby(groupby_cols)
-            invs_mean = gb_obj.mean()
-            # if n_iterations > 1:
-            invs_std = gb_obj.agg(lambda x: x.std())
-            invs_res = invs_mean.join(invs_std, lsuffix="_mean", rsuffix="_std")
-            # else:
-            #     invs_res = invs_mean
-            #     invs_res.columns = invs_res.columns + '_mean'
+                result_dir = base_path
+                df.to_csv(result_dir + "result_raw.csv")
 
-            result_table.to_csv(result_dir + "aggregated_result.csv")
-            invs_res.to_csv(result_dir + "aggregated_invs.csv")
-            print("SUCCESS in folder {}".format(dir))
+                # get mean and standard deviation
+                groupby_cols = ["r_type", "t_type"]
 
-            invs_res["gamma"] = result_table["gamma_mean"][0]
-            df_resultss = pd.concat([df_resultss, result_table])
-            df_invs_resultss = pd.concat([df_invs_resultss, invs_res])
-        except Exception as err:
-            print("Not successful in directory {}".format(dir))
-            print(err)
+                # main table
+                gb_obj = df.groupby(groupby_cols)
+                mean_table = gb_obj.mean()[output_cols]
+                # if n_iterations > 1:
+                std_table = gb_obj.agg(lambda x: x.std())[output_cols]
+                result_table = mean_table.join(std_table, lsuffix="_mean", rsuffix="_std")
+                # else:
+                #     result_table = mean_table
+                #     result_table.columns = result_table.columns + '_mean'
+
+                # invs table
+                df_invs = df_invs.loc[:, df_invs.columns != "iteration"]
+                df_invs.loc[:, "causes"] = df_invs.loc[:, causes].sum(axis=1)
+                df_invs.loc[:, "non-causes"] = df_invs.loc[:, non_causes].sum(axis=1)
+                gb_obj = df_invs.groupby(groupby_cols)
+                invs_mean = gb_obj.mean()
+                # if n_iterations > 1:
+                invs_std = gb_obj.agg(lambda x: x.std())
+                invs_res = invs_mean.join(invs_std, lsuffix="_mean", rsuffix="_std")
+                # else:
+                #     invs_res = invs_mean
+                #     invs_res.columns = invs_res.columns + '_mean'
+
+                result_table.to_csv(result_dir + "aggregated_result.csv")
+                invs_res.to_csv(result_dir + "aggregated_invs.csv")
+                print("SUCCESS in folder {}".format(dir))
+
+                invs_res["gamma"] = result_table["gamma_mean"][0]
+                df_resultss = pd.concat([df_resultss, result_table])
+                df_invs_resultss = pd.concat([df_invs_resultss, invs_res])
+            except Exception as err:
+                print("Not successful in directory {}".format(dir))
+                print(err)
 
     df_resultss = df_resultss.sort_values(["t_type", "r_type", "gamma_mean"])
     df_resultss.to_csv(base_base_path + "resultss.csv")
@@ -265,6 +266,9 @@ def compile_experiments(savepath, scm_name, dirs=None, assess_robustness=False):
             df_coefs_refits_mean = df_coefs_refits.groupby(["t_type", "r_type"]).mean()
             df_coefs_refits.to_csv(base_base_path + "model_coefs_refits.csv")
             df_coefs_refits_mean.to_csv(base_base_path + "model_coefs_refits_mean.csv")
+
+    if robustness:
+        pass
 
 
 # if __name__ == '__main__':

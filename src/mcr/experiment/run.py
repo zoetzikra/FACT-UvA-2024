@@ -419,6 +419,7 @@ def run_experiment(
     parallelisation=False,
     genetic_algo="nsga2",
     robustness=False,
+    shifts=None,
     **kwargs_model,
 ):
     try:
@@ -628,10 +629,8 @@ def run_experiment(
             batches[2][0].to_csv(it_path + "X_val.csv")
             batches[2][1].to_csv(it_path + "y_val.csv")
 
-        shifts = None
         shifted_batches = None
         if robustness:
-            shifts = [(0.0, 1.0), (0.5, 1.0), (0.0, 0.5), (0.5, 0.5)]
             robustness_path = it_path + "robustness/"
             if not os.path.exists(robustness_path):
                 os.mkdir(robustness_path)
@@ -658,11 +657,8 @@ def run_experiment(
                         X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
                         x_pa = shift_scm._get_parent_values(y_name).to_numpy()
                         u_j = shift_scm._get_noise_values(y_name)
-                        print(f"Mean value of parents: {np.mean(x_pa)}")
                         y_shift = sigmoidal_binomial_(x_pa - np.mean(x_pa), u_j)
                         y_shift = pd.Series(y_shift)
-
-                        print(np.unique(y_shift, return_counts=True))
 
                         batches = create_batches(X_shift, y_shift, N, round(N / 2), noise_shift)
 

@@ -7,6 +7,15 @@ import os
 import logging
 import numpy as np
 import time
+import ast
+
+
+def parse_shift(arg):
+    try:
+        return tuple(map(float, ast.literal_eval(arg)))
+    except (ValueError, SyntaxError):
+        raise argparse.ArgumentTypeError("Invalid formatting for --shift: {}".format(arg))
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -59,6 +68,13 @@ if __name__ == "__main__":
         help="whether to ignore all numpy warnings and errors",
         default=True,
         type=bool,
+    )
+    parser.add_argument(
+        "--shifts",
+        nargs="+",
+        type=parse_shift,
+        help="List of tuples representing mean and variance shifts (e.g., '(0.5, 1.0)' '(0.0, 0.5)')",
+        default=[(0.5, 1.0), (0.0, 0.5), (0.5, 0.5)]
     )
 
     start_time = time.time()
@@ -115,7 +131,8 @@ if __name__ == "__main__":
         t_types=args.t_type,
         parallelisation=args.parallelise,
         genetic_algo=args.genetic_algo,
-        robustness=args.robustness
+        robustness=args.robustness,
+        shifts=args.shifts
     )
 
     # compile_experiments(args.savepath, args.scm_name, robustness=args.robustness)

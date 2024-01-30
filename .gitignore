@@ -3,3 +3,4 @@
 *.vscode
 results_authors/
 env/
+*_icr_env_*

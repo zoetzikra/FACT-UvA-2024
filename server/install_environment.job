@@ -1,18 +1,24 @@
 #!/bin/bash
 
-#SBATCH --partition=gpu
-#SBATCH --gpus=1
-#SBATCH --job-name=InstallEnvironment
+#SBATCH --partition=genoa
+#SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=8000M
 #SBATCH --time=02:00:00
 #SBATCH --output=install_icr_env_%A.out
 #SBATCH --error=install_icr_env_%A.err
 
 set -e # exit on first error
 
+# create the conda environment
+PROJECT_DIR="$PWD"
+# ENV_PREFIX="$PROJECT_DIR"/env
+
 module purge
 module load 2022
 module load Anaconda3/2022.05
 
-conda env create -f icr_environment.yml
+conda env create -f "$PROJECT_DIR"/icr_environment_cpu.yml
+
+# conda env create --prefix $ENV_PREFIX --file "$PROJECT_DIR"/icr_environment_cpu.yml --force

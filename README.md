@@ -31,7 +31,7 @@ Key features of our method are:
 ## Outline
 - [Installation](#installation)
 - [Scripts to reproduce the results](#scripts-to-reproduce-the-results)
-- [License]()
+- [Plots](#plots)
 
 
 
@@ -122,6 +122,28 @@ python scripts/run_experiments.py 3var-causal 2000 100 [confidence] 300 [savepat
 
 python scripts/run_experiments.py 7var-covid 10000 100 [confidence] 2999 [savepath]/7var-covid-collected-nsga2/ 3 --NGEN 350 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --parallelise --genetic_algo nsga2   
 ```
+
+## Plots 
+
+The experiments can be compiled and combined into a plot using 
+
+```shell
+python scripts/plots.py --savepath [savepath]
+```
+
+In the ``[savepath]`` folder, for each scm you can then find two files called
+
+- ``resultss.csv``: summary statistics for all experiment folders in the specified result folder. mean and standard deviation for
+  - `eta_mean`: specified desired acceptance rate
+  - `gamma_mean`: specified desired improvement rate
+  - `perc_recomm_found`: percent of recourse-seeking individuals for which a recommendation could be made
+  - `eta_obs_mean`: average acceptance rate (observed)
+  - `gamma_obs_mean`: average improvement rate (observed)
+  - `eta_obs_individualized_mean`: average acceptance rate for the individualized post-recourse predictor (observed)
+  - `eta_obs_refits_batch0_mean_mean`: average acceptance rate mean over all (model multiplicity) refits on batch 1 evaluated over batch 2. 
+  - `intv-cost_mean`: averge cost of the suggested interventions
+  - `[...]_std`: the respective standard deviations
+- ``invs_resultss.csv``: overview of interventions performed for each of the variables as well as aggregated for causes and non-causal variables
 
 <!-- ## (Optional) Prompt Prepending
 
@@ -267,7 +289,7 @@ If you find this repo useful, please cite:
 }
 ``` -->
 
-## License
+<!-- ## License
 We use the X11 License. This license is identical to the MIT License, 
 but with an extra sentence that prohibits using the copyright holders' names (Carnegie Mellon University and Google in our case) for 
-advertising or promotional purposes without written permission.
+advertising or promotional purposes without written permission. -->

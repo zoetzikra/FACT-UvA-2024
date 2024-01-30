@@ -90,20 +90,21 @@ def run_recourse(
     model_refits_batch0_f1s,
     model_refits_batch0,
     log_path,
-    seed_iter,
     genetic_algo,
+    seed_iter,
     kwargs_model,
 ):
     log_file_path = f"{log_path}/child_{r_type}_{t_type}_output.log"
     sys.stdout = open(log_file_path, "a")
     sys.stderr = sys.stdout
-    set_seed(seed_iter)
     print("")
     print("combination: {} {}".format(r_type, t_type))
 
     savepath_it_config = it_path + "{}-{}/".format(t_type, r_type)
     print(savepath_it_config)
     os.mkdir(savepath_it_config)
+
+    set_seed(seed_iter)
 
     # perform recourse on batch 1
     result_tpl = recourse_population(
@@ -400,6 +401,7 @@ def run_experiment(
         print("ITERATION {}".format(existing_runs))
         print("-------------")
         seed_iter = seed + existing_runs
+        set_seed(seed_iter)
         # sample data
         noise = scm.sample_context(N)
         df = scm.compute()
@@ -597,8 +599,8 @@ def run_experiment(
                         model_refits_batch0_f1s,
                         model_refits_batch0,
                         log_path,
-                        seed_iter,
                         genetic_algo,
+                        seed_iter,
                         kwargs_model,
                     ),
                 )
@@ -637,7 +639,7 @@ def run_experiment(
                     model_refits_batch0_f1s,
                     model_refits_batch0,
                     log_path,
-                    seed_iter,
                     genetic_algo,
+                    seed_iter,
                     kwargs_model,
                 )

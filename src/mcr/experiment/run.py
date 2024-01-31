@@ -522,15 +522,6 @@ def run_experiment(
 
     n_fails = 0
 
-    mean_shift_dist = numpyro.distributions.Normal(loc=jnp.array(0.0),
-                                                   scale=jnp.array(0.25))
-    scm.update_noise({'x2': mean_shift_dist})
-
-    noise_shift = scm.sample_context(N)
-    df_shift = scm.compute()
-    X_shift = df_shift[df_shift.columns[df_shift.columns != y_name]]
-    y_shift = df_shift[y_name]
-
     # for ii in range(existing_runs, iterations):
     while existing_runs < iterations:
         print("")
@@ -539,7 +530,6 @@ def run_experiment(
         print("ITERATION {}".format(existing_runs))
         print("-------------")
         seed_iter = seed + existing_runs
-        set_seed(seed_iter)
         # sample data
         noise = scm.sample_context(N)
         df = scm.compute()
@@ -631,6 +621,7 @@ def run_experiment(
 
         shifted_batches = None
         if robustness:
+            set_seed(seed_iter)
             robustness_path = it_path + "robustness/"
             if not os.path.exists(robustness_path):
                 os.mkdir(robustness_path)

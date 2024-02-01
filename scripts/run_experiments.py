@@ -135,6 +135,6 @@ if __name__ == "__main__":
         shifts=args.shifts
     )
 
-    # compile_experiments(args.savepath, args.scm_name, robustness=args.robustness)
+    compile_experiments(args.savepath, args.scm_name, robustness=args.robustness)
 
     print("FINISHED TIME:", time.time() - start_time)

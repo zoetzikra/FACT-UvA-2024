@@ -4,6 +4,6 @@
 set -e
 
 # script to be run all experiments
-source launch_3var-causal-all-conf-nsga2.sh
-source launch_3var-nc-all-conf-nsga2.sh
-source launch_7var-covid-all-conf-nsga2.sh
+source server/launch_3var-causal-all-conf-nsga2.sh
+source server/launch_3var-nc-all-conf-nsga2.sh
+source server/launch_7var-covid-all-conf-nsga2.sh

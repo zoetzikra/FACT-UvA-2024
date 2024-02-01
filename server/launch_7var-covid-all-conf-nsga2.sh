@@ -18,7 +18,7 @@ mkdir -p "$LOGS_RESULTS_DIR"
 confidence_levels=(0.75 0.95)
 for confidence in "${confidence_levels[@]}"
 do  
-    JOB_NAME=7var-covid-confidence-${confidence}-reduced
+    JOB_NAME=7var-covid-confidence-${confidence}-reduced-nsga2
     CONFIDENCE=$confidence
     echo "Staring ${JOB_NAME} ..."
     sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-covid-nsga2.job 7var-covid 10000 100 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 350 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --parallelise --genetic_algo nsga2

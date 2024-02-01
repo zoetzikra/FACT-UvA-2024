@@ -19,7 +19,7 @@ confidence_levels=(0.65 0.70)
 
 for confidence in "${confidence_levels[@]}"
 do  
-    JOB_NAME=7var-credit-confidence-${confidence}-reduced
+    JOB_NAME=credit-confidence-${confidence}-reduced
     CONFIDENCE=$confidence
     echo "Staring ${JOB_NAME} ..."
     sbatch --job-name "$JOB_NAME" "$SRC_DIR"/7var-credit-nsga2.job 7var-credit 10000 100 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 350 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --parallelise --genetic_algo nsga2

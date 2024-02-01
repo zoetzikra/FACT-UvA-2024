@@ -19,7 +19,7 @@ confidence_levels=(0.75 0.95)
 
 for confidence in "${confidence_levels[@]}"
 do  
-    JOB_NAME=3var-causal-confidence-${confidence}-reduced
+    JOB_NAME=3var-causal-confidence-${confidence}-reduced-nsga2
     CONFIDENCE=$confidence
     echo "Staring ${JOB_NAME} ..."
     sbatch --job-name "$JOB_NAME" "$SRC_DIR"/3var-c-nsga2.job 3var-causal 2000 100 $CONFIDENCE 300 "$RUNS_RESULTS_DIR" 3 --NGEN 300 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --predict_individualized True --parallelise --genetic_algo nsga2

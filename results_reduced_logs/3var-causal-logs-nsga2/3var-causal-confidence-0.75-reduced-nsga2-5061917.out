@@ -1,0 +1,14 @@
+
+JOB STATISTICS
+==============
+Job ID: 5061917
+Cluster: snellius
+User/Group: scur1025/scur1025
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 16
+CPU Utilized: 01:27:43
+CPU Efficiency: 24.81% of 05:53:36 core-walltime
+Job Wall-clock time: 00:22:06
+Memory Utilized: 1.10 GB
+Memory Efficiency: 7.07% of 15.62 GB

@@ -1,0 +1,80 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnelliusandLisa-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/2/improvement-individualized/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/2/improvement-individualized/costss.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/2/acceptance-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/2/counterfactual-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/2/improvement-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/2/acceptance-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/2/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/2/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/2/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/1/improvement-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/1/acceptance-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/1/counterfactual-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/1/improvement-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/1/acceptance-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/1/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/1/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/1/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/0/improvement-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/0/acceptance-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/0/counterfactual-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/0/improvement-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/0/acceptance-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/0/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/0/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/0/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/improvement-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/acceptance-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/counterfactual-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/improvement-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/improvement-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/improvement-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/acceptance-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/acceptance-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/acceptance-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/improvement-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/acceptance-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/counterfactual-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/improvement-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/acceptance-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/improvement-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/acceptance-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/counterfactual-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/improvement-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/improvement-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/improvement-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/acceptance-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/acceptance-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/acceptance-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/1/counterfactual-subpopulation/invs.csv
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/improvement-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/acceptance-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/counterfactual-individualized/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/improvement-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/acceptance-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file[s] /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/counterfactual-subpopulation/[batch2_]stats.json
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/counterfactual-subpopulation/costss.csv
+WARNING:root:Could not load file /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/0/counterfactual-subpopulation/invs.csv

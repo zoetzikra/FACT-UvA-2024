@@ -15,14 +15,18 @@ rc("font", **{"family": "serif", "serif": ["Bookman"]})
 
 from mcr.experiment.compile import compile_experiments
 
+# scm_names = {
+#     "3var-causal": "3var-c-collected",
+#     "3var-noncausal": "3var-nc-collected",
+#     "7var-covid": "7var-covid-collected",
+#     "5var-skill": "5var-skill-collected",
+# }
 scm_names = {
-    "3var-causal": "3var-c-collected",
-    "3var-noncausal": "3var-nc-collected",
-    "7var-covid": "7var-covid-collected",
-    "5var-skill": "5var-skill-collected",
+    "7var-credit": "7var-credit-collected-nsga2"
 }
-levels = ["gam0.75_", "gam0.85_", "gam0.9_", "gam0.95_"]
 
+# levels = ["gam0.75_", "gam0.85_", "gam0.9_", "gam0.95_"]
+levels = ["gam0.5_", "gam0.6_", "gam0.7_"]
 
 def has_levels(string):
     has = False
@@ -158,7 +162,7 @@ if __name__ == "__main__":
                 hue="scm",
                 kind="line",
                 markers=True,
-                dashes=False,
+                dashes=True,
                 err_kws={"alpha": 0.1},
                 col_wrap=min(len(df_plt["metric"].unique()), ncol),
                 palette=sns.color_palette("tab10", len(df_plt["scm"].unique())),

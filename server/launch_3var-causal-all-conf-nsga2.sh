@@ -8,20 +8,18 @@ PROJECT_DIR="$PWD"
 
 # project should have a src directory
 SRC_DIR="$PROJECT_DIR"/server
-LOGS_RESULTS_DIR="$PROJECT_DIR"/results_reduced_logs_quater/3var-causal-logs-nsga2/
 RUNS_RESULTS_DIR="$PROJECT_DIR"/results_reduced_quater/3var-causal-collected-nsga2/
 
 mkdir -p "$RUNS_RESULTS_DIR"
-mkdir -p "$LOGS_RESULTS_DIR"
 
 # confidence_levels=(0.75 0.85 0.90 0.95)
-confidence_levels=(0.95)
+confidence_levels=(0.75)
 
 for confidence in "${confidence_levels[@]}"
 do  
     JOB_NAME=3var-causal-confidence-${confidence}-reduced-nsga2
     CONFIDENCE=$confidence
     echo "Staring ${JOB_NAME} ..."
-    sbatch --job-name "$JOB_NAME" "$SRC_DIR"/3var-c-nsga2.job 3var-causal 3000 150 $CONFIDENCE 300 "$RUNS_RESULTS_DIR" 3 --NGEN 450 --POP_SIZE 225 --n_digits 1 --nr_refits 5 --predict_individualized True --parallelise --genetic_algo nsga2
+    sbatch --job-name "$JOB_NAME" "$SRC_DIR"/experiment.job 3var-causal 3000 150 $CONFIDENCE 300 "$RUNS_RESULTS_DIR" 3 --NGEN 450 --POP_SIZE 225 --n_digits 1 --nr_refits 5 --predict_individualized True --parallelise --genetic_algo nsga2
     
 done

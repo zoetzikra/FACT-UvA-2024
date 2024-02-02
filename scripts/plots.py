@@ -133,7 +133,8 @@ if __name__ == "__main__":
 
     sns.set_style("whitegrid")
     ticks = [0.0, 0.5, 0.75, 0.85, 0.9, 0.95, 1.0]
-    xticks = [0.75, 0.85, 0.9, 0.95]
+    # xticks = [0.75, 0.85, 0.9, 0.95]
+    xticks = [0.5, 0.6, 0.7]
     ylim = [0.0, 1.005]
 
     metric_sets = {

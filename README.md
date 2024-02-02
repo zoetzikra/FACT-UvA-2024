@@ -114,14 +114,25 @@ python scripts/run_experiments.py \
   - `--genetic_algo`: Select the Non-dominated Sorting Genetic algorithm istance that minimizes the constrain cost objective. Available options: `[nsga2, nsga3]`
   - `--robustness`: If this flag is specified, extra experiments are run in order to assess ICR robustness in model and data shifts.
  
-**2. Example of replicating our result for all ICR, CR and CE with all specified causal knowledge (SCM) using the NSGA-II genetic algorithm**
+**2. Example of replicating our result for all ICR, CR and CE with all specified causal knowledge (SCM) using the NSGA-II genetic algorithm for synthetic (3var-causal & 3var non causal dataset) and semi-synthetic(7var-covid) datasets and also our extension on the german credit dataset (using halved hyperparameter settings)**
 ```shell
 python scripts/run_experiments.py 3var-noncausal 2000 100 [confidence] 300 [savepath]/3var-nc-collected-nsga2/ 3 --NGEN 300 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --predict_individualized True --parallelise --genetic_algo nsga2
 
 python scripts/run_experiments.py 3var-causal 2000 100 [confidence] 300 [savepath]/3var-causal-collected-nsga2/ 3 --NGEN 300 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --predict_individualized True --parallelise --genetic_algo nsga2
 
-python scripts/run_experiments.py 7var-covid 10000 100 [confidence] 2999 [savepath]/7var-covid-collected-nsga2/ 3 --NGEN 350 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --parallelise --genetic_algo nsga2   
+python scripts/run_experiments.py 7var-covid 10000 100 [confidence] 2999 [savepath]/7var-covid-collected-nsga2/ 3 --NGEN 350 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --parallelise --genetic_algo nsga2
+
+python scripts/run_experiments.py 7var-credit 10000 100 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 350 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --parallelise --genetic_algo nsga2
 ```
+**3. Different classifiers (MLP, SVM, Adaboost) runs + robustness for 3var non causal dataset**
+```shell
+python scripts/run_experiments.py 3var-noncausal 2000 100 [confidence] 300 [savepath]/3var-nc-collected-nsga2/ 3 --NGEN 300 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --model_type MLP --predict_individualized True --parallelise --robustness
+
+python scripts/run_experiments.py 3var-noncausal 2000 100 [confidence] 300 [savepath]/3var-nc-collected-nsga2/ 3 --NGEN 300 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --model_type SVC --predict_individualized True --parallelise --robustness
+
+python scripts/run_experiments.py 3var-noncausal 2000 100 [confidence] 300 [savepath]/3var-nc-collected-nsga2/ 3 --NGEN 300 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --model_type adaboost --predict_individualized True --parallelise --robustness
+```
+A complete list of the scripts to run all our experiments(in the cluster), inlcuding extensions can be found in the server folder.
 
 ## Plots 
 

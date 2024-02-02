@@ -1,0 +1,187 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Creating 2 batches of data with 5000 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+            age  gender  experience  ...  loan_duration     income     saving
+0    -31.196793     0.0   -0.251755  ...      -7.748572  -4.640813 -10.382087
+1    -33.317093     1.0   -0.346871  ...      20.973850   4.828731  41.295692
+2    -31.574375     0.0   -0.271797  ...     -13.644710  -6.472695 -21.595360
+3    -32.330425     0.0   -0.261528  ...     -10.951838  -5.679269 -16.163914
+4    -32.350853     0.0   -0.283312  ...     -17.407278  -7.666502 -28.571358
+...         ...     ...         ...  ...            ...        ...        ...
+4995 -32.371109     1.0   -0.385959  ...       4.264203  -0.308327   7.342141
+4996 -32.703896     0.0   -0.318932  ...     -29.190971 -11.308542 -51.113457
+4997 -33.197857     1.0   -0.334979  ...      25.715517   6.305045  50.373810
+4998 -32.286751     1.0   -0.394848  ...      -0.385157  -1.743886  -1.627269
+4999 -31.556652     1.0   -0.391628  ...       2.176379  -0.918545   3.054679
+
+[5000 rows x 7 columns] 0       1.0
+1       0.0
+2       1.0
+3       1.0
+4       1.0
+       ... 
+4995    0.0
+4996    1.0
+4997    0.0
+4998    1.0
+4999    0.0
+Name: credit, Length: 5000, dtype: float32
+model fit with accuracy 0.999
+f1-score 0.9991226530970346
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+
+
+-------------
+ITERATION 1
+-------------
+Creating 2 batches of data with 5000 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+            age  gender  experience  ...  loan_duration     income     saving
+0    -31.196793     0.0   -0.251755  ...      -7.748572  -4.640813 -10.382087
+1    -33.317093     1.0   -0.346871  ...      20.973850   4.828731  41.295692
+2    -31.574375     0.0   -0.271797  ...     -13.644710  -6.472695 -21.595360
+3    -32.330425     0.0   -0.261528  ...     -10.951838  -5.679269 -16.163914
+4    -32.350853     0.0   -0.283312  ...     -17.407278  -7.666502 -28.571358
+...         ...     ...         ...  ...            ...        ...        ...
+4995 -32.371109     1.0   -0.385959  ...       4.264203  -0.308327   7.342141
+4996 -32.703896     0.0   -0.318932  ...     -29.190971 -11.308542 -51.113457
+4997 -33.197857     1.0   -0.334979  ...      25.715517   6.305045  50.373810
+4998 -32.286751     1.0   -0.394848  ...      -0.385157  -1.743886  -1.627269
+4999 -31.556652     1.0   -0.391628  ...       2.176379  -0.918545   3.054679
+
+[5000 rows x 7 columns] 0       1.0
+1       0.0
+2       1.0
+3       1.0
+4       1.0
+       ... 
+4995    0.0
+4996    1.0
+4997    0.0
+4998    1.0
+4999    0.0
+Name: credit, Length: 5000, dtype: float32
+model fit with accuracy 0.999
+f1-score 0.9991226530970346
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+
+
+-------------
+ITERATION 2
+-------------
+Creating 2 batches of data with 5000 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+            age  gender  experience  ...  loan_duration     income     saving
+0    -31.196793     0.0   -0.251755  ...      -7.748572  -4.640813 -10.382087
+1    -33.317093     1.0   -0.346871  ...      20.973850   4.828731  41.295692
+2    -31.574375     0.0   -0.271797  ...     -13.644710  -6.472695 -21.595360
+3    -32.330425     0.0   -0.261528  ...     -10.951838  -5.679269 -16.163914
+4    -32.350853     0.0   -0.283312  ...     -17.407278  -7.666502 -28.571358
+...         ...     ...         ...  ...            ...        ...        ...
+4995 -32.371109     1.0   -0.385959  ...       4.264203  -0.308327   7.342141
+4996 -32.703896     0.0   -0.318932  ...     -29.190971 -11.308542 -51.113457
+4997 -33.197857     1.0   -0.334979  ...      25.715517   6.305045  50.373810
+4998 -32.286751     1.0   -0.394848  ...      -0.385157  -1.743886  -1.627269
+4999 -31.556652     1.0   -0.391628  ...       2.176379  -0.918545   3.054679
+
+[5000 rows x 7 columns] 0       1.0
+1       0.0
+2       1.0
+3       1.0
+4       1.0
+       ... 
+4995    0.0
+4996    1.0
+4997    0.0
+4998    1.0
+4999    0.0
+Name: credit, Length: 5000, dtype: float32
+model fit with accuracy 0.999
+f1-score 0.9991226530970346
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+# of recourse individuals 58
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 98
+# of recourse individuals 64
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 99
+# of recourse individuals 49
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 99
+# of recourse individuals 44
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 98
+# of recourse individuals 56
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 98
+# of recourse individuals 58
+# of recommended ixs 100
+SUCCESS in folder /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.6_t0.5_lbd2999.0_nit3_NGEN350_POPS150_511/
+# of recourse individuals 0
+# of recommended ixs 99
+# of recourse individuals 56
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 99
+# of recourse individuals 69
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 99
+# of recourse individuals 66
+# of recommended ixs 100
+SUCCESS in folder /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.7_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/
+# of recourse individuals 0
+# of recommended ixs 98
+# of recourse individuals 50
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 97
+# of recourse individuals 52
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 100
+# of recourse individuals 0
+# of recommended ixs 96
+# of recourse individuals 53
+# of recommended ixs 100
+SUCCESS in folder /home/scur1025/antonis_dir/icr/results_reduced/7var-credit-collected-nsga2/N10000_Nrec100_gam0.5_t0.5_lbd2999.0_nit3_NGEN350_POPS150_101/
+FINISHED TIME: 41756.21935272217

@@ -1,0 +1,64 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Creating 2 batches of data with 1000 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 1.0
+f1-score 1.0
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[0.31618219 0.63236438 4.0887331 ]]
+[[0.33569963 0.67139925 4.04140333]]
+[[0.32735463 0.65470927 4.02246186]]
+[[0.31778923 0.63557846 4.15722222]]
+[[0.33254859 0.66509718 4.15410369]]
+
+
+-------------
+ITERATION 1
+-------------
+Creating 2 batches of data with 1000 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 1.0
+f1-score 1.0
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[0.35048549 0.70097098 4.04350743]]
+[[0.32813207 0.65626413 3.88000547]]
+[[0.32582657 0.65165314 4.13487304]]
+[[0.31664872 0.63329745 4.10843087]]
+[[0.32247496 0.64494992 4.00128467]]
+
+
+-------------
+ITERATION 2
+-------------
+Creating 2 batches of data with 1000 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 1.0
+f1-score 1.0
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[0.33205945 0.66411889 3.95649766]]
+[[0.31809538 0.63619077 4.02797936]]
+[[0.33561845 0.6712369  3.93963538]]
+[[0.33179815 0.66359631 3.94483114]]
+[[0.30356503 0.60713006 4.0238484 ]]
+FINISHED TIME: 1260.229769706726

@@ -124,14 +124,17 @@ python scripts/run_experiments.py 7var-covid 10000 100 [confidence] 2999 [savepa
 
 python scripts/run_experiments.py 7var-credit 10000 100 $CONFIDENCE 2999 "$RUNS_RESULTS_DIR" 3 --NGEN 350 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type rf --parallelise --genetic_algo nsga2
 ```
-**3. Different classifiers (MLP, SVM, Adaboost) runs + robustness for 3var non causal dataset**
+**3. Different classifiers (MLP, SVM, Adaboost) runs + robustness for 3var non causal dataset.**
 ```shell
-python scripts/run_experiments.py 3var-noncausal 2000 100 [confidence] 300 [savepath]/3var-nc-collected-nsga2/ 3 --NGEN 300 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --model_type MLP --predict_individualized True --parallelise --robustness
+python scripts/run_experiments.py 3var-noncausal 2000 100 [confidence] 300 [savepath]/3var-nc-collected-nsga2/ 3 --NGEN 300 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --model_type MLP --predict_individualized True --parallelise --robustness --shifts "(0.0, 0.5)" "(0.5, 1.0)" "(0.5, 0.5)"
 
 python scripts/run_experiments.py 3var-noncausal 2000 100 [confidence] 300 [savepath]/3var-nc-collected-nsga2/ 3 --NGEN 300 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --model_type SVC --predict_individualized True --parallelise --robustness
 
 python scripts/run_experiments.py 3var-noncausal 2000 100 [confidence] 300 [savepath]/3var-nc-collected-nsga2/ 3 --NGEN 300 --POP_SIZE 150 --n_digits 1 --nr_refits 5 --model_type adaboost --predict_individualized True --parallelise --robustness
 ```
+- `--shifts`: Expect tuple of mean and variance for the shifts. Possible to use mulitple tuple do not forget to split them using `""`
+
+
 A complete list of the scripts to run all our experiments(in the cluster), inlcuding extensions can be found in the server folder.
 
 ## Plots 

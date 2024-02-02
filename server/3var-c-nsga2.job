@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=16000M
 #SBATCH --time=2:00:00
-#SBATCH --output=./results_reduced_logs/3var-causal-logs-nsga2/%x-%j.out
-#SBATCH --error=./results_reduced_logs/3var-causal-logs-nsga2/%x-%j.err
+#SBATCH --output=./results_reduced_logs_quater/3var-causal-logs-nsga2/%x-%j.out
+#SBATCH --error=./results_reduced_logs_quater/3var-causal-logs-nsga2/%x-%j.err
 
 set -e
 

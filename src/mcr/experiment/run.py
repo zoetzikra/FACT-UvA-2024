@@ -127,7 +127,7 @@ def get_model(model_type, kwargs_model={}, seed=42, tuning=False, df=None, y_nam
         model = LogisticRegression(random_state=seed, **kwargs_model)
     elif model_type == "rf":
         # parallelize random forest
-        kwargs_model["n_jobs"] = -1
+        kwargs_model["n_jobs"] = 1
         if tuning:
             rf_random = get_tuning_rf(50, 3)
 

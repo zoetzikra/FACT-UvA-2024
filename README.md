@@ -9,7 +9,7 @@
 
 ## Overview
 This repo contains the code for the reproducibility study of [Improvement-Focused Causal Recourse (ICR)
-](https://arxiv.org/abs/2210.15709), as part of our work during the course FACT (Fairness, Accountability, Confidentiality and Transparency in AI) of the Master of Artificial Inetlligence at the University of Amsterdam (UvA).
+](https://arxiv.org/abs/2210.15709), as part of our work during the course FACT (Fairness, Accountability, Confidentiality and Transparency in AI) of the Master of Artificial Intelligence at the University of Amsterdam (UvA).
 
 
 ## Scripts to reproduce the results

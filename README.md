@@ -29,6 +29,12 @@ If working on a slurm cluster environment one can use the respective job scripts
 sbatch server/install_environment.job
 ```
 
+In case the installation of the environment fails (in the correct environment: the libraries mcr or numpy are not found), the following commands, when run from within this directory, solve this issue:
+```angular2html
+pip install -r requirements_cpu.txt
+pip install -e .
+```
+
 ## Scripts to reproduce the results
 Our results, run with following user specified confidence levels ``[confidence]`` 0.75, 0.85, 0.95 and 0.90. While ```[savepath]``` being the path were you would like to store the experiment results.
 

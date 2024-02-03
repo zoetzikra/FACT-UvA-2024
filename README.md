@@ -11,12 +11,6 @@
 This repo contains the code for the reproducibility study of [Improvement-Focused Causal Recourse (ICR)
 ](https://arxiv.org/abs/2210.15709), as part of our work during the course FACT (Fairness, Accountability, Confidentiality and Transparency in AI) of the Master of Artificial Inetlligence at the University of Amsterdam (UvA).
 
-<!-- training ITI-GEN and generating images that uniformly span across 
-the categories of selected attributes. The main idea behind our approach is leveraging reference images to better represent diverse attributes. 
-Key features of our method are:
-- Only need datasets that capture the marginal distribution of individual attributes, bypassing the need for datasets that represent joint distributions of multiple attributes.
-- The learned token embeddings are generalizable across different generative models. -->
-
 
 ## Scripts to reproduce the results
 Our results, run with following user specified confidence levels ``[confidence]`` 0.75, 0.85, 0.95 and 0.90. While ```[savepath]``` being the path were you would like to store the experiment results.

@@ -2,7 +2,7 @@
 
 
 > [Antonios Tragoudaras](https://github.com/antragoudaras/), 
-[Jonas Schafer](), 
+[Jonas Schäfer](https://github.com/schaefjo), 
 [Zoe Tzifra](), 
 [Akis Lionis]()
 <br>

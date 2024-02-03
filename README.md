@@ -11,6 +11,23 @@
 This repo contains the code for the reproducibility study of [Improvement-Focused Causal Recourse (ICR)
 ](https://arxiv.org/abs/2210.15709), as part of our work during the course FACT (Fairness, Accountability, Confidentiality and Transparency in AI) of the Master of Artificial Intelligence at the University of Amsterdam (UvA).
 
+## Outline
+- [Installation](#installation)
+- [Scripts to reproduce the results](#scripts-to-reproduce-the-results)
+- [Plots](#plots)
+
+## Installation
+We test our code using the following environment:
+```angular2html
+git clone git@github.com:zoetzikra/FACT-UvA-2024.git icr
+cd icr
+conda env create -f icr_environment_cpu.yml 
+conda activate icr-env
+```
+If working on a slurm cluster environment one can use the respective job scripts in the ```server/``` directory:
+```angular2html
+sbatch server/install_environment.job
+```
 
 ## Scripts to reproduce the results
 Our results, run with following user specified confidence levels ``[confidence]`` 0.75, 0.85, 0.95 and 0.90. While ```[savepath]``` being the path were you would like to store the experiment results.

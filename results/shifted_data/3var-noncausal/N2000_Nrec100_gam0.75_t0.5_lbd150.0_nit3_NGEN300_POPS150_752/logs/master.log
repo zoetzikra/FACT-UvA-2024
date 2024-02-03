@@ -1,0 +1,172 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Creating 2 batches of data with 1000 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.998
+f1-score 0.9979674796747968
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[-3.81829717 -4.77287191  4.0086107 ]]
+[[-2.93861418 -3.67326805  3.7492837 ]]
+[[0.41601896 0.52002369 4.20781468]]
+[[-3.73647048 -4.67058853  3.93144697]]
+[[-1.68925739 -2.11157191  3.56351307]]
+Node: x1, shift (mean, var): (0.0, 1.0)
+Mean value of parents: 0.009698157198727131
+(array([0., 1.], dtype=float32), array([1027,  973]))
+Node: x1, shift (mean, var): (0.5, 1.0)
+Mean value of parents: 0.5096980929374695
+(array([0., 1.], dtype=float32), array([1027,  973]))
+Node: x1, shift (mean, var): (0.0, 0.5)
+Mean value of parents: 0.00538786593824625
+(array([0., 1.], dtype=float32), array([1018,  982]))
+Node: x1, shift (mean, var): (0.5, 0.5)
+Mean value of parents: 0.5053878426551819
+(array([0., 1.], dtype=float32), array([1018,  982]))
+Node: x2, shift (mean, var): (0.0, 1.0)
+Mean value of parents: 0.01293088123202324
+(array([0., 1.], dtype=float32), array([1015,  985]))
+Node: x2, shift (mean, var): (0.5, 1.0)
+Mean value of parents: 0.26293087005615234
+(array([0., 1.], dtype=float32), array([1015,  985]))
+Node: x2, shift (mean, var): (0.0, 0.5)
+Mean value of parents: 0.0107757318764925
+(array([0., 1.], dtype=float32), array([1023,  977]))
+Node: x2, shift (mean, var): (0.5, 0.5)
+Mean value of parents: 0.26077571511268616
+(array([0., 1.], dtype=float32), array([1023,  977]))
+Node: x3, shift (mean, var): (0.0, 1.0)
+Mean value of parents: 0.009698157198727131
+(array([0., 1.], dtype=float32), array([1027,  973]))
+Node: x3, shift (mean, var): (0.5, 1.0)
+Mean value of parents: 0.009698157198727131
+(array([0., 1.], dtype=float32), array([1027,  973]))
+Node: x3, shift (mean, var): (0.0, 0.5)
+Mean value of parents: 0.009698157198727131
+(array([0., 1.], dtype=float32), array([1027,  973]))
+Node: x3, shift (mean, var): (0.5, 0.5)
+Mean value of parents: 0.009698157198727131
+(array([0., 1.], dtype=float32), array([1027,  973]))
+
+
+-------------
+ITERATION 1
+-------------
+Creating 2 batches of data with 1000 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.998
+f1-score 0.99800796812749
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[0.39428594 0.49285742 4.1967267 ]]
+[[0.40539119 0.50673899 4.23983415]]
+[[-2.61910941 -3.27388709  3.61565073]]
+[[0.39716335 0.49645419 4.29079964]]
+[[-1.47196946 -1.83996201  3.49359157]]
+Node: x1, shift (mean, var): (0.0, 1.0)
+Mean value of parents: -0.008353492245078087
+(array([0., 1.], dtype=float32), array([ 981, 1019]))
+Node: x1, shift (mean, var): (0.5, 1.0)
+Mean value of parents: 0.49164652824401855
+(array([0., 1.], dtype=float32), array([ 981, 1019]))
+Node: x1, shift (mean, var): (0.0, 0.5)
+Mean value of parents: -0.004640826024115086
+(array([0., 1.], dtype=float32), array([ 976, 1024]))
+Node: x1, shift (mean, var): (0.5, 0.5)
+Mean value of parents: 0.4953591823577881
+(array([0., 1.], dtype=float32), array([ 976, 1024]))
+Node: x2, shift (mean, var): (0.0, 1.0)
+Mean value of parents: -0.01113798376172781
+(array([0., 1.], dtype=float32), array([ 994, 1006]))
+Node: x2, shift (mean, var): (0.5, 1.0)
+Mean value of parents: 0.2388620227575302
+(array([0., 1.], dtype=float32), array([ 994, 1006]))
+Node: x2, shift (mean, var): (0.0, 0.5)
+Mean value of parents: -0.009281652048230171
+(array([0., 1.], dtype=float32), array([ 991, 1009]))
+Node: x2, shift (mean, var): (0.5, 0.5)
+Mean value of parents: 0.24071834981441498
+(array([0., 1.], dtype=float32), array([ 991, 1009]))
+Node: x3, shift (mean, var): (0.0, 1.0)
+Mean value of parents: -0.008353492245078087
+(array([0., 1.], dtype=float32), array([ 981, 1019]))
+Node: x3, shift (mean, var): (0.5, 1.0)
+Mean value of parents: -0.008353492245078087
+(array([0., 1.], dtype=float32), array([ 981, 1019]))
+Node: x3, shift (mean, var): (0.0, 0.5)
+Mean value of parents: -0.008353492245078087
+(array([0., 1.], dtype=float32), array([ 981, 1019]))
+Node: x3, shift (mean, var): (0.5, 0.5)
+Mean value of parents: -0.008353492245078087
+(array([0., 1.], dtype=float32), array([ 981, 1019]))
+
+
+-------------
+ITERATION 2
+-------------
+Creating 2 batches of data with 1000 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.998
+f1-score 0.9979879275653923
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[-1.35230379 -1.69037968  3.60651514]]
+[[-3.11226454 -3.89033052  3.72189763]]
+[[-3.93794494 -4.92243103  4.049282  ]]
+[[-1.35312424 -1.69140524  3.5897141 ]]
+[[-3.21515572 -4.01894462  3.78185305]]
+Node: x1, shift (mean, var): (0.0, 1.0)
+Mean value of parents: 0.024093475192785263
+(array([0., 1.], dtype=float32), array([1058,  942]))
+Node: x1, shift (mean, var): (0.5, 1.0)
+Mean value of parents: 0.524093508720398
+(array([0., 1.], dtype=float32), array([1058,  942]))
+Node: x1, shift (mean, var): (0.0, 0.5)
+Mean value of parents: 0.013385264202952385
+(array([0., 1.], dtype=float32), array([1063,  937]))
+Node: x1, shift (mean, var): (0.5, 0.5)
+Mean value of parents: 0.5133852362632751
+(array([0., 1.], dtype=float32), array([1063,  937]))
+Node: x2, shift (mean, var): (0.0, 1.0)
+Mean value of parents: 0.032124631106853485
+(array([0., 1.], dtype=float32), array([1045,  955]))
+Node: x2, shift (mean, var): (0.5, 1.0)
+Mean value of parents: 0.2821246385574341
+(array([0., 1.], dtype=float32), array([1045,  955]))
+Node: x2, shift (mean, var): (0.0, 0.5)
+Mean value of parents: 0.02677052840590477
+(array([0., 1.], dtype=float32), array([1047,  953]))
+Node: x2, shift (mean, var): (0.5, 0.5)
+Mean value of parents: 0.2767705023288727
+(array([0., 1.], dtype=float32), array([1047,  953]))
+Node: x3, shift (mean, var): (0.0, 1.0)
+Mean value of parents: 0.024093475192785263
+(array([0., 1.], dtype=float32), array([1058,  942]))
+Node: x3, shift (mean, var): (0.5, 1.0)
+Mean value of parents: 0.024093475192785263
+(array([0., 1.], dtype=float32), array([1058,  942]))
+Node: x3, shift (mean, var): (0.0, 0.5)
+Mean value of parents: 0.024093475192785263
+(array([0., 1.], dtype=float32), array([1058,  942]))
+Node: x3, shift (mean, var): (0.5, 0.5)
+Mean value of parents: 0.024093475192785263
+(array([0., 1.], dtype=float32), array([1058,  942]))
+FINISHED TIME: 15276.812260627747

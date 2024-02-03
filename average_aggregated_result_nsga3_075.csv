@@ -1,6 +1,0 @@
-r_type,t_type,eta_mean,gamma_mean,eta_obs_mean,gamma_obs_mean,intv-cost_mean
-individualized,acceptance,0.75,0.75,1.0,0.5833333358168602,4.0885
-individualized,counterfactual,0.75,0.75,0.995,0.5400000022103388,4.350833333333333
-individualized,improvement,0.75,0.75,0.96,1.0,4.316666666666666
-subpopulation,acceptance,0.75,0.75,0.95,0.5883333335320154,4.078333333333333
-subpopulation,improvement,0.75,0.75,0.7949999999999999,1.0,3.809333333333334

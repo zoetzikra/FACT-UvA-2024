@@ -14,6 +14,7 @@ This repo contains the code for the reproducibility study of [Improvement-Focuse
 ## Outline
 - [Installation](#installation)
 - [Scripts to reproduce the results](#scripts-to-reproduce-the-results)
+- [Reproducing Reported Results](#reproducing-reported-results)
 - [Plots](#plots)
 
 ## Installation
@@ -79,6 +80,9 @@ python scripts/run_experiments.py 3var-causal 2000 100 [confidence] 300 [savepat
 
 
 A complete list of the scripts to run all our experiments(in the cluster), inlcuding extensions can be found in the server folder.
+
+## Reproducing Reported Results
+In the ```scripts``` directory there is a Python Notebook, in order for one to check the results we report in our paper. The notebook uses the saved  progress of our scheduled runs for the proposed extensions, discussed in our paper report, with the final improvement/acceptance rates being saved in the ```results``` directory.
 
 ## Plots 
 

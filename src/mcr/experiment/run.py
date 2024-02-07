@@ -145,6 +145,8 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
 
         cur_seed = random.randint(0, 2**8)
 
+        np.random.seed(cur_seed)
+
         # sample data
         noise = scm.sample_context(N, seed=cur_seed)
         df = scm.compute()
@@ -275,7 +277,7 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
                                              r_type=r_type, t_type=t_type, gamma=gamma, eta=gamma,
                                              thresh=thresh, lbd=lbd, model=model,  use_scm_pred=use_scm_pred,
                                              predict_individualized=predict_individualized,
-                                             NGEN=NGEN, POP_SIZE=POP_SIZE, rounding_digits=rounding_digits)
+                                             NGEN=NGEN, POP_SIZE=POP_SIZE, rounding_digits=rounding_digits, seed=seed)
 
             # save results
             logging.info('Saving results for {}_{}...'.format(t_type, r_type))

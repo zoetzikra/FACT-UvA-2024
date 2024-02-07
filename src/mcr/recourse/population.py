@@ -14,7 +14,7 @@ from mcr.recourse.utils import compute_h_post_individualized
 def recourse_population(scm, X, y, U, y_name, costs, proportion=1.0, N_max=None, nsamples=10**3, r_type='individualized',
                         t_type='acceptance', gamma=0.7, eta=0.7, thresh=0.5, lbd=1.0, subpopulation_size=500,
                         model=None, use_scm_pred=False, predict_individualized=False, NGEN=400, POP_SIZE=1000,
-                        rounding_digits=2):
+                        rounding_digits=2, seed=None):
     assert not (model is None and not use_scm_pred)
 
     if N_max is None:
@@ -70,7 +70,7 @@ def recourse_population(scm, X, y, U, y_name, costs, proportion=1.0, N_max=None,
             raise NotImplementedError('r_type must be in {}'.format(['individualized', 'subpopulation']))
 
         # compute optimal action
-        cntxt = scm_.sample_context(size=nsamples)
+        cntxt = scm_.sample_context(size=nsamples, seed=seed)
         winner, goal_cost, intv_cost = recourse(scm_, intv_features, obs, costs, r_type, t_type,
                                                 predict_log_proba=predict_log_proba, y_name=y_name,
                                                 gamma=gamma, eta=eta, thresh=thresh, lbd=lbd,

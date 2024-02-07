@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: mcr-experiments
+Version: 0.0.1
+Summary: Python package for experiments for the Meaningful Algorithmic Recourse paper.
+Home-page: https://github.com/XXX
+Author: XXXX
+Author-email: XXXX
+Project-URL: Bug Tracker, https://github.com/XXX/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# FACT-UvA-2024

@@ -171,15 +171,17 @@ class StructuralCausalModel:
         Use the noise in self.model to generate noise.values in the model.
         Either a torch.Distribution object, a torch.tensor for point-mass distributions or a callable function.
         """
+        random.seed(seed)
         for node in self.topological_order:
             d = self.model[node]['noise_distribution']
+            random_seed_iteration = random.randint(0, 2 ** 8)
             # if isinstance(d, numpyro.distributions.Delta):
             #     pass
             if d is None:
                 pass
             elif isinstance(d, numpyro.distributions.Distribution) and len(d.event_shape) > 0:
                 # TODO check whether right assignment
-                rng_key = jrandom.PRNGKey(random.randint(0, 2 ** 8))
+                rng_key = jrandom.PRNGKey(random_seed_iteration)
                 vals = np.array(d.sample(rng_key, (size,)))
                 self.model[node]['noise_values'] = torch.tensor(vals[:, 0])
                 for jj in range(len(self.model[node]['children'])):
@@ -188,7 +190,7 @@ class StructuralCausalModel:
             elif isinstance(d, Distribution):
                 self.model[node]['noise_values'] = self.model[node]['noise_distribution'].sample((size,)).flatten()
             elif isinstance(d, numpyro.distributions.Distribution):
-                rng_key = jrandom.PRNGKey(random.randint(0, 2**8))
+                rng_key = jrandom.PRNGKey(random_seed_iteration)
                 vals = self.model[node]['noise_distribution'].sample(rng_key, (size,)).flatten()
                 self.model[node]['noise_values'] = torch.tensor(np.array(vals))
             elif isinstance(d, Tensor):

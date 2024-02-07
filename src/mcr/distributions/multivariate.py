@@ -1,3 +1,5 @@
+import random
+
 import jax.random
 import numpyro.distributions as dist
 from numpyro.distributions.util import is_prng_key
@@ -22,13 +24,15 @@ class MultivariateIndependent(dist.Distribution):
             validate_args=validate_args
         )
 
-    def sample(self, key, sample_shape=()):
+    def sample(self, key, sample_shape=(), seed=None):
         assert is_prng_key(key)
         sampless = []
+        random.seed(seed)
         for ds in self.dss:
             samples = []
             for d in ds:
-                key_d = jax.random.PRNGKey(jax.random.randint(key, (), 0, 2**10))
+                current_seed = random.randint(0, 2 ** 10)
+                key_d = jax.random.PRNGKey(current_seed)
                 s = d.sample(key_d, sample_shape)
                 samples.append(s)
             samples = jnp.stack(samples, axis=1)

@@ -27,6 +27,8 @@ All data is saved within one folder, which is given a randomly assigned id
 
 import json
 import logging
+import random
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import f1_score
@@ -132,7 +134,7 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
     logging.info(f'results for up to {existing_runs} runs found')
 
     n_fails = 0
-
+    random.seed(seed)
     # for ii in range(existing_runs, iterations):
     while existing_runs < iterations:
         logging.info('')
@@ -141,9 +143,10 @@ def run_experiment(scm_name, N, N_recourse, gamma, thresh, lbd, savepath, use_sc
         logging.info('ITERATION {}'.format(existing_runs))
         logging.info('-------------')
 
+        cur_seed = random.randint(0, 2**8)
 
         # sample data
-        noise = scm.sample_context(N)
+        noise = scm.sample_context(N, seed=cur_seed)
         df = scm.compute()
         X = df[df.columns[df.columns != y_name]]
         y = df[y_name]

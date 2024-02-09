@@ -521,7 +521,8 @@ def run_experiment(
         print("-------------")
         print("ITERATION {}".format(existing_runs))
         print("-------------")
-        seed_iter = seed + existing_runs
+        seed_iter = seed
+        # seed_iter = seed + existing_runs
         # sample data
         noise = scm.sample_context(N)
         df = scm.compute()

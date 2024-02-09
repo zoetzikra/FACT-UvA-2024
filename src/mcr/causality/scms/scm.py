@@ -231,7 +231,7 @@ class StructuralCausalModel:
         scm_ = self.do(obs[list(nds)])
         return scm_
 
-    def abduct_node(self, node, obs, scm_partially_abducted=None, infer_type='mcmc', **kwargs):
+    def abduct_node(self, node, obs, scm_partially_abducted=None, infer_type='mcmc', seed=None, **kwargs):
         """Abduction
 
         Args:
@@ -291,7 +291,7 @@ class StructuralCausalModel:
         else:
             raise NotImplementedError('No solution for variable observed but not invertible developed yet.')
 
-    def abduct(self, obs, **kwargs):
+    def abduct(self, obs, seed=None, **kwargs):
         """ Abduct all variables from observation
         Assumes a topological ordering in the DAG.
         returns a separate SCM where the abduction was performed.
@@ -299,7 +299,7 @@ class StructuralCausalModel:
         scm_abd = self.copy()
         for node in self.topological_order:
             scm_abd.model[node]['noise_distribution'] = self.abduct_node(node, obs, scm_partially_abducted=scm_abd,
-                                                                         **kwargs)
+                                                                         seed=seed, **kwargs)
             scm_abd.model[node]['noise_values'] = None
             scm_abd.model[node]['values'] = None
         return scm_abd

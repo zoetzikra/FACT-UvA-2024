@@ -67,8 +67,9 @@ def mutate_mixed(individual, indpb, mu, sigma, bounds, n_digits):
 
 def recourse(scm_, features, obs, costs, r_type, t_type, predict_log_proba=None, y_name=None, cleanup=True, gamma=None,
              eta=None, thresh=None, lbd=1.0, subpopulation_size=500, NGEN=400, CX_PROB=0.3, MX_PROB=0.05,
-             POP_SIZE=1000, rounding_digits=2, binary=False, multi_objective=False, return_stats=False, X=None):
-
+             POP_SIZE=1000, rounding_digits=2, binary=False, multi_objective=False, return_stats=False, X=None,
+             seed=None):
+    random.seed(seed)
     evaluator = GreedyEvaluator(scm_, obs, costs, features, lbd, rounding_digits=rounding_digits,
                                 subpopulation_size=subpopulation_size, predict_log_proba=predict_log_proba,
                                 y_name=y_name, multi_objective=multi_objective)

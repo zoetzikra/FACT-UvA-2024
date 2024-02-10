@@ -49,7 +49,15 @@ import random
 import torch
 
 
-
+def set_seed(seed):
+    print(f"Setting seed to {seed}")
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.manual_seed(seed)
+    key_d=jax.random.PRNGKey(seed)
+    from mcr.experiment.__init__ import set_seed_main 
+    set_seed_main(seed,key_d)
+    
 def refit_models(result_tpl, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_it_config, model_score,
                  f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model):
     # access acceptance for batch 1 with multiplicity models (without distribution shift)
@@ -210,7 +218,7 @@ def run_recourse(
     print(savepath_it_config)
     os.mkdir(savepath_it_config)
 
-    # set_seed(seed_iter)
+    set_seed(seed_iter)
 
     # perform recourse on batch 1
     result_tpl = recourse_population(
@@ -399,7 +407,7 @@ def run_experiment(
     use_scm_pred=False,
     iterations=5,
     t_types="all",
-    seed=None,
+    seed=42,
     predict_individualized=False,
     model_type="logreg",
     nr_refits_batch0=5,
@@ -521,8 +529,9 @@ def run_experiment(
         print("-------------")
         print("ITERATION {}".format(existing_runs))
         print("-------------")
-        seed_iter = seed
-        # seed_iter = seed + existing_runs
+        # seed_iter = seed
+        seed_iter = seed + existing_runs
+        set_seed(seed_iter)
         # sample data
         noise = scm.sample_context(N)
         df = scm.compute()
@@ -614,7 +623,7 @@ def run_experiment(
 
         shifted_batches = None
         if robustness:
-            # set_seed(seed_iter)
+            set_seed(seed_iter)
             robustness_path = it_path + "robustness/"
             if not os.path.exists(robustness_path):
                 os.mkdir(robustness_path)

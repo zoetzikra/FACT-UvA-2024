@@ -345,9 +345,7 @@ fn_saving = lambda x, u: fn_saving_raw(x) + u
 fn_saving = StructuralFunction(fn_saving, raw=fn_saving_raw,
                                    additive=True)
 
-key=jax.random.PRNGKey(42)
 fn_credit_raw = lambda x: jax.nn.sigmoid(jax.numpy.power(1+jax.numpy.exp(-0.3*(-x[...,0]-x[...,1]+x[...,2]+x[...,3]+x[...,2]*x[...,3])),-1))
-# fn_credit_raw = lambda x: jax.random.bernoulli(key, (1+jax.numpy.exp(-0.3*(-x[...,3]-x[...,4]+x[...,5]+x[...,6]+x[...,5]*x[...,6])) < 1, 1))
 fn_credit = lambda x, u: jnp.greater_equal(fn_credit_raw(x),u)
 fn_credit_transf = lambda x, x_j: unif_transform(fn_credit_raw(x), x_j)
 fn_credit = StructuralFunction(fn_credit, raw=fn_credit_raw, transform=fn_credit_transf, binary=True)

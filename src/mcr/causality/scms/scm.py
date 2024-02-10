@@ -15,6 +15,7 @@ from mcr.causality import DirectedAcyclicGraph
 import logging
 logger = logging.getLogger(__name__)
 
+
 class StructuralCausalModel:
     """
     Semi-abstract class for SCM, defined by a DAG.
@@ -172,6 +173,7 @@ class StructuralCausalModel:
         Either a torch.Distribution object, a torch.tensor for point-mass distributions or a callable function.
         """
         for node in self.topological_order:
+            from mcr.experiment.__init__ import key_seed
             d = self.model[node]['noise_distribution']
             # if isinstance(d, numpyro.distributions.Delta):
             #     pass
@@ -179,8 +181,8 @@ class StructuralCausalModel:
                 pass
             elif isinstance(d, numpyro.distributions.Distribution) and len(d.event_shape) > 0:
                 # TODO check whether right assignment
-                rng_key = jrandom.PRNGKey(random.randint(0, 2 ** 8))
-                vals = np.array(d.sample(rng_key, (size,)))
+                # rng_key = jrandom.PRNGKey(random.randint(0, 2 ** 8))
+                vals = np.array(d.sample(key_seed, (size,)))
                 self.model[node]['noise_values'] = torch.tensor(vals[:, 0])
                 for jj in range(len(self.model[node]['children'])):
                     ch = self.model[node]['children'][jj]
@@ -188,8 +190,8 @@ class StructuralCausalModel:
             elif isinstance(d, Distribution):
                 self.model[node]['noise_values'] = self.model[node]['noise_distribution'].sample((size,)).flatten()
             elif isinstance(d, numpyro.distributions.Distribution):
-                rng_key = jrandom.PRNGKey(random.randint(0, 2**8))
-                vals = self.model[node]['noise_distribution'].sample(rng_key, (size,)).flatten()
+                # rng_key = jrandom.PRNGKey(random.randint(0, 2**8))
+                vals = self.model[node]['noise_distribution'].sample(key_seed, (size,)).flatten()
                 self.model[node]['noise_values'] = torch.tensor(np.array(vals))
             elif isinstance(d, Tensor):
                 self.model[node]['noise_values'] = self.model[node]['noise_distribution'].repeat(size)

@@ -555,7 +555,7 @@ def run_experiment(
 
         print("Fitting model (type {})...".format(model_type))
 
-        model = get_model(model_type, seed=seed)
+        model = get_model(model_type, seed=seed_iter)
 
         print("fitting model with the specified parameters")
         model.fit(batches[0][0], batches[0][1])
@@ -596,7 +596,7 @@ def run_experiment(
         model_refits_batch0_scores = []
         model_refits_batch0_f1s = []
         for ii in range(nr_refits_batch0):
-            model_tmp = get_model(model_type, seed=seed)
+            model_tmp = get_model(model_type, seed=seed_iter)
             sample_locs = (
                 batches[0][0].sample(batches[0][0].shape[0], replace=True).index
             )

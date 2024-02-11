@@ -63,6 +63,7 @@ if __name__ == "__main__":
     parser.add_argument("--genetic_algo", type=str, default="nsga2")
     parser.add_argument("--parallelise", action='store_true', default=False)
     parser.add_argument("--robustness", action='store_true', default=False)
+    parser.add_argument("--seed", type=int, default=0)
     parser.add_argument(
         "--ignore_np_errs",
         help="whether to ignore all numpy warnings and errors",
@@ -132,7 +133,8 @@ if __name__ == "__main__":
         parallelisation=args.parallelise,
         genetic_algo=args.genetic_algo,
         robustness=args.robustness,
-        shifts=args.shifts
+        shifts=args.shifts,
+        seed=args.seed
     )
 
     compile_experiments(args.savepath, args.scm_name, robustness=args.robustness)

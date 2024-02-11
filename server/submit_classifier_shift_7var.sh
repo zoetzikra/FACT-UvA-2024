@@ -14,9 +14,9 @@ do
     	do
     	    for iter in {1..5}
     	    do
-                result_dir="${base_dir}/${dataset}/${confidence}/${iter}"
+                result_dir="${base_dir}/${dataset}/${confidence}/${iter}/"
                 mkdir -p "$result_dir"
-                sbatch experiment.job ${dataset} 20000 200 ${confidence} 2999 ${result_dir} 1 --NGEN 1000 --POP_SIZE 500 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type ${classifier} --parallelise
+                sbatch server/experiment.job ${dataset} 20000 200 ${confidence} 2999 ${result_dir} 1 --NGEN 1000 --POP_SIZE 500 --n_digits 1 --nr_refits 5 --predict_individualized True --model_type ${classifier} --parallelise --seed ${iter}
             done
 	done
     done

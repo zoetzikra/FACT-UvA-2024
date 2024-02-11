@@ -514,6 +514,9 @@ def run_experiment(
             else:
                 all_combinations.append((r_type, t_type))
 
+    if len(all_combinations) == 0:
+        exit()
+
     N_BATCHES = 2
     if assess_robustness:
         N_BATCHES = 3

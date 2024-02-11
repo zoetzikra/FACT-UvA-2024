@@ -59,6 +59,7 @@ if __name__ == "__main__":
     parser.add_argument("--nr_refits", type=int, default=5)
     parser.add_argument("--model_type", type=str, default="logreg")
     parser.add_argument("--t_type", type=str, default="all")
+    parser.add_argument("--r_type", type=str, default="all")
     parser.add_argument("--id", type=int, default=None)
     parser.add_argument("--genetic_algo", type=str, default="nsga2")
     parser.add_argument("--parallelise", action='store_true', default=False)
@@ -130,6 +131,7 @@ if __name__ == "__main__":
         nr_refits_batch0=args.nr_refits,
         model_type=args.model_type,
         t_types=args.t_type,
+        r_types=args.r_type,
         parallelisation=args.parallelise,
         genetic_algo=args.genetic_algo,
         robustness=args.robustness,

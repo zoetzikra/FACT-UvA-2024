@@ -407,6 +407,7 @@ def run_experiment(
     use_scm_pred=False,
     iterations=5,
     t_types="all",
+    r_types="all",
     seed=42,
     predict_individualized=False,
     model_type="logreg",
@@ -460,6 +461,7 @@ def run_experiment(
         "seed": seed,
         "scm_name": scm_name,
         "t_types": t_types,
+        "r_types": r_types,
         "thresh": thresh,
         "gamma/eta": gamma,
         "lbd": lbd,
@@ -488,13 +490,18 @@ def run_experiment(
     # run all types of recourse on the setting
     print("Run all types of recourse...")
 
-    r_types = ["individualized", "subpopulation"]
+    r_options = ["individualized", "subpopulation"]
     t_options = ["improvement", "acceptance", "counterfactual"]
 
     if t_types == "all":
         t_types = t_options
     elif t_types in t_options:
         t_types = [t_types]
+
+    if r_types == "all":
+        r_types = r_options
+    elif r_types in r_options:
+        r_types = [r_types]
 
     all_combinations = []
     counterfactual_included = False

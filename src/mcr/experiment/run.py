@@ -507,7 +507,7 @@ def run_experiment(
     counterfactual_included = False
     for r_type in r_types:
         for t_type in t_types:
-            if t_type == "counterfactual":
+            if t_type == "counterfactual" and r_type != "subpopulation":
                 if not counterfactual_included:
                     all_combinations.append((r_type, t_type))
                     counterfactual_included = True

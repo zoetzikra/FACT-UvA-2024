@@ -1,11 +1,6 @@
 # Reproducibilty Study of: ICR (Improved-Focus Causal Recourse)
 
 
-> [Emmanouil Georgios Lionis](https://github.com/lionisakis)
-> [Antonios Tragoudaras](https://github.com/antragoudaras/),
-> [Jonas Schäfer](https://github.com/schaefjo),
-> [Zoe Tzifra](https://github.com/zoetzikra), 
-
 <br>
 
 ## Overview

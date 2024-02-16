@@ -1,11 +1,6 @@
 # Reproducibilty Study of: ICR (Improved-Focus Causal Recourse)
 
 
-> [Emmanouil Georgios Lionis](https://github.com/lionisakis)
-> [Antonios Tragoudaras](https://github.com/antragoudaras/),
-> [Jonas Schäfer](https://github.com/schaefjo),
-> [Zoe Tzifra](https://github.com/zoetzikra), 
-
 <br>
 
 ## Overview
@@ -19,10 +14,8 @@ This repo contains the code for the reproducibility study of [Improvement-Focuse
 - [Plots](#plots)
 
 ## Installation
-We test our code using the following environment:
+We test our code using the following environment, after cloning and cd in the repo:
 ```angular2html
-git clone git@github.com:zoetzikra/FACT-UvA-2024.git icr
-cd icr
 conda env create -f icr_environment_cpu.yml 
 conda activate icr-env
 ```

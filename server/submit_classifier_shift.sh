@@ -1,8 +1,8 @@
 #!/bin/bash
 
-classifiers=("logreg") #"rf" "SVC" "MLP" "adaboost"
-datasets=("3var-causal") # "3var-noncausal"
-confidences=("0.75" "0.95")
+classifiers=("rf") #"rf" "SVC" "MLP" "adaboost"
+datasets=("5var-skills" "7var-covid") # "3var-noncausal"
+confidences=("0.75" "0.85" "0.9" "0.95")
 
 for classifier in "${classifiers[@]}"
 do

@@ -1,0 +1,87 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Setting seed to 0
+Creating 2 batches of data with 500 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+model fit with accuracy 0.756
+f1-score 0.8081761006289309
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+
+
+-------------
+ITERATION 1
+-------------
+Setting seed to 1
+Creating 2 batches of data with 500 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+model fit with accuracy 0.742
+f1-score 0.7860696517412935
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+
+
+-------------
+ITERATION 2
+-------------
+Setting seed to 2
+Creating 2 batches of data with 500 observations
+Split the data into 2 batches
+Fitting model (type rf)...
+fitting model with the specified parameters
+model fit with accuracy 0.72
+f1-score 0.7756410256410258
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 60
+# of recommended ixs 100
+# of recourse individuals 63
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 52
+# of recommended ixs 100
+# of recourse individuals 63
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 52
+# of recommended ixs 100
+# of recourse individuals 43
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 54
+# of recommended ixs 100
+# of recourse individuals 43
+# of recommended ixs 97
+# of recourse individuals 97
+# of recommended ixs 100
+# of recourse individuals 60
+# of recommended ixs 100
+# of recourse individuals 56
+# of recommended ixs 98
+# of recourse individuals 97
+# of recommended ixs 100
+# of recourse individuals 68
+# of recommended ixs 100
+SUCCESS in folder ../final_results//3var-causal-nonlinear/0.95/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_45/
+FINISHED TIME: 1614.5027413368225

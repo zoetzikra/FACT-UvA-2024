@@ -69,6 +69,29 @@ SCM_3_VAR_CAUSAL = GenericSCM(
     y_name=y_name,
 )
 
+fn_3 = lambda x, u_3: -0.05 * x[..., 0] + 0.25 * x[..., 1] ** 2 + u_3
+fn_3 = StructuralFunction(fn_3, additive=True)
+
+SCM_3_VAR_CAUSAL_NONLINEAR = GenericSCM(
+    dag=DirectedAcyclicGraph(
+        adjacency_matrix=np.array(
+            [[0, 1, 1, 1], [0, 0, 1, 1], [0, 0, 0, 1], [0, 0, 0, 0]]
+        ),
+        var_names=["x1", "x2", "x3", "y"],
+    ),
+    noise_dict={
+        "x1": normal_dist, # (OPTIONALLY:) dist.Categorical(probs=np.array([0.24, 0.02, 0.15, 0.59]))
+        "x2": dist.Bernoulli(probs=0.60),
+        "x3": normal_dist_small_var,
+        "y": unif_dist,
+    },
+    fnc_dict={"x3": fn_3, y_name: sigmoidal_binomial},
+    fnc_torch_dict={"x3": fn_3, y_name: sigmoidal_binomial_torch},
+    sigmoidal=[y_name],
+    costs=[1.0, 1.0, 1.0],
+    y_name=y_name,
+)
+
 SCM_3_VAR_NONCAUSAL = GenericSCM(
     dag=DirectedAcyclicGraph(
         adjacency_matrix=np.array(
@@ -345,9 +368,7 @@ fn_saving = lambda x, u: fn_saving_raw(x) + u
 fn_saving = StructuralFunction(fn_saving, raw=fn_saving_raw,
                                    additive=True)
 
-key=jax.random.PRNGKey(42)
 fn_credit_raw = lambda x: jax.nn.sigmoid(jax.numpy.power(1+jax.numpy.exp(-0.3*(-x[...,0]-x[...,1]+x[...,2]+x[...,3]+x[...,2]*x[...,3])),-1))
-# fn_credit_raw = lambda x: jax.random.bernoulli(key, (1+jax.numpy.exp(-0.3*(-x[...,3]-x[...,4]+x[...,5]+x[...,6]+x[...,5]*x[...,6])) < 1, 1))
 fn_credit = lambda x, u: jnp.greater_equal(fn_credit_raw(x),u)
 fn_credit_transf = lambda x, x_j: unif_transform(fn_credit_raw(x), x_j)
 fn_credit = StructuralFunction(fn_credit, raw=fn_credit_raw, transform=fn_credit_transf, binary=True)
@@ -399,5 +420,6 @@ SCM_CREDIT=GenericSCM(
 
 scm_dict = {'3var-noncausal': SCM_3_VAR_NONCAUSAL, '3var-causal': SCM_3_VAR_CAUSAL,
             '5var-nonlinear': SCM_5_VAR_NONLINEAR, '7var-covid': SCM_COVID,
-            '5var-skill': SCM_PROGRAMMING, '7var-credit': SCM_CREDIT
+            '5var-skill': SCM_PROGRAMMING, '7var-credit': SCM_CREDIT,
+            '3var-causal-nonlinear': SCM_3_VAR_CAUSAL_NONLINEAR
             }

@@ -50,14 +50,14 @@ import torch
 
 
 def set_seed(seed):
+    print(f"Setting seed to {seed}")
     np.random.seed(seed)
     random.seed(seed)
     torch.manual_seed(seed)
-    jax.random.PRNGKey(seed)
-    from mcr.experiment.__init__ import seed_main, set_seed_main
-    set_seed_main(seed)
-
-
+    key_d=jax.random.PRNGKey(seed)
+    from mcr.experiment.__init__ import set_seed_main 
+    set_seed_main(seed,key_d)
+    
 def refit_models(result_tpl, nr_refits_batch0, model_refits_batch0, X_batch1_post, savepath_it_config, model_score,
                  f1, model_refits_batch0_scores, model_refits_batch0_f1s, model_type, model):
     # access acceptance for batch 1 with multiplicity models (without distribution shift)
@@ -407,6 +407,7 @@ def run_experiment(
     use_scm_pred=False,
     iterations=5,
     t_types="all",
+    r_types="all",
     seed=42,
     predict_individualized=False,
     model_type="logreg",
@@ -460,6 +461,7 @@ def run_experiment(
         "seed": seed,
         "scm_name": scm_name,
         "t_types": t_types,
+        "r_types": r_types,
         "thresh": thresh,
         "gamma/eta": gamma,
         "lbd": lbd,
@@ -488,7 +490,7 @@ def run_experiment(
     # run all types of recourse on the setting
     print("Run all types of recourse...")
 
-    r_types = ["individualized", "subpopulation"]
+    r_options = ["individualized", "subpopulation"]
     t_options = ["improvement", "acceptance", "counterfactual"]
 
     if t_types == "all":
@@ -496,16 +498,24 @@ def run_experiment(
     elif t_types in t_options:
         t_types = [t_types]
 
+    if r_types == "all":
+        r_types = r_options
+    elif r_types in r_options:
+        r_types = [r_types]
+
     all_combinations = []
     counterfactual_included = False
     for r_type in r_types:
         for t_type in t_types:
-            if t_type == "counterfactual":
+            if t_type == "counterfactual" and r_type != "subpopulation":
                 if not counterfactual_included:
                     all_combinations.append((r_type, t_type))
                     counterfactual_included = True
             else:
                 all_combinations.append((r_type, t_type))
+
+    if len(all_combinations) == 0:
+        exit()
 
     N_BATCHES = 2
     if assess_robustness:
@@ -529,7 +539,9 @@ def run_experiment(
         print("-------------")
         print("ITERATION {}".format(existing_runs))
         print("-------------")
+        # seed_iter = seed
         seed_iter = seed + existing_runs
+        set_seed(seed_iter)
         # sample data
         noise = scm.sample_context(N)
         df = scm.compute()
@@ -553,7 +565,7 @@ def run_experiment(
 
         print("Fitting model (type {})...".format(model_type))
 
-        model = get_model(model_type, seed=seed)
+        model = get_model(model_type, seed=seed_iter)
 
         print("fitting model with the specified parameters")
         model.fit(batches[0][0], batches[0][1])
@@ -594,7 +606,7 @@ def run_experiment(
         model_refits_batch0_scores = []
         model_refits_batch0_f1s = []
         for ii in range(nr_refits_batch0):
-            model_tmp = get_model(model_type, seed=seed)
+            model_tmp = get_model(model_type, seed=seed_iter)
             sample_locs = (
                 batches[0][0].sample(batches[0][0].shape[0], replace=True).index
             )

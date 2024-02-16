@@ -15,18 +15,16 @@ rc("font", **{"family": "serif", "serif": ["Bookman"]})
 
 from mcr.experiment.compile import compile_experiments
 
-# scm_names = {
-#     "3var-causal": "3var-c-collected",
-#     "3var-noncausal": "3var-nc-collected",
-#     "7var-covid": "7var-covid-collected",
-#     "5var-skill": "5var-skill-collected",
-# }
 scm_names = {
-    "7var-credit": "7var-credit-collected-nsga2"
+     "3var-causal": "3var-c",
+     "3var-noncausal": "3var-nc",
+     "7var-covid": "7var-covid",
+     "5var-skill": "5var-skill",
 }
 
-# levels = ["gam0.75_", "gam0.85_", "gam0.9_", "gam0.95_"]
-levels = ["gam0.5_", "gam0.6_", "gam0.7_"]
+
+levels = ["gam0.75_", "gam0.85_", "gam0.9_", "gam0.95_"]
+#levels = ["gam0.5_", "gam0.6_", "gam0.7_"]
 
 def has_levels(string):
     has = False
@@ -133,8 +131,8 @@ if __name__ == "__main__":
 
     sns.set_style("whitegrid")
     ticks = [0.0, 0.5, 0.75, 0.85, 0.9, 0.95, 1.0]
-    # xticks = [0.75, 0.85, 0.9, 0.95]
-    xticks = [0.5, 0.6, 0.7]
+    xticks = [0.75, 0.85, 0.9, 0.95]
+    #xticks = [0.5, 0.6, 0.7]
     ylim = [0.0, 1.005]
 
     metric_sets = {

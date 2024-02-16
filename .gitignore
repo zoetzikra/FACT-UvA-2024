@@ -1,5 +1,4 @@
 *.egg-info
-*results
 *.vscode
 results_authors/
 env/

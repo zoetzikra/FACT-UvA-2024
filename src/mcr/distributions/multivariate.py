@@ -5,7 +5,9 @@ import jax.numpy as jnp
 from functools import partial, cache
 import torch
 
+
 class MultivariateIndependent(dist.Distribution):
+
     def __init__(self, dss, validate_args=None):
         self.dss = dss
         for ds in dss:
@@ -17,17 +19,16 @@ class MultivariateIndependent(dist.Distribution):
         super(MultivariateIndependent, self).__init__(
             batch_shape=batch_shape,
             event_shape=event_shape,
-            validate_args=validate_args,
+            validate_args=validate_args
         )
 
     def sample(self, key, sample_shape=()):
         assert is_prng_key(key)
         sampless = []
-        from mcr.experiment.__init__ import seed_main
         for ds in self.dss:
             samples = []
             for d in ds:
-                key_d = jax.random.PRNGKey(seed_main)
+                key_d = jax.random.PRNGKey(jax.random.randint(key, (), 0, 2**10))
                 s = d.sample(key_d, sample_shape)
                 samples.append(s)
             samples = jnp.stack(samples, axis=1)
@@ -38,24 +39,18 @@ class MultivariateIndependent(dist.Distribution):
 
     def log_prob(self, value):
         if len(value.shape) == 1:
-            return jnp.sum(
-                [self.dss[0][i].log_prob(value[i]) for i in range(len(self.dss[0]))]
-            )
+            return jnp.sum([self.dss[0][i].log_prob(value[i]) for i in range(len(self.dss[0]))])
         else:
             lps = []
             for j in range(value.shape[0]):
-                arr = jnp.array(
-                    [
-                        self.dss[j][i].log_prob(value[j][i])
-                        for i in range(len(self.dss[j]))
-                    ]
-                )
+                arr = jnp.array([self.dss[j][i].log_prob(value[j][i]) for i in range(len(self.dss[j]))])
                 lp = jnp.sum(arr)
                 lps.append(lp)
             return jnp.stack(lps)
 
 
 class BivariateBernoulli(dist.Distribution):
+
     def __init__(self, p1, p2, validate_args=None):
         self.p1 = jnp.array(p1)
         self.p2 = jnp.array(p2)
@@ -67,7 +62,7 @@ class BivariateBernoulli(dist.Distribution):
         super(BivariateBernoulli, self).__init__(
             batch_shape=batch_shape,
             event_shape=event_shape,
-            validate_args=validate_args,
+            validate_args=validate_args
         )
 
     def sample(self, key, sample_shape=()):
@@ -104,17 +99,21 @@ class BivariateBernoulli(dist.Distribution):
 
 
 class BivariateInvertible(dist.Distribution):
+
     def __init__(self, d_j, fncs, xs_pa, y_ixs, validate_args=None):
-        """ """
+        """
+        """
         self.fnc_pre, self.fnc_post = fncs
         self.x_pa_pre, self.x_pa_post = xs_pa
         self.y_ix_pre, self.y_ix_post = y_ixs
         self.d_j = d_j
         batch_shape = (1,)
         if len(self.x_pa_pre.shape) > 0:
-            batch_shape = self.x_pa_pre.shape[0]
+            batch_shape = (self.x_pa_pre.shape[0])
         super(BivariateInvertible, self).__init__(
-            batch_shape=batch_shape, event_shape=(2,), validate_args=validate_args
+            batch_shape=batch_shape,
+            event_shape=(2,),
+            validate_args=validate_args
         )
 
     def _get_completed_pa(self, ys):
@@ -128,16 +127,12 @@ class BivariateInvertible(dist.Distribution):
 
     def _get_partial(self, ys):
         x_pa_pre, x_pa_post = self._get_completed_pa(ys)
-        fnc_pre, fnc_post = partial(self.fnc_pre, x_pa_pre), partial(
-            self.fnc_post, x_pa_post
-        )
+        fnc_pre, fnc_post = partial(self.fnc_pre, x_pa_pre), partial(self.fnc_post, x_pa_post)
         return fnc_pre, fnc_post
 
     def _get_partial_inv(self, ys):
         x_pa_pre, x_pa_post = self._get_completed_pa(ys)
-        fnc_pre_inv, fnc_post_inv = partial(self.fnc_pre.inv, x_pa_pre), partial(
-            self.fnc_post.inv, x_pa_post
-        )
+        fnc_pre_inv, fnc_post_inv = partial(self.fnc_pre.inv, x_pa_pre), partial(self.fnc_post.inv, x_pa_post)
         return fnc_pre_inv, fnc_post_inv
 
     def sample(self, key, sample_shape=(), ys=(1, 1)):
@@ -167,14 +162,14 @@ class BivariateInvertible(dist.Distribution):
 
 
 class BivariateSigmoidal(BivariateInvertible):
+
     def __init__(self, d_j, fncs, xs_pa, y_ixs, validate_args=None):
-        """ """
-        super(BivariateSigmoidal, self).__init__(
-            d_j, fncs, xs_pa, y_ixs, validate_args=validate_args
-        )
+        """
+        """
+        super(BivariateSigmoidal, self).__init__(d_j, fncs, xs_pa, y_ixs, validate_args=validate_args)
 
     def _get_partial_inv(self, ys):
-        raise NotImplementedError("Not available for sigmoidal nodes.")
+        raise NotImplementedError('Not available for sigmoidal nodes.')
 
     def _get_raw_prob(self, ys):
         x_pa_pre, x_pa_post = self._get_completed_pa(ys)
@@ -200,6 +195,7 @@ class BivariateSigmoidal(BivariateInvertible):
 
 
 class TransformedUniform(torch.distributions.Distribution):
+
     def __init__(self, sigma, p_y_1, **kwargs):
         self.phi = torch.tensor(sigma)
         self.p_y_1 = torch.tensor(p_y_1)
@@ -214,10 +210,7 @@ class TransformedUniform(torch.distributions.Distribution):
 
     def rsample(self, sample_shape=torch.Size()):
         v = torch.distributions.Uniform(0, 1).rsample(sample_shape)
-        smpl = (
-            torch.min(v, self.p_y_1) * self.factor_smaller
-            + torch.max(torch.tensor(0), v - self.p_y_1) * self.factor_larger
-        )
+        smpl = torch.min(v, self.p_y_1) * self.factor_smaller + torch.max(torch.tensor(0), v - self.p_y_1) * self.factor_larger
         return smpl
 
     def log_prob(self, value):

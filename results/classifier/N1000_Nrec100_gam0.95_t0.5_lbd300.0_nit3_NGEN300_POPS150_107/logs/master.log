@@ -1,0 +1,707 @@
+Storing all relevant data...
+Run all types of recourse...
+results for up to 0 runs found
+
+
+-------------
+ITERATION 0
+-------------
+Setting seed to 0
+Creating 2 batches of data with 500 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.826
+f1-score 0.8256513026052105
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[ 0.39659406 -0.44316861  1.13071966]]
+[[ 0.53725746 -0.04412976  0.8643172 ]]
+[[ 0.90589611 -0.33265553  0.87237075]]
+[[ 0.20376316 -0.10999406  0.97278914]]
+[[0.32117905 0.16859621 0.92540818]]
+Setting seed to 0
+Node: x1, shift (mean, var): (0.5, 1.0)
+Node: x1, shift (mean, var): (0.0, 0.5)
+Node: x1, shift (mean, var): (0.5, 0.5)
+Node: x2, shift (mean, var): (0.5, 1.0)
+Node: x2, shift (mean, var): (0.0, 0.5)
+Node: x2, shift (mean, var): (0.5, 0.5)
+Node: x3, shift (mean, var): (0.5, 1.0)
+Node: x3, shift (mean, var): (0.0, 0.5)
+Node: x3, shift (mean, var): (0.5, 0.5)
+
+
+-------------
+ITERATION 1
+-------------
+Setting seed to 1
+Creating 2 batches of data with 500 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.828
+f1-score 0.8054298642533936
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[0.16020124 0.24300868 0.86016979]]
+[[0.14858724 0.2579706  0.8781308 ]]
+[[0.99415718 0.44324377 0.46430224]]
+[[ 0.36745131 -0.0852062   0.80942108]]
+[[ 0.06152006 -0.01454521  0.99781286]]
+Setting seed to 1
+Node: x1, shift (mean, var): (0.5, 1.0)
+Node: x1, shift (mean, var): (0.0, 0.5)
+Node: x1, shift (mean, var): (0.5, 0.5)
+Node: x2, shift (mean, var): (0.5, 1.0)
+Node: x2, shift (mean, var): (0.0, 0.5)
+Node: x2, shift (mean, var): (0.5, 0.5)
+Node: x3, shift (mean, var): (0.5, 1.0)
+Node: x3, shift (mean, var): (0.0, 0.5)
+Node: x3, shift (mean, var): (0.5, 0.5)
+
+
+-------------
+ITERATION 2
+-------------
+Setting seed to 2
+Creating 2 batches of data with 500 observations
+Split the data into 2 batches
+Fitting model (type logreg)...
+fitting model with the specified parameters
+model fit with accuracy 0.822
+f1-score 0.8172484599589321
+assessing how many recourse contenders
+enough recourse contendors. continue.
+create folder to starte results
+Fitting 5 models for multiplicity robustness assessment.
+[[-0.32100407  0.16521448  0.96868948]]
+[[0.07020332 0.56011618 0.78726658]]
+[[-0.48056301  0.33621278  0.96027504]]
+[[-0.13558604  0.69471365  0.60650503]]
+[[-0.27895644  0.67561021  0.73486565]]
+Setting seed to 2
+Node: x1, shift (mean, var): (0.5, 1.0)
+Node: x1, shift (mean, var): (0.0, 0.5)
+Node: x1, shift (mean, var): (0.5, 0.5)
+Node: x2, shift (mean, var): (0.5, 1.0)
+Node: x2, shift (mean, var): (0.0, 0.5)
+Node: x2, shift (mean, var): (0.5, 0.5)
+Node: x3, shift (mean, var): (0.5, 1.0)
+Node: x3, shift (mean, var): (0.0, 0.5)
+Node: x3, shift (mean, var): (0.5, 0.5)
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.75_t0.5_lbd300.0_nit3_NGEN300_POPS150_864/
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 78
+# of recommended ixs 100
+# of recourse individuals 77
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 79
+# of recommended ixs 100
+# of recourse individuals 77
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 91
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.75_t0.5_lbd300.0_nit3_NGEN300_POPS150_997/
+# of recourse individuals 95
+# of recommended ixs 99
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 94
+# of recommended ixs 100
+# of recourse individuals 88
+# of recommended ixs 99
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 89
+# of recommended ixs 100
+# of recourse individuals 88
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 93
+# of recommended ixs 100
+# of recourse individuals 92
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 92
+# of recommended ixs 100
+# of recourse individuals 92
+# of recommended ixs 95
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 83
+# of recommended ixs 100
+# of recourse individuals 78
+# of recommended ixs 95
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 83
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.75_t0.5_lbd300.0_nit3_NGEN300_POPS150_440/
+# of recourse individuals 78
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 91
+# of recommended ixs 100
+# of recourse individuals 88
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 90
+# of recommended ixs 100
+# of recourse individuals 88
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 92
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 92
+# of recommended ixs 100
+# of recourse individuals 92
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 83
+# of recommended ixs 100
+# of recourse individuals 78
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 80
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_705/
+# of recourse individuals 78
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_374/
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.75_t0.5_lbd300.0_nit3_NGEN300_POPS150_903/
+# of recourse individuals 100
+# of recommended ixs 98
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 89
+# of recommended ixs 100
+# of recourse individuals 91
+# of recommended ixs 99
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 89
+# of recommended ixs 100
+# of recourse individuals 91
+# of recommended ixs 99
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 96
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 96
+# of recommended ixs 97
+# of recourse individuals 96
+# of recommended ixs 100
+# of recourse individuals 92
+# of recommended ixs 100
+# of recourse individuals 91
+# of recommended ixs 96
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 94
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.75_t0.5_lbd300.0_nit3_NGEN300_POPS150_748/
+# of recourse individuals 91
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.75_t0.5_lbd300.0_nit3_NGEN300_POPS150_655/
+# of recourse individuals 100
+# of recommended ixs 98
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 75
+# of recommended ixs 100
+# of recourse individuals 74
+# of recommended ixs 98
+# of recourse individuals 97
+# of recommended ixs 100
+# of recourse individuals 74
+# of recommended ixs 100
+# of recourse individuals 74
+# of recommended ixs 99
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 62
+# of recommended ixs 100
+# of recourse individuals 59
+# of recommended ixs 99
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 65
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.75_t0.5_lbd300.0_nit3_NGEN300_POPS150_691/
+# of recourse individuals 59
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.75_t0.5_lbd300.0_nit3_NGEN300_POPS150_619/
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_850/
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_905/
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.75_t0.5_lbd300.0_nit3_NGEN300_POPS150_966/
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_694/
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 73
+# of recommended ixs 100
+# of recourse individuals 74
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 75
+# of recommended ixs 100
+# of recourse individuals 74
+# of recommended ixs 99
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 65
+# of recommended ixs 100
+# of recourse individuals 59
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 65
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_393/
+# of recourse individuals 59
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 78
+# of recommended ixs 100
+# of recourse individuals 77
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 79
+# of recommended ixs 100
+# of recourse individuals 77
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 92
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_791/
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 89
+# of recommended ixs 100
+# of recourse individuals 91
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 85
+# of recommended ixs 100
+# of recourse individuals 91
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 95
+# of recommended ixs 100
+# of recourse individuals 96
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 94
+# of recommended ixs 100
+# of recourse individuals 96
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 92
+# of recommended ixs 100
+# of recourse individuals 91
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 94
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_349/
+# of recourse individuals 91
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.75_t0.5_lbd300.0_nit3_NGEN300_POPS150_646/
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_107/
+# of recourse individuals 98
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+# of recourse individuals 100
+# of recommended ixs 100
+# of recourse individuals 99
+# of recommended ixs 100
+SUCCESS in folder ../final_results/classifier/N1000_Nrec100_gam0.95_t0.5_lbd300.0_nit3_NGEN300_POPS150_119/
+FINISHED TIME: 13670.928710699081
